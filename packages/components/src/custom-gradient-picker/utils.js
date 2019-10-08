@@ -1,12 +1,16 @@
 /**
  * External dependencies
  */
-import { findIndex } from 'lodash';
+import { findIndex, some } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import { MINIMUM_ABSOLUTE_LEFT_POSITION, INSERT_POINT_WIDTH } from './constants';
+import {
+	INSERT_POINT_WIDTH,
+	MINIMUM_ABSOLUTE_LEFT_POSITION,
+	MINIMUM_DISTANCE_BETWEEN_POINTS,
+} from './constants';
 
 function tinyColorRgbToGradientColorStop( { r, g, b, a } ) {
 	if ( a === 1 ) {
@@ -54,6 +58,35 @@ export function getGradientWithPositionAtIndexChanged( parsedGradient, index, re
 			}
 		),
 	};
+}
+
+export function isControlPointOverlapping( parsedGradient, position, excludeIndex ) {
+	if ( some(
+		parsedGradient.colorStops,
+		( { length }, index ) => {
+			return index !== excludeIndex && Math.abs( length.value - position ) < MINIMUM_DISTANCE_BETWEEN_POINTS;
+		}
+	) ) {
+		return true;
+	}
+	return false;
+}
+
+function getGradientWithPositionAtIndexSummed( parsedGradient, index, valueToSum ) {
+	const currentPosition = parsedGradient.colorStops[ index ].length.value;
+	const newPosition = Math.max( 0, Math.min( 100, parseInt( currentPosition ) + valueToSum ) );
+	if ( isControlPointOverlapping( parsedGradient, newPosition, index ) ) {
+		return parsedGradient;
+	}
+	return getGradientWithPositionAtIndexChanged( parsedGradient, index, newPosition );
+}
+
+export function getGradientWithPositionAtIndexIncreased( parsedGradient, index ) {
+	return getGradientWithPositionAtIndexSummed( parsedGradient, index, MINIMUM_DISTANCE_BETWEEN_POINTS );
+}
+
+export function getGradientWithPositionAtIndexDecreased( parsedGradient, index ) {
+	return getGradientWithPositionAtIndexSummed( parsedGradient, index, -MINIMUM_DISTANCE_BETWEEN_POINTS );
 }
 
 export function getGradientWithColorAtIndexChanged( parsedGradient, index, rgbaColor ) {

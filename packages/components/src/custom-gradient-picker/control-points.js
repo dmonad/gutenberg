@@ -2,14 +2,15 @@
 /**
  * External dependencies
  */
-import { map, some } from 'lodash';
+import { map } from 'lodash';
 import classnames from 'classnames';
 
 /**
  * WordPress dependencies
  */
-import { useCallback, useRef, useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { Component, useCallback, useRef, useMemo } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
+import { withInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -18,13 +19,21 @@ import Button from '../button';
 import ColorPicker from '../color-picker';
 import Dropdown from '../dropdown';
 import { serializeGradientColor, serializeGradientPosition } from './serializer';
-import { getHorizontalRelativeGradientPosition, getGradientWithColorAtIndexChanged, getGradientWithPositionAtIndexChanged, getGradientWithControlPointRemoved } from './utils';
 import {
-	GRADIENT_MARKERS_WIDTH,
-	MINIMUM_DISTANCE_BETWEEN_POINTS,
-	MINIMUM_SIGNIFICANT_MOVE,
+	getGradientWithColorAtIndexChanged,
+	getGradientWithControlPointRemoved,
+	getGradientWithPositionAtIndexChanged,
+	getGradientWithPositionAtIndexDecreased,
+	getGradientWithPositionAtIndexIncreased,
+	getHorizontalRelativeGradientPosition,
+	isControlPointOverlapping,
+} from './utils';
+import {
 	COLOR_POPOVER_PROPS,
+	GRADIENT_MARKERS_WIDTH,
+	MINIMUM_SIGNIFICANT_MOVE,
 } from './constants';
+import KeyboardShortcuts from '../keyboard-shortcuts';
 
 export function useMarkerPoints( parsedGradient, maximumAbsolutePositionValue ) {
 	return useMemo(
@@ -46,6 +55,87 @@ export function useMarkerPoints( parsedGradient, maximumAbsolutePositionValue ) 
 		[ parsedGradient, maximumAbsolutePositionValue ]
 	);
 }
+
+class ControlPointKeyboardMove extends Component {
+	constructor() {
+		super( ...arguments );
+		this.increase = this.increase.bind( this );
+		this.decrease = this.decrease.bind( this );
+		this.shortcuts = {
+			right: () => this.increase(),
+			left: () => this.decrease(),
+		};
+	}
+	increase() {
+		const { gradientIndex, onChange, parsedGradient } = this.props;
+		onChange( getGradientWithPositionAtIndexIncreased( parsedGradient, gradientIndex ) );
+	}
+
+	decrease() {
+		const { gradientIndex, onChange, parsedGradient } = this.props;
+		onChange( getGradientWithPositionAtIndexDecreased( parsedGradient, gradientIndex ) );
+	}
+	render() {
+		const { children } = this.props;
+		return (
+			<KeyboardShortcuts shortcuts={ this.shortcuts }>
+				{ children }
+			</KeyboardShortcuts>
+		);
+	}
+}
+
+const ControlPointButton = withInstanceId(
+	function( {
+		instanceId,
+		isOpen,
+		position,
+		color,
+		onChange,
+		gradientIndex,
+		parsedGradient,
+		...additionalProps
+	} ) {
+		const descriptionId = `components-custom-gradient-picker__control-point-button-description-${ instanceId }`;
+		return (
+			<ControlPointKeyboardMove
+				onChange={ onChange }
+				gradientIndex={ gradientIndex }
+				parsedGradient={ parsedGradient }
+			>
+				<Button
+					aria-label={
+						sprintf(
+							// translators: %1$s: gradient position e.g: 70%,  %2$s: gradient color code e.g: rgb( 52,121,151).
+							__( 'Gradient control point at position %1$s with color code %2$s.' ),
+							position,
+							color
+						)
+					}
+					aria-describedby={ descriptionId }
+					aria-expanded={ isOpen }
+					className={
+						classnames(
+							'components-custom-gradient-picker__control-point-button',
+							{ 'is-active': isOpen }
+						)
+					}
+					style={ {
+						left: position,
+					} }
+					{ ...additionalProps }
+				/>
+				<div
+					className="screen-reader-text"
+					id={ descriptionId }>
+					{ __(
+						'Use your left or right arrow keys or drag&drop with the mouse to change the gradient position. Press the button to change the color or remove the control point.'
+					) }
+				</div>
+			</ControlPointKeyboardMove>
+		);
+	}
+);
 
 export function ControlPoints( {
 	gradientPickerDomRef,
@@ -80,18 +170,13 @@ export function ControlPoints( {
 	const onMouseUp = useCallback(
 		( event ) => {
 			const { parsedGradient: referenceParsedGradient, position } = controlPointMoveState.current;
-			const colorStopPosition = getHorizontalRelativeGradientPosition(
+			const colorStopRelativePosition = getHorizontalRelativeGradientPosition(
 				event.clientX,
 				gradientPickerDomRef.current,
 				GRADIENT_MARKERS_WIDTH,
 			);
 			// Reset the move if the control point gets very close to another existing control point.
-			if ( some(
-				parsedGradient.colorStops,
-				( { length }, index ) => {
-					return index !== position && Math.abs( length.value - colorStopPosition ) < MINIMUM_DISTANCE_BETWEEN_POINTS;
-				}
-			) ) {
+			if ( isControlPointOverlapping( parsedGradient, colorStopRelativePosition, position ) ) {
 				onChange( referenceParsedGradient );
 			}
 			if ( window && window.removeEventListener ) {
@@ -128,6 +213,20 @@ export function ControlPoints( {
 		[ setIsInsertPointMoveEnabled ]
 	);
 
+	const keyboardShortcuts = useMemo(
+		() => {
+			return parsedGradient.colorStops.map(
+				( colorStop, index ) => {
+					return {
+						left: () => onChange( getGradientWithPositionAtIndexDecreased( parsedGradient, index ) ),
+						right: () => onChange( getGradientWithPositionAtIndexIncreased( parsedGradient, index ) ),
+					};
+				}
+			);
+		},
+		[ parsedGradient, onChange ]
+	);
+
 	return markerPoints.map(
 		( point, index ) => (
 			point && ignoreMarkerPosition !== point.positionValue && (
@@ -135,7 +234,8 @@ export function ControlPoints( {
 					key={ index }
 					onClose={ enableInsertPointMove }
 					renderToggle={ ( { isOpen, onToggle } ) => (
-						<Button
+						<ControlPointButton
+							keyboardShortcuts={ keyboardShortcuts[ index ] }
 							onClick={ () => {
 								if ( controlPointMoveState.current.significantMoveHappened ) {
 									return;
@@ -144,16 +244,12 @@ export function ControlPoints( {
 								setIsInsertPointMoveEnabled( false );
 							} }
 							onMouseDown={ controlPointMouseDown[ index ] }
-							aria-expanded={ isOpen }
-							className={
-								classnames(
-									'components-custom-gradient-picker__marker-point',
-									{ 'is-active': isOpen }
-								)
-							}
-							style={ {
-								left: point.position,
-							} }
+							isOpen={ isOpen }
+							position={ point.position }
+							color={ point.color }
+							onChange={ onChange }
+							parsedGradient={ parsedGradient }
+							gradientIndex={ index }
 						/>
 					) }
 					renderContent={ () => (
