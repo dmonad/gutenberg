@@ -16,8 +16,8 @@ $components-custom-gradient-picker__padding: 3px; // 24px container, 18px handle
 		border-radius: 50%;
 		background: $white;
 		padding: 2px;
-		width: 23px;
-		height: 23px;
+		width: $icon-button-size-small;
+		height: $icon-button-size-small;
 		position: relative;
 	}
 
