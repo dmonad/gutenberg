@@ -33,8 +33,8 @@ const MediaFlow = (
 		multiple = false,
 	}
 ) => {
-	const [ showURLInput, setshowURLInput ] = useState( false );
-	const [ showEditURLInput, setshowEditURLInput ] = useState( false );
+	const [ showURLInput, setShowURLInput ] = useState( false );
+	const [ showEditURLInput, setShowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 
 	let mediaFlowOptionsMenu;
@@ -95,7 +95,7 @@ const MediaFlow = (
 		<>
 			<MenuItem
 				icon="admin-links"
-				onClick={ () => ( setshowURLInput( ! showURLInput ) ) }
+				onClick={ () => ( setShowURLInput( ! showURLInput ) ) }
 			>
 				<div> { __( 'Insert from URL' ) } </div>
 			</MenuItem>
@@ -111,13 +111,13 @@ const MediaFlow = (
 			onSubmit={ ( event ) => {
 				event.preventDefault();
 				onSelectURL( mediaURLValue );
-				setshowEditURLInput( ! showEditURLInput );
+				setShowEditURLInput( ! showEditURLInput );
 			} }
 		/> ) : ( <LinkViewer
 			isFullWidth={ true }
 			className="editor-format-toolbar__link-container-content block-editor-format-toolbar__link-container-content"
 			url={ mediaURLValue }
-			onEditLinkClick={ () => ( setshowEditURLInput( ! showEditURLInput ) ) }
+			onEditLinkClick={ () => ( setShowEditURLInput( ! showEditURLInput ) ) }
 		/> )
 		} </div> );
 
@@ -139,7 +139,7 @@ const MediaFlow = (
 								label={ name }
 								showLabel={ true }
 								className={ 'media-flow_toolbar' }
-								onToggle={ () => ( setshowURLInput( false ) ) }
+								onToggle={ () => ( setShowURLInput( false ) ) }
 								helperUI={ urlInputUI }
 							>
 								{ () => (
