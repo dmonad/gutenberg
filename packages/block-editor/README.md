@@ -314,13 +314,13 @@ _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inspector-controls/README.md>
 
-<a name="MediaFlow" href="#MediaFlow">#</a> **MediaFlow**
+<a name="MediaPlaceholder" href="#MediaPlaceholder">#</a> **MediaPlaceholder**
 
 _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/media-placeholder/README.md>
 
-<a name="MediaPlaceholder" href="#MediaPlaceholder">#</a> **MediaPlaceholder**
+<a name="MediaReplaceFlow" href="#MediaReplaceFlow">#</a> **MediaReplaceFlow**
 
 _Related_
 

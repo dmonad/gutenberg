@@ -92,14 +92,12 @@ const MediaReplaceFlow = (
 	);
 
 	const URLButton = (
-		<>
-			<MenuItem
-				icon="admin-links"
-				onClick={ () => ( setShowURLInput( ! showURLInput ) ) }
-			>
-				<div> { __( 'Insert from URL' ) } </div>
-			</MenuItem>
-		</>
+		<MenuItem
+			icon="admin-links"
+			onClick={ () => ( setShowURLInput( ! showURLInput ) ) }
+		>
+			<div> { __( 'Insert from URL' ) } </div>
+		</MenuItem>
 	);
 
 	const urlInputUI = ( showURLInput && <div className="block-editor-media-flow__url-input">
