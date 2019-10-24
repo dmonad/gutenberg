@@ -136,31 +136,29 @@ const MediaReplaceFlow = (
 					} }
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
-						<>
-							<Toolbar
-								isCollapsed={ true }
-								dropDownRef={ getMediaFlowRef }
-								icon={ false }
-								label={ name }
-								showLabel={ true }
-								className={ 'media-flow_toolbar' }
-								onToggle={ () => ( setShowURLInput( false ) ) }
-								helperUI={ urlInputUI }
-							>
-								{ () => (
-									<>
-										<MenuItem
-											icon="admin-media"
-											onClick={ open }
-										>
-											{ __( 'Open Media Library' ) }
-										</MenuItem>
-										{ fileUploadButton }
-										{ URLButton }
-									</>
-								) }
-							</Toolbar>
-						</>
+						<Toolbar
+							isCollapsed={ true }
+							dropDownRef={ getMediaFlowRef }
+							icon={ false }
+							label={ name }
+							showLabel={ true }
+							className={ 'media-flow_toolbar' }
+							onToggle={ () => ( setShowURLInput( false ) ) }
+							helperUI={ urlInputUI }
+						>
+							{ () => (
+								<>
+									<MenuItem
+										icon="admin-media"
+										onClick={ open }
+									>
+										{ __( 'Open Media Library' ) }
+									</MenuItem>
+									{ fileUploadButton }
+									{ URLButton }
+								</>
+							) }
+						</Toolbar>
 					) }
 				/>
 			</MediaUploadCheck>
