@@ -603,12 +603,10 @@ export class ImageEdit extends Component {
 					onChange={ this.updateAlignment }
 				/>
 				{ url && <MediaReplaceFlow
-					mediaUpload
 					mediaURL={ url }
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
 					onSelect={ this.onSelectImage }
 					onSelectURL={ this.onSelectURL }
-					noticeOperations
 				/> }
 				{ url && (
 					<Toolbar>
