@@ -100,8 +100,9 @@ const MediaReplaceFlow = (
 		</MenuItem>
 	);
 
-	const urlInputUI = ( showURLInput && <div className="block-editor-media-flow__url-input">
-		{ showEditURLInput ? ( <LinkEditor
+	let urlInputUIContent;
+	if ( showEditURLInput ) {
+		urlInputUIContent = ( <LinkEditor
 			value={ mediaURLValue }
 			isFullWidthInput={ true }
 			hasInputBorder={ true }
@@ -111,13 +112,19 @@ const MediaReplaceFlow = (
 				onSelectURL( mediaURLValue );
 				setShowEditURLInput( ! showEditURLInput );
 			} }
-		/> ) : ( <LinkViewer
+		/> );
+	} else {
+		urlInputUIContent = ( <LinkViewer
 			isFullWidth={ true }
 			className="editor-format-toolbar__link-container-content block-editor-format-toolbar__link-container-content"
 			url={ mediaURLValue }
 			onEditLinkClick={ () => ( setShowEditURLInput( ! showEditURLInput ) ) }
-		/> )
-		} </div> );
+		/> );
+	}
+
+	const urlInputUI = ( showURLInput && <div className="block-editor-media-flow__url-input">
+		{ urlInputUIContent }
+	</div> );
 
 	const editMediaButton = (
 		<BlockControls>
