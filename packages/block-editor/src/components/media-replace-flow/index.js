@@ -7,6 +7,8 @@ import {
 	FormFileUpload,
 	MenuItem,
 	Toolbar,
+	Button,
+	Popover,
 	withNotices,
 } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
@@ -36,6 +38,7 @@ const MediaReplaceFlow = (
 	const [ showURLInput, setShowURLInput ] = useState( false );
 	const [ showEditURLInput, setShowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
+	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
 
 	let mediaFlowOptionsMenu;
 	const getMediaFlowRef = ( element ) => {
@@ -136,29 +139,60 @@ const MediaReplaceFlow = (
 					} }
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
-						<Toolbar
-							isCollapsed={ true }
-							dropDownRef={ getMediaFlowRef }
-							icon={ false }
-							label={ name }
-							showLabel={ true }
-							className={ 'media-flow_toolbar' }
-							onToggle={ () => ( setShowURLInput( false ) ) }
-							helperUI={ urlInputUI }
-						>
-							{ () => (
-								<>
-									<MenuItem
-										icon="admin-media"
-										onClick={ open }
-									>
-										{ __( 'Open Media Library' ) }
-									</MenuItem>
-									{ fileUploadButton }
-									{ URLButton }
-								</>
-							) }
-						</Toolbar>
+						<>
+							<Toolbar>
+								<Button
+									onClick={ () => {
+										setShowMediaReplaceOptions( ! showMediaReplaceOptions );
+									} }
+								>
+									<span className="components-dropdown-menu__label" >
+										{ name }
+									</span>
+									<span
+										className="components-dropdown-menu__indicator"
+									/>
+								</Button>
+								{ showMediaReplaceOptions && <Popover
+									focusOnMount={ true }
+								>
+									<>
+										<MenuItem
+											icon="admin-media"
+											onClick={ open }
+										>
+											{ __( 'Open Media Library' ) }
+										</MenuItem>
+										{ fileUploadButton }
+										{ URLButton }
+										{ urlInputUI }
+									</>
+								</Popover> }
+							</Toolbar>
+							<Toolbar
+								isCollapsed={ true }
+								dropDownRef={ getMediaFlowRef }
+								icon={ false }
+								label={ name }
+								showLabel={ true }
+								className={ 'media-flow_toolbar' }
+								onToggle={ () => ( setShowURLInput( false ) ) }
+								helperUI={ urlInputUI }
+							>
+								{ () => (
+									<>
+										<MenuItem
+											icon="admin-media"
+											onClick={ open }
+										>
+											{ __( 'Open Media Library' ) }
+										</MenuItem>
+										{ fileUploadButton }
+										{ URLButton }
+									</>
+								) }
+							</Toolbar>
+						</>
 					) }
 				/>
 			</MediaUploadCheck>
