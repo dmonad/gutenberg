@@ -52,7 +52,7 @@ import {
 	InspectorControls,
 	InspectorAdvancedControls,
 	MediaPlaceholder,
-	MediaFlow,
+	MediaReplaceFlow,
 	URLPopover,
 	RichText,
 } from '@wordpress/block-editor';
@@ -602,7 +602,7 @@ export class ImageEdit extends Component {
 					value={ align }
 					onChange={ this.updateAlignment }
 				/>
-				{ url && <MediaFlow
+				{ url && <MediaReplaceFlow
 					mediaUpload
 					mediaURL={ url }
 					allowedTypes={ ALLOWED_MEDIA_TYPES }

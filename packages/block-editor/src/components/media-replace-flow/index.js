@@ -21,7 +21,7 @@ import MediaUploadCheck from '../media-upload/check';
 import LinkEditor from '../url-popover/link-editor';
 import LinkViewer from '../url-popover/link-viewer';
 
-const MediaFlow = (
+const MediaReplaceFlow = (
 	{
 		mediaUpload,
 		mediaURL,
@@ -105,8 +105,8 @@ const MediaFlow = (
 	const urlInputUI = ( showURLInput && <div className="block-editor-media-flow__url-input">
 		{ showEditURLInput ? ( <LinkEditor
 			value={ mediaURLValue }
-			isFullWidth={ true }
-			hasBorder={ true }
+			isFullWidthInput={ true }
+			hasInputBorder={ true }
 			onChangeInputValue={ ( url ) => ( setMediaURLValue( url ) ) }
 			onSubmit={ ( event ) => {
 				event.preventDefault();
@@ -183,4 +183,4 @@ const applyWithSelect = withSelect( ( select ) => {
 export default compose(
 	applyWithSelect,
 	withNotices,
-)( MediaFlow );
+)( MediaReplaceFlow );
