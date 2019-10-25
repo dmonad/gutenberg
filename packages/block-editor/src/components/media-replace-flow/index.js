@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	FormFileUpload,
@@ -39,7 +39,13 @@ const MediaReplaceFlow = (
 	const [ showEditURLInput, setShowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
-
+	
+	const onClickOutside = () => {
+		console.log( 'click outside' );
+		setShowMediaReplaceOptions( false );
+		setShowEditURLInput( false );
+	};
+	
 	let mediaFlowOptionsMenu;
 	const getMediaFlowRef = ( element ) => {
 		mediaFlowOptionsMenu = element;
@@ -142,6 +148,7 @@ const MediaReplaceFlow = (
 						<>
 							<Toolbar>
 								<Button
+									className = { 'components-dropdown-menu components-dropdown-menu__button' }
 									onClick={ () => {
 										setShowMediaReplaceOptions( ! showMediaReplaceOptions );
 									} }
@@ -154,6 +161,7 @@ const MediaReplaceFlow = (
 									/>
 								</Button>
 								{ showMediaReplaceOptions && <Popover
+									onClickOutside = { onClickOutside }
 									focusOnMount={ true }
 								>
 									<>
