@@ -41,7 +41,6 @@ const MediaReplaceFlow = (
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
 	
 	const onClickOutside = () => {
-		console.log( 'click outside' );
 		setShowMediaReplaceOptions( false );
 		setShowEditURLInput( false );
 	};
@@ -147,35 +146,40 @@ const MediaReplaceFlow = (
 					render={ ( { open } ) => (
 						<>
 							<Toolbar>
-								<Button
-									className = { 'components-dropdown-menu components-dropdown-menu__button' }
-									onClick={ () => {
-										setShowMediaReplaceOptions( ! showMediaReplaceOptions );
-									} }
-								>
-									<span className="components-dropdown-menu__label" >
-										{ name }
-									</span>
-									<span
-										className="components-dropdown-menu__indicator"
-									/>
-								</Button>
-								{ showMediaReplaceOptions && <Popover
-									onClickOutside = { onClickOutside }
-									focusOnMount={ true }
-								>
-									<>
-										<MenuItem
-											icon="admin-media"
-											onClick={ open }
+								<div>
+									<Button
+										className: classnames( 'components-dropdown-menu__toggle', {
+											'is-opened': isOpen,
+										}
+										onClick={ () => {
+											setShowMediaReplaceOptions( ! showMediaReplaceOptions );
+										} }
+									>
+										<span className="components-dropdown-menu__label" >
+											{ name }
+										</span>
+										<span
+											className="components-dropdown-menu__indicator"
+										/>
+									</Button>
+									{ showMediaReplaceOptions &&
+										<Popover
+											onFocusOutside={ () => { console.log('yay')} }
 										>
-											{ __( 'Open Media Library' ) }
-										</MenuItem>
-										{ fileUploadButton }
-										{ URLButton }
-										{ urlInputUI }
-									</>
-								</Popover> }
+											<>
+												<MenuItem
+													icon="admin-media"
+													onClick={ open }
+												>
+													{ __( 'Open Media Library' ) }
+												</MenuItem>
+												{ fileUploadButton }
+												{ URLButton }
+												{ urlInputUI }
+											</>
+										</Popover>
+									}
+								</div>
 							</Toolbar>
 							<Toolbar
 								isCollapsed={ true }
