@@ -1,7 +1,11 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames';
+/**
  * WordPress dependencies
  */
-import { useState, useCallback } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	FormFileUpload,
@@ -39,12 +43,7 @@ const MediaReplaceFlow = (
 	const [ showEditURLInput, setShowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
-	
-	const onClickOutside = () => {
-		setShowMediaReplaceOptions( false );
-		setShowEditURLInput( false );
-	};
-	
+
 	let mediaFlowOptionsMenu;
 	const getMediaFlowRef = ( element ) => {
 		mediaFlowOptionsMenu = element;
@@ -134,6 +133,12 @@ const MediaReplaceFlow = (
 		{ urlInputUIContent }
 	</div> );
 
+	const onClickOutside = () => {
+		return ( ) => {
+			setShowMediaReplaceOptions( false );
+		};
+	};
+
 	const editMediaButton = (
 		<BlockControls>
 			<MediaUploadCheck>
@@ -148,9 +153,9 @@ const MediaReplaceFlow = (
 							<Toolbar>
 								<div>
 									<Button
-										className: classnames( 'components-dropdown-menu__toggle', {
-											'is-opened': isOpen,
-										}
+										className={ classnames(
+											'components-dropdown-menu__toggle',
+										) }
 										onClick={ () => {
 											setShowMediaReplaceOptions( ! showMediaReplaceOptions );
 										} }
@@ -164,7 +169,7 @@ const MediaReplaceFlow = (
 									</Button>
 									{ showMediaReplaceOptions &&
 										<Popover
-											onFocusOutside={ () => { console.log('yay')} }
+											onClickOutside={ onClickOutside() }
 										>
 											<>
 												<MenuItem
