@@ -1,8 +1,4 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames';
-/**
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
@@ -163,45 +159,35 @@ const MediaReplaceFlow = (
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
 						<>
-							<Toolbar
-								className={ 'components-dropdown-menu components-toolbar' }
-							>
-								<div>
-									<Button
-										className={ classnames(
-											'components-button components-icon-button components-dropdown-menu__toggle',
-										) }
-										onClick={ () => {
-											setShowMediaReplaceOptions( ! showMediaReplaceOptions );
-										} }
+							<Toolbar className={ 'components-dropdown-menu components-toolbar' }>
+								<Button
+									className={ 'components-button components-icon-button components-dropdown-menu__toggle' }
+									onClick={ () => {
+										setShowMediaReplaceOptions( ! showMediaReplaceOptions );
+									} }
+								>
+									<span className="components-dropdown-menu__label" > { name } </span>
+									<span className="components-dropdown-menu__indicator" />
+								</Button>
+								{ showMediaReplaceOptions &&
+									<Popover
+										onClickOutside={ onClickOutside() }
 									>
-										<span className="components-dropdown-menu__label" >
-											{ name }
-										</span>
-										<span
-											className="components-dropdown-menu__indicator"
-										/>
-									</Button>
-									{ showMediaReplaceOptions &&
-										<Popover
-											onClickOutside={ onClickOutside() }
-										>
-											<>
-												<NavigableMenu>
-													<MenuItem
-														icon="admin-media"
-														onClick={ open }
-													>
-														{ __( 'Open Media Library' ) }
-													</MenuItem>
-													{ fileUploadButton }
-													{ URLButton }
-												</NavigableMenu>
-												{ urlInputUI }
-											</>
-										</Popover>
-									}
-								</div>
+										<>
+											<NavigableMenu>
+												<MenuItem
+													icon="admin-media"
+													onClick={ open }
+												>
+													{ __( 'Open Media Library' ) }
+												</MenuItem>
+												{ fileUploadButton }
+												{ URLButton }
+											</NavigableMenu>
+											{ urlInputUI }
+										</>
+									</Popover>
+								}
 							</Toolbar>
 						</>
 					) }
