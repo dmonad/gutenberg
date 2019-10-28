@@ -42,7 +42,7 @@ import ToolbarContainer from './toolbar-container';
  *
  * @return {WPComponent} The rendered component.
  */
-function Toolbar( { controls = [], children, className, isCollapsed, icon, label, showLabel, dropDownRef, ...otherProps } ) {
+function Toolbar( { controls = [], children, className, isCollapsed, icon, label, ...otherProps } ) {
 	if (
 		( ! controls || ! controls.length ) &&
 		! children
@@ -60,16 +60,11 @@ function Toolbar( { controls = [], children, className, isCollapsed, icon, label
 		return (
 			<DropdownMenu
 				hasArrowIndicator
-				dropDownRef={ dropDownRef }
 				icon={ icon }
 				label={ label }
 				controls={ controlSets }
 				className={ classnames( 'components-toolbar', className ) }
-				showLabel={ showLabel }
-				{ ...otherProps }
-			>
-				{ children }
-			</DropdownMenu>
+			/>
 		);
 	}
 
