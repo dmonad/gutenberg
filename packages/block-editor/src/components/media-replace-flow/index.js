@@ -9,6 +9,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	FormFileUpload,
+	NavigableMenu,
 	MenuItem,
 	Toolbar,
 	Button,
@@ -170,44 +171,24 @@ const MediaReplaceFlow = (
 									{ showMediaReplaceOptions &&
 										<Popover
 											onClickOutside={ onClickOutside() }
+											ref={ getMediaFlowRef }
 										>
 											<>
-												<MenuItem
-													icon="admin-media"
-													onClick={ open }
-												>
-													{ __( 'Open Media Library' ) }
-												</MenuItem>
-												{ fileUploadButton }
-												{ URLButton }
+												<NavigableMenu>
+													<MenuItem
+														icon="admin-media"
+														onClick={ open }
+													>
+														{ __( 'Open Media Library' ) }
+													</MenuItem>
+													{ fileUploadButton }
+													{ URLButton }
+												</NavigableMenu>
 												{ urlInputUI }
 											</>
 										</Popover>
 									}
 								</div>
-							</Toolbar>
-							<Toolbar
-								isCollapsed={ true }
-								dropDownRef={ getMediaFlowRef }
-								icon={ false }
-								label={ name }
-								showLabel={ true }
-								className={ 'media-flow_toolbar' }
-								onToggle={ () => ( setShowURLInput( false ) ) }
-								helperUI={ urlInputUI }
-							>
-								{ () => (
-									<>
-										<MenuItem
-											icon="admin-media"
-											onClick={ open }
-										>
-											{ __( 'Open Media Library' ) }
-										</MenuItem>
-										{ fileUploadButton }
-										{ URLButton }
-									</>
-								) }
 							</Toolbar>
 						</>
 					) }
