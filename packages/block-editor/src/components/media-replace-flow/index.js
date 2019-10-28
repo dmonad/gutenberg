@@ -45,11 +45,6 @@ const MediaReplaceFlow = (
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
 
-	let mediaFlowOptionsMenu;
-	const getMediaFlowRef = ( element ) => {
-		mediaFlowOptionsMenu = element;
-	};
-
 	const selectMedia = ( media ) => {
 		onSelect( media );
 		setMediaURLValue( media.url );
@@ -67,9 +62,6 @@ const MediaReplaceFlow = (
 			setMedia = selectMedia;
 		} else {
 			setMedia = ( [ media ] ) => {
-				if ( !! mediaFlowOptionsMenu ) {
-					mediaFlowOptionsMenu.close();
-				}
 				selectMedia( media );
 			};
 		}
@@ -145,17 +137,16 @@ const MediaReplaceFlow = (
 			<MediaUploadCheck>
 				<MediaUpload
 					onSelect={ ( media ) => selectMedia( media ) }
-					onClose={ () => {
-						mediaFlowOptionsMenu.close();
-					} }
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
 						<>
-							<Toolbar>
+							<Toolbar
+								className={ 'components-dropdown-menu components-toolbar' }
+							>
 								<div>
 									<Button
 										className={ classnames(
-											'components-dropdown-menu__toggle',
+											'components-button components-icon-button components-dropdown-menu__toggle has-text',
 										) }
 										onClick={ () => {
 											setShowMediaReplaceOptions( ! showMediaReplaceOptions );
@@ -171,7 +162,6 @@ const MediaReplaceFlow = (
 									{ showMediaReplaceOptions &&
 										<Popover
 											onClickOutside={ onClickOutside() }
-											ref={ getMediaFlowRef }
 										>
 											<>
 												<NavigableMenu>

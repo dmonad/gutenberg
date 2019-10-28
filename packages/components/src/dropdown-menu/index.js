@@ -35,18 +35,14 @@ function DropdownMenu( {
 	className,
 	controls,
 	hasArrowIndicator = false,
-	showLabel = false,
 	icon = 'menu',
 	label,
 	popoverProps,
 	toggleProps,
-	onToggle,
 	menuProps,
 	// The following props exist for backward compatibility.
 	menuLabel,
 	position,
-	helperUI,
-	dropDownRef,
 } ) {
 	if ( menuLabel ) {
 		deprecated( '`menuLabel` prop in `DropdownComponent`', {
@@ -82,15 +78,13 @@ function DropdownMenu( {
 	return (
 		<Dropdown
 			className={ classnames( 'components-dropdown-menu', className ) }
-			ref={ dropDownRef }
 			popoverProps={ mergedPopoverProps }
-			onToggle={ onToggle }
-			renderToggle={ ( { isOpen, onToggle: onDropdownToggle } ) => {
+			renderToggle={ ( { isOpen, onToggle } ) => {
 				const openOnArrowDown = ( event ) => {
 					if ( ! isOpen && event.keyCode === DOWN ) {
 						event.preventDefault();
 						event.stopPropagation();
-						onDropdownToggle();
+						onToggle();
 					}
 				};
 				const mergedToggleProps = mergeProps( {
@@ -104,13 +98,12 @@ function DropdownMenu( {
 					<IconButton
 						{ ...mergedToggleProps }
 						icon={ icon }
-						onClick={ onDropdownToggle }
+						onClick={ onToggle }
 						onKeyDown={ openOnArrowDown }
 						aria-haspopup="true"
 						aria-expanded={ isOpen }
 						label={ label }
 					>
-						{ ( ! icon && showLabel ) && <span className="components-dropdown-menu__label" > { label } </span> }
 						{ ( ! icon || hasArrowIndicator ) && <span className="components-dropdown-menu__indicator" /> }
 					</IconButton>
 				);
@@ -122,47 +115,42 @@ function DropdownMenu( {
 				}, menuProps );
 
 				return (
-					<>
-						<NavigableMenu
-							{ ...mergedMenuProps }
-							role="menu"
-						>
-							{
-								isFunction( children ) ?
-									children( props ) :
-									null
-							}
-							{ flatMap( controlSets, ( controlSet, indexOfSet ) => (
-								controlSet.map( ( control, indexOfControl ) => (
-									<IconButton
-										key={ [ indexOfSet, indexOfControl ].join() }
-										onClick={ ( event ) => {
-											event.stopPropagation();
-											props.onClose();
-											if ( control.onClick ) {
-												control.onClick();
-											}
-										} }
-										className={ classnames(
-											'components-dropdown-menu__menu-item',
-											{
-												'has-separator': indexOfSet > 0 && indexOfControl === 0,
-												'is-active': control.isActive,
-											},
-										) }
-										icon={ control.icon }
-										role="menuitem"
-										disabled={ control.isDisabled }
-									>
-										{ control.title }
-									</IconButton>
-								) )
-							) ) }
-						</NavigableMenu>
-						<div className="components-dropdown-menu__helper-ui">
-							{ helperUI }
-						</div>
-					</>
+					<NavigableMenu
+						{ ...mergedMenuProps }
+						role="menu"
+					>
+						{
+							isFunction( children ) ?
+								children( props ) :
+								null
+						}
+						{ flatMap( controlSets, ( controlSet, indexOfSet ) => (
+							controlSet.map( ( control, indexOfControl ) => (
+								<IconButton
+									key={ [ indexOfSet, indexOfControl ].join() }
+									onClick={ ( event ) => {
+										event.stopPropagation();
+										props.onClose();
+										if ( control.onClick ) {
+											control.onClick();
+										}
+									} }
+									className={ classnames(
+										'components-dropdown-menu__menu-item',
+										{
+											'has-separator': indexOfSet > 0 && indexOfControl === 0,
+											'is-active': control.isActive,
+										},
+									) }
+									icon={ control.icon }
+									role="menuitem"
+									disabled={ control.isDisabled }
+								>
+									{ control.title }
+								</IconButton>
+							) )
+						) ) }
+					</NavigableMenu>
 				);
 			} }
 		/>

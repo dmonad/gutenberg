@@ -30,10 +30,6 @@
 			@include formatting-button-style__hover();
 		}
 
-		.components-dropdown-menu__label {
-			margin-right: 4px;
-		}
-
 		// Add a dropdown arrow indicator.
 		.components-dropdown-menu__indicator::after {
 			@include dropdown-arrow();
@@ -43,10 +39,6 @@
 
 .components-dropdown-menu__popover .components-popover__content {
 	width: 200px;
-}
-
-.components-popover:not(.is-mobile).components-dropdown-menu__popover > .components-popover__content {
-	overflow-x: hidden;
 }
 
 .components-dropdown-menu__menu {
