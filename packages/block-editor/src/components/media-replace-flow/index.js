@@ -62,6 +62,7 @@ const MediaReplaceFlow = (
 			setMedia = selectMedia;
 		} else {
 			setMedia = ( [ media ] ) => {
+				setShowMediaReplaceOptions( false );
 				selectMedia( media );
 			};
 		}
@@ -137,6 +138,7 @@ const MediaReplaceFlow = (
 			<MediaUploadCheck>
 				<MediaUpload
 					onSelect={ ( media ) => selectMedia( media ) }
+					onClose={ () => setShowMediaReplaceOptions( false ) }
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
 						<>
@@ -146,7 +148,7 @@ const MediaReplaceFlow = (
 								<div>
 									<Button
 										className={ classnames(
-											'components-button components-icon-button components-dropdown-menu__toggle has-text',
+											'components-button components-icon-button components-dropdown-menu__toggle',
 										) }
 										onClick={ () => {
 											setShowMediaReplaceOptions( ! showMediaReplaceOptions );
