@@ -16,6 +16,14 @@ import {
 	Popover,
 	withNotices,
 } from '@wordpress/components';
+import {
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	BACKSPACE,
+	ENTER,
+} from '@wordpress/keycodes';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 
@@ -44,6 +52,17 @@ const MediaReplaceFlow = (
 	const [ showEditURLInput, setShowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
+
+	const stopPropagation = ( event ) => {
+		event.stopPropagation();
+	};
+
+	const stopPropagationRelevantKeys = ( event ) => {
+		if ( [ LEFT, DOWN, RIGHT, UP, BACKSPACE, ENTER ].indexOf( event.keyCode ) > -1 ) {
+			// Stop the key event from propagating up to ObserveTyping.startTypingInTextField.
+			event.stopPropagation();
+		}
+	};
 
 	const selectMedia = ( media ) => {
 		onSelect( media );
@@ -104,6 +123,8 @@ const MediaReplaceFlow = (
 	let urlInputUIContent;
 	if ( showEditURLInput ) {
 		urlInputUIContent = ( <LinkEditor
+			onKeyDown={ stopPropagationRelevantKeys }
+			onKeyPress={ stopPropagation }
 			value={ mediaURLValue }
 			isFullWidthInput={ true }
 			hasInputBorder={ true }
