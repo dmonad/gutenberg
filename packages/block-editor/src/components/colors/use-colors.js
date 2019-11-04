@@ -190,6 +190,12 @@ export default function __experimentalUseColors(
 	const detectedBackgroundColorRef = useRef();
 	const BackgroundColorDetector = useMemo(
 		() =>
+			contrastCheckers &&
+			( Array.isArray( contrastCheckers ) ?
+				contrastCheckers.some(
+					( { backgroundColor } ) => backgroundColor === true
+				) :
+				contrastCheckers.backgroundColor === true ) &&
 			withFallbackStyles( ( node, { querySelector } ) => {
 				if ( querySelector ) {
 					node = node.parentNode.querySelector( querySelector );
@@ -210,6 +216,7 @@ export default function __experimentalUseColors(
 					}`,
 				''
 			),
+			...deps,
 		]
 	);
 
