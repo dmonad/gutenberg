@@ -7,19 +7,10 @@ import { isFunction, noop, startsWith } from 'lodash';
 /**
  * WordPress dependencies
  */
-import {
-	Button,
-	ExternalLink,
-	Popover,
-} from '@wordpress/components';
+import { Button, ExternalLink, Popover } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-import {
-	useCallback,
-	useState,
-	useEffect,
-	Fragment,
-} from '@wordpress/element';
+import { useCallback, useState, useEffect, Fragment } from '@wordpress/element';
 
 import {
 	safeDecodeURI,
@@ -109,14 +100,14 @@ function LinkControl( {
 			type = 'internal';
 		}
 
-		return Promise.resolve(
-			[ {
+		return Promise.resolve( [
+			{
 				id: '-1',
 				title: value,
 				url: type === 'URL' ? prependHTTP( value ) : value,
 				type,
-			} ]
-		);
+			},
+		] );
 	};
 
 	const handleEntitySearch = async ( value ) => {
@@ -134,19 +125,29 @@ function LinkControl( {
 	};
 
 	// Effects
-	const getSearchHandler = useCallback( ( value ) => {
-		const protocol = getProtocol( value ) || '';
-		const isMailto = protocol.includes( 'mailto' );
-		const isInternal = startsWith( value, '#' );
-		const isTel = protocol.includes( 'tel' );
+	const getSearchHandler = useCallback(
+		( value ) => {
+			const protocol = getProtocol( value ) || '';
+			const isMailto = protocol.includes( 'mailto' );
+			const isInternal = startsWith( value, '#' );
+			const isTel = protocol.includes( 'tel' );
 
-		const handleManualEntry = isInternal || isMailto || isTel || isURL( value ) || ( value && value.includes( 'www.' ) );
+			const handleManualEntry =
+				isInternal || isMailto || isTel || isURL( value ) || ( value && value.includes( 'www.' ) );
 
-		return ( handleManualEntry ) ? handleDirectEntry( value ) : handleEntitySearch( value );
-	}, [ handleDirectEntry, fetchSearchSuggestions ] );
+			return handleManualEntry ? handleDirectEntry( value ) : handleEntitySearch( value );
+		},
+		[ handleDirectEntry, fetchSearchSuggestions ]
+	);
 
 	// Render Components
-	const renderSearchResults = ( { suggestionsListProps, buildSuggestionItemProps, suggestions, selectedSuggestion, isLoading } ) => {
+	const renderSearchResults = ( {
+		suggestionsListProps,
+		buildSuggestionItemProps,
+		suggestions,
+		selectedSuggestion,
+		isLoading,
+	} ) => {
 		const resultsListClasses = classnames( 'block-editor-link-control__search-results', {
 			'is-loading': isLoading,
 		} );
@@ -181,8 +182,7 @@ function LinkControl( {
 		>
 			<div className="block-editor-link-control__popover-inner">
 				<div className="block-editor-link-control__search">
-
-					{ ( ! isEditingLink && currentLink ) && (
+					{ ! isEditingLink && currentLink && (
 						<Fragment>
 							<p className="screen-reader-text" id={ `current-link-label-${ instanceId }` }>
 								{ __( 'Currently selected' ) }:
@@ -195,17 +195,22 @@ function LinkControl( {
 								} ) }
 							>
 								<span className="block-editor-link-control__search-item-header">
-
 									<ExternalLink
 										className="block-editor-link-control__search-item-title"
 										href={ currentLink.url }
 									>
 										{ currentLink.title }
 									</ExternalLink>
-									<span className="block-editor-link-control__search-item-info">{ filterURLForDisplay( safeDecodeURI( currentLink.url ) ) || '' }</span>
+									<span className="block-editor-link-control__search-item-info">
+										{ filterURLForDisplay( safeDecodeURI( currentLink.url ) ) || '' }
+									</span>
 								</span>
 
-								<Button isDefault onClick={ startEditMode } className="block-editor-link-control__search-item-action block-editor-link-control__search-item-action--edit">
+								<Button
+									isDefault
+									onClick={ startEditMode }
+									className="block-editor-link-control__search-item-action block-editor-link-control__search-item-action--edit"
+								>
 									{ __( 'Change' ) }
 								</Button>
 							</div>
@@ -226,7 +231,10 @@ function LinkControl( {
 					) }
 
 					{ ! isEditingLink && (
-						<LinkControlSettingsDrawer settings={ currentSettings } onSettingChange={ onSettingsChange } />
+						<LinkControlSettingsDrawer
+							settings={ currentSettings }
+							onSettingChange={ onSettingsChange }
+						/>
 					) }
 				</div>
 			</div>

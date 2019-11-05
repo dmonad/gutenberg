@@ -50,8 +50,9 @@ export function isUnmodifiedDefaultBlock( block ) {
 	const newDefaultBlock = isUnmodifiedDefaultBlock.block;
 	const blockType = getBlockType( defaultBlockName );
 
-	return every( blockType.attributes, ( value, key ) =>
-		newDefaultBlock.attributes[ key ] === block.attributes[ key ]
+	return every(
+		blockType.attributes,
+		( value, key ) => newDefaultBlock.attributes[ key ] === block.attributes[ key ]
 	);
 }
 
@@ -64,11 +65,12 @@ export function isUnmodifiedDefaultBlock( block ) {
  */
 
 export function isValidIcon( icon ) {
-	return !! icon && (
-		isString( icon ) ||
-		isValidElement( icon ) ||
-		isFunction( icon ) ||
-		icon instanceof Component
+	return (
+		!! icon &&
+		( isString( icon ) ||
+			isValidElement( icon ) ||
+			isFunction( icon ) ||
+			icon instanceof Component )
 	);
 }
 
@@ -93,11 +95,13 @@ export function normalizeIconObject( icon ) {
 
 		return {
 			...icon,
-			foreground: icon.foreground ? icon.foreground : mostReadable(
-				tinyBgColor,
-				ICON_COLORS,
-				{ includeFallbackColors: true, level: 'AA', size: 'large' }
-			).toHexString(),
+			foreground: icon.foreground
+				? icon.foreground
+				: mostReadable( tinyBgColor, ICON_COLORS, {
+						includeFallbackColors: true,
+						level: 'AA',
+						size: 'large',
+				  } ).toHexString(),
 			shadowColor: tinyBgColor.setAlpha( 0.3 ).toRgbString(),
 		};
 	}

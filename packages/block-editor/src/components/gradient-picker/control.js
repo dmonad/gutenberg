@@ -1,4 +1,3 @@
-
 /**
  * External dependencies
  */
@@ -18,22 +17,15 @@ import { useSelect } from '@wordpress/data';
 import GradientPicker from './';
 
 export default function( { className, label = __( 'Gradient Presets' ), ...props } ) {
-	const gradients = useSelect( ( select ) => (
-		select( 'core/block-editor' ).getSettings().gradients
-	) );
+	const gradients = useSelect(
+		( select ) => select( 'core/block-editor' ).getSettings().gradients
+	);
 	if ( isEmpty( gradients ) ) {
 		return null;
 	}
 	return (
-		<BaseControl
-			className={ classnames(
-				'block-editor-gradient-picker-control',
-				className
-			) }
-		>
-			<BaseControl.VisualLabel>
-				{ label }
-			</BaseControl.VisualLabel>
+		<BaseControl className={ classnames( 'block-editor-gradient-picker-control', className ) }>
+			<BaseControl.VisualLabel>{ label }</BaseControl.VisualLabel>
 			<GradientPicker
 				className="block-editor-gradient-picker-control__gradient-picker-presets"
 				gradients={ gradients }

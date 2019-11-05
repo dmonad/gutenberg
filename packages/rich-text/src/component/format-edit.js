@@ -35,11 +35,7 @@ const FormatEdit = ( {
 	allowedFormats,
 	withoutInteractiveFormatting,
 } ) =>
-	formatTypes.map( ( {
-		name,
-		edit: Edit,
-		tagName,
-	} ) => {
+	formatTypes.map( ( { name, edit: Edit, tagName } ) => {
 		if ( ! Edit ) {
 			return null;
 		}
@@ -48,10 +44,7 @@ const FormatEdit = ( {
 			return null;
 		}
 
-		if (
-			withoutInteractiveFormatting &&
-			interactiveContentTags.has( tagName )
-		) {
+		if ( withoutInteractiveFormatting && interactiveContentTags.has( tagName ) ) {
 			return null;
 		}
 
@@ -64,13 +57,9 @@ const FormatEdit = ( {
 			<Edit
 				key={ name }
 				isActive={ isActive }
-				activeAttributes={
-					isActive ? activeFormat.attributes || {} : {}
-				}
+				activeAttributes={ isActive ? activeFormat.attributes || {} : {} }
 				isObjectActive={ isObjectActive }
-				activeObjectAttributes={
-					isObjectActive ? activeObject.attributes || {} : {}
-				}
+				activeObjectAttributes={ isObjectActive ? activeObject.attributes || {} : {} }
 				value={ value }
 				onChange={ onChange }
 			/>

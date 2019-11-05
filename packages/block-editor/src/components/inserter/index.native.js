@@ -17,7 +17,7 @@ import InserterMenu from './menu';
 const defaultRenderToggle = ( { onToggle, disabled, style } ) => (
 	<ToolbarButton
 		title={ __( 'Add block' ) }
-		icon={ ( <Dashicon icon="plus-alt" style={ style } color={ style.color } /> ) }
+		icon={ <Dashicon icon="plus-alt" style={ style } color={ style.color } /> }
 		onClick={ onToggle }
 		extraProps={ { hint: __( 'Double tap to add a block' ) } }
 		isDisabled={ disabled }
@@ -53,11 +53,7 @@ class Inserter extends Component {
 	 * @return {WPElement} Dropdown toggle element.
 	 */
 	renderToggle( { onToggle, isOpen } ) {
-		const {
-			disabled,
-			renderToggle = defaultRenderToggle,
-			getStylesFromColorScheme,
-		} = this.props;
+		const { disabled, renderToggle = defaultRenderToggle, getStylesFromColorScheme } = this.props;
 		const style = getStylesFromColorScheme( styles.addBlockButton, styles.addBlockButtonDark );
 		return renderToggle( { onToggle, isOpen, disabled, style } );
 	}
@@ -100,11 +96,9 @@ class Inserter extends Component {
 
 export default compose( [
 	withSelect( ( select, { clientId, isAppender, rootClientId } ) => {
-		const {
-			getInserterItems,
-			getBlockRootClientId,
-			getBlockSelectionEnd,
-		} = select( 'core/block-editor' );
+		const { getInserterItems, getBlockRootClientId, getBlockSelectionEnd } = select(
+			'core/block-editor'
+		);
 
 		let destinationRootClientId = rootClientId;
 		if ( ! destinationRootClientId && ! clientId && ! isAppender ) {

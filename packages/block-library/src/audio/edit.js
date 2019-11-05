@@ -50,12 +50,7 @@ class AudioEdit extends Component {
 	}
 
 	componentDidMount() {
-		const {
-			attributes,
-			mediaUpload,
-			noticeOperations,
-			setAttributes,
-		} = this.props;
+		const { attributes, mediaUpload, noticeOperations, setAttributes } = this.props;
 		const { id, src = '' } = attributes;
 
 		if ( ! id && isBlobURL( src ) ) {
@@ -92,9 +87,7 @@ class AudioEdit extends Component {
 		// the editing UI.
 		if ( newSrc !== src ) {
 			// Check if there's an embed block that handles this URL.
-			const embedBlock = createUpgradedEmbedBlock(
-				{ attributes: { url: newSrc } }
-			);
+			const embedBlock = createUpgradedEmbedBlock( { attributes: { url: newSrc } } );
 			if ( undefined !== embedBlock ) {
 				this.props.onReplace( embedBlock );
 				return;
@@ -112,7 +105,9 @@ class AudioEdit extends Component {
 	}
 
 	getAutoplayHelp( checked ) {
-		return checked ? __( 'Note: Autoplaying audio may cause usability issues for some visitors.' ) : null;
+		return checked
+			? __( 'Note: Autoplaying audio may cause usability issues for some visitors.' )
+			: null;
 	}
 
 	render() {
@@ -180,7 +175,9 @@ class AudioEdit extends Component {
 							label={ __( 'Preload' ) }
 							value={ undefined !== preload ? preload : 'none' }
 							// `undefined` is required for the preload attribute to be unset.
-							onChange={ ( value ) => setAttributes( { preload: ( 'none' !== value ) ? value : undefined } ) }
+							onChange={ ( value ) =>
+								setAttributes( { preload: 'none' !== value ? value : undefined } )
+							}
 							options={ [
 								{ value: 'auto', label: __( 'Auto' ) },
 								{ value: 'metadata', label: __( 'Metadata' ) },

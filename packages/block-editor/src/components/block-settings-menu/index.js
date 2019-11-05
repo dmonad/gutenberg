@@ -7,12 +7,7 @@ import { castArray, flow } from 'lodash';
  * WordPress dependencies
  */
 import { __, _n } from '@wordpress/i18n';
-import {
-	Toolbar,
-	DropdownMenu,
-	MenuGroup,
-	MenuItem,
-} from '@wordpress/components';
+import { Toolbar, DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -56,23 +51,16 @@ export function BlockSettingsMenu( { clientIds } ) {
 						{ ( { onClose } ) => (
 							<>
 								<MenuGroup>
-									<__experimentalBlockSettingsMenuFirstItem.Slot
-										fillProps={ { onClose } }
-									/>
-									{ count === 1 && (
-										<BlockUnknownConvertButton
-											clientId={ firstBlockClientId }
-										/>
-									) }
-									{ count === 1 && (
-										<BlockHTMLConvertButton
-											clientId={ firstBlockClientId }
-										/>
-									) }
+									<__experimentalBlockSettingsMenuFirstItem.Slot fillProps={ { onClose } } />
+									{ count === 1 && <BlockUnknownConvertButton clientId={ firstBlockClientId } /> }
+									{ count === 1 && <BlockHTMLConvertButton clientId={ firstBlockClientId } /> }
 									{ canDuplicate && (
 										<MenuItem
 											className="editor-block-settings-menu__control block-editor-block-settings-menu__control"
-											onClick={ flow( onClose, onDuplicate ) }
+											onClick={ flow(
+												onClose,
+												onDuplicate
+											) }
 											icon="admin-page"
 											shortcut={ shortcuts.duplicate.display }
 										>
@@ -83,7 +71,10 @@ export function BlockSettingsMenu( { clientIds } ) {
 										<>
 											<MenuItem
 												className="editor-block-settings-menu__control block-editor-block-settings-menu__control"
-												onClick={ flow( onClose, onInsertBefore ) }
+												onClick={ flow(
+													onClose,
+													onInsertBefore
+												) }
 												icon="insert-before"
 												shortcut={ shortcuts.insertBefore.display }
 											>
@@ -91,7 +82,10 @@ export function BlockSettingsMenu( { clientIds } ) {
 											</MenuItem>
 											<MenuItem
 												className="editor-block-settings-menu__control block-editor-block-settings-menu__control"
-												onClick={ flow( onClose, onInsertAfter ) }
+												onClick={ flow(
+													onClose,
+													onInsertAfter
+												) }
 												icon="insert-after"
 												shortcut={ shortcuts.insertAfter.display }
 											>
@@ -100,10 +94,7 @@ export function BlockSettingsMenu( { clientIds } ) {
 										</>
 									) }
 									{ count === 1 && (
-										<BlockModeToggle
-											clientId={ firstBlockClientId }
-											onToggle={ onClose }
-										/>
+										<BlockModeToggle clientId={ firstBlockClientId } onToggle={ onClose } />
 									) }
 									<__experimentalBlockSettingsMenuPluginsExtension.Slot
 										fillProps={ { clientIds, onClose } }
@@ -113,7 +104,10 @@ export function BlockSettingsMenu( { clientIds } ) {
 									{ ! isLocked && (
 										<MenuItem
 											className="editor-block-settings-menu__control block-editor-block-settings-menu__control"
-											onClick={ flow( onClose, onRemove ) }
+											onClick={ flow(
+												onClose,
+												onRemove
+											) }
 											icon="trash"
 											shortcut={ shortcuts.removeBlock.display }
 										>

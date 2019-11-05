@@ -24,12 +24,23 @@ describe( 'IconButton', () => {
 
 		it( 'should render a Dashicon component matching the wordpress icon', () => {
 			const iconButton = shallow( <IconButton icon="wordpress" /> );
-			expect( iconButton.find( 'Icon' ).dive().shallow().hasClass( 'dashicons-wordpress' ) ).toBe( true );
+			expect(
+				iconButton
+					.find( 'Icon' )
+					.dive()
+					.shallow()
+					.hasClass( 'dashicons-wordpress' )
+			).toBe( true );
 		} );
 
 		it( 'should render child elements when passed as children', () => {
 			const iconButton = shallow( <IconButton children={ <p className="test">Test</p> } /> );
-			expect( iconButton.find( '.test' ).shallow().text() ).toBe( 'Test' );
+			expect(
+				iconButton
+					.find( '.test' )
+					.shallow()
+					.text()
+			).toBe( 'Test' );
 		} );
 
 		it( 'should add an aria-label when the label property is used', () => {

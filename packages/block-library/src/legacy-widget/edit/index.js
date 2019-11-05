@@ -2,18 +2,10 @@
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import {
-	Button,
-	IconButton,
-	PanelBody,
-	Toolbar,
-} from '@wordpress/components';
+import { Button, IconButton, PanelBody, Toolbar } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
-import {
-	BlockControls,
-	InspectorControls,
-} from '@wordpress/block-editor';
+import { BlockControls, InspectorControls } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 
 /**
@@ -49,20 +41,20 @@ class LegacyWidgetEdit extends Component {
 					availableLegacyWidgets={ availableLegacyWidgets }
 					currentWidget={ identifier }
 					hasPermissionsToManageWidgets={ hasPermissionsToManageWidgets }
-					onChangeWidget={ ( newWidget ) => setAttributes( {
-						instance: {},
-						identifier: newWidget,
-						isCallbackWidget: availableLegacyWidgets[ newWidget ].isCallbackWidget,
-					} ) }
+					onChangeWidget={ ( newWidget ) =>
+						setAttributes( {
+							instance: {},
+							identifier: newWidget,
+							isCallbackWidget: availableLegacyWidgets[ newWidget ].isCallbackWidget,
+						} )
+					}
 				/>
 			);
 		}
 
 		const inspectorControls = (
 			<InspectorControls>
-				<PanelBody title={ widgetObject.name }>
-					{ widgetObject.description }
-				</PanelBody>
+				<PanelBody title={ widgetObject.name }>{ widgetObject.description }</PanelBody>
 			</InspectorControls>
 		);
 		if ( ! hasPermissionsToManageWidgets ) {
@@ -109,13 +101,11 @@ class LegacyWidgetEdit extends Component {
 						isVisible={ ! isPreview }
 						identifier={ attributes.identifier }
 						instance={ attributes.instance }
-						onInstanceChange={
-							( newInstance ) => {
-								this.props.setAttributes( {
-									instance: newInstance,
-								} );
-							}
-						}
+						onInstanceChange={ ( newInstance ) => {
+							this.props.setAttributes( {
+								instance: newInstance,
+							} );
+						} }
 					/>
 				) }
 				{ ( isPreview || isCallbackWidget ) && this.renderWidgetPreview() }
@@ -153,10 +143,7 @@ class LegacyWidgetEdit extends Component {
 
 export default withSelect( ( select ) => {
 	const editorSettings = select( 'core/block-editor' ).getSettings();
-	const {
-		availableLegacyWidgets,
-		hasPermissionsToManageWidgets,
-	} = editorSettings;
+	const { availableLegacyWidgets, hasPermissionsToManageWidgets } = editorSettings;
 	return {
 		hasPermissionsToManageWidgets,
 		availableLegacyWidgets,

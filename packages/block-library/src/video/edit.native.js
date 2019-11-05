@@ -15,11 +15,7 @@ import {
 /**
  * WordPress dependencies
  */
-import {
-	Icon,
-	Toolbar,
-	ToolbarButton,
-} from '@wordpress/components';
+import { Icon, Toolbar, ToolbarButton } from '@wordpress/components';
 import { withPreferredColorScheme } from '@wordpress/compose';
 import {
 	Caption,
@@ -150,7 +146,9 @@ class VideoEdit extends React.Component {
 		}
 
 		const iconStyle = this.props.getStylesFromColorScheme( style.icon, style.iconDark );
-		return <Icon icon={ SvgIcon } { ...( ! isMediaPlaceholder ? style.iconUploading : iconStyle ) } />;
+		return (
+			<Icon icon={ SvgIcon } { ...( ! isMediaPlaceholder ? style.iconUploading : iconStyle ) } />
+		);
 	}
 
 	render() {
@@ -159,26 +157,23 @@ class VideoEdit extends React.Component {
 		const { videoContainerHeight } = this.state;
 
 		const toolbarEditButton = (
-			<MediaUpload allowedTypes={ [ MEDIA_TYPE_VIDEO ] }
+			<MediaUpload
+				allowedTypes={ [ MEDIA_TYPE_VIDEO ] }
 				onSelect={ this.onSelectMediaUploadOption }
 				render={ ( { open, getMediaOptions } ) => {
 					return (
 						<Toolbar>
 							{ getMediaOptions() }
-							<ToolbarButton
-								label={ __( 'Edit video' ) }
-								icon="edit"
-								onClick={ open }
-							/>
+							<ToolbarButton label={ __( 'Edit video' ) } icon="edit" onClick={ open } />
 						</Toolbar>
 					);
-				} } >
-			</MediaUpload>
+				} }
+			></MediaUpload>
 		);
 
 		if ( ! id ) {
 			return (
-				<View style={ { flex: 1 } } >
+				<View style={ { flex: 1 } }>
 					<MediaPlaceholder
 						allowedTypes={ [ MEDIA_TYPE_VIDEO ] }
 						onSelect={ this.onSelectMediaUploadOption }
@@ -192,10 +187,7 @@ class VideoEdit extends React.Component {
 		return (
 			<TouchableWithoutFeedback onPress={ this.onVideoPressed } disabled={ ! isSelected }>
 				<View style={ { flex: 1 } }>
-					{ ! this.state.isCaptionSelected &&
-						<BlockControls>
-							{ toolbarEditButton }
-						</BlockControls> }
+					{ ! this.state.isCaptionSelected && <BlockControls>{ toolbarEditButton }</BlockControls> }
 					<MediaUploadProgress
 						mediaId={ id }
 						onFinishMediaUploadWithSuccess={ this.finishMediaUploadWithSuccess }
@@ -207,22 +199,19 @@ class VideoEdit extends React.Component {
 							const icon = this.getIcon( isUploadFailed, false );
 							const styleIconContainer = isUploadFailed ? style.modalIconRetry : style.modalIcon;
 
-							const iconContainer = (
-								<View style={ styleIconContainer }>
-									{ icon }
-								</View>
-							);
+							const iconContainer = <View style={ styleIconContainer }>{ icon }</View>;
 
 							const videoStyle = {
 								height: videoContainerHeight,
 								...style.video,
 							};
 
-							const containerStyle = showVideo && isSelected ? style.containerFocused : style.container;
+							const containerStyle =
+								showVideo && isSelected ? style.containerFocused : style.container;
 
 							return (
 								<View onLayout={ this.onVideoContanerLayout } style={ containerStyle }>
-									{ showVideo &&
+									{ showVideo && (
 										<View style={ style.videoContainer }>
 											<VideoPlayer
 												isSelected={ isSelected && ! this.state.isCaptionSelected }
@@ -231,13 +220,21 @@ class VideoEdit extends React.Component {
 												paused={ true }
 											/>
 										</View>
-									}
-									{ ! showVideo &&
-										<View style={ { height: videoContainerHeight, width: '100%', ...style.placeholder } }>
+									) }
+									{ ! showVideo && (
+										<View
+											style={ {
+												height: videoContainerHeight,
+												width: '100%',
+												...style.placeholder,
+											} }
+										>
 											{ videoContainerHeight > 0 && iconContainer }
-											{ isUploadFailed && <Text style={ style.uploadFailedText }>{ retryMessage }</Text> }
+											{ isUploadFailed && (
+												<Text style={ style.uploadFailedText }>{ retryMessage }</Text>
+											) }
 										</View>
-									}
+									) }
 								</View>
 							);
 						} }

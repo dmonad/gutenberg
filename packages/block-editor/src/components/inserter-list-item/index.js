@@ -8,28 +8,21 @@ import classnames from 'classnames';
  */
 import BlockIcon from '../block-icon';
 
-function InserterListItem( {
-	icon,
-	onClick,
-	isDisabled,
-	title,
-	className,
-	...props
-} ) {
-	const itemIconStyle = icon ? {
-		backgroundColor: icon.background,
-		color: icon.foreground,
-	} : {};
+function InserterListItem( { icon, onClick, isDisabled, title, className, ...props } ) {
+	const itemIconStyle = icon
+		? {
+				backgroundColor: icon.background,
+				color: icon.foreground,
+		  }
+		: {};
 
 	return (
 		<li className="editor-block-types-list__list-item block-editor-block-types-list__list-item">
 			<button
-				className={
-					classnames(
-						'editor-block-types-list__item block-editor-block-types-list__item',
-						className
-					)
-				}
+				className={ classnames(
+					'editor-block-types-list__item block-editor-block-types-list__item',
+					className
+				) }
 				onClick={ ( event ) => {
 					event.preventDefault();
 					onClick();

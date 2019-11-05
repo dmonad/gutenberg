@@ -18,15 +18,12 @@ export default function LegacyWidgetPlaceholder( {
 	onChangeWidget,
 } ) {
 	const visibleLegacyWidgets = useMemo(
-		() => pickBy(
-			availableLegacyWidgets,
-			( { isHidden } ) => ! isHidden
-		),
+		() => pickBy( availableLegacyWidgets, ( { isHidden } ) => ! isHidden ),
 		[ availableLegacyWidgets ]
 	);
 	let placeholderContent;
 	if ( ! hasPermissionsToManageWidgets ) {
-		placeholderContent = __( 'You don\'t have permissions to use widgets on this site.' );
+		placeholderContent = __( "You don't have permissions to use widgets on this site." );
 	}
 	if ( isEmpty( visibleLegacyWidgets ) ) {
 		placeholderContent = __( 'There are no widgets available.' );
@@ -47,10 +44,7 @@ export default function LegacyWidgetPlaceholder( {
 		/>
 	);
 	return (
-		<Placeholder
-			icon={ <BlockIcon icon="admin-customizer" /> }
-			label={ __( 'Legacy Widget' ) }
-		>
+		<Placeholder icon={ <BlockIcon icon="admin-customizer" /> } label={ __( 'Legacy Widget' ) }>
 			{ placeholderContent }
 		</Placeholder>
 	);

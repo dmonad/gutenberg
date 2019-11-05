@@ -166,23 +166,23 @@ export const registerCoreBlocks = () => {
  * ```
  */
 export const __experimentalRegisterExperimentalCoreBlocks =
-	process.env.GUTENBERG_PHASE === 2 ?
-		( settings ) => {
-			const {
-				__experimentalEnableLegacyWidgetBlock,
-				__experimentalEnableMenuBlock,
-				__experimentalEnableFullSiteEditing,
-			} = settings
+	process.env.GUTENBERG_PHASE === 2
+		? ( settings ) => {
+				const {
+					__experimentalEnableLegacyWidgetBlock,
+					__experimentalEnableMenuBlock,
+					__experimentalEnableFullSiteEditing,
+				} = settings;
 
-				;[
-				__experimentalEnableLegacyWidgetBlock ? legacyWidget : null,
-				__experimentalEnableMenuBlock ? navigationMenu : null,
-				__experimentalEnableMenuBlock ? navigationMenuItem : null,
-				socialLinks,
-				...socialLink.sites,
+				[
+					__experimentalEnableLegacyWidgetBlock ? legacyWidget : null,
+					__experimentalEnableMenuBlock ? navigationMenu : null,
+					__experimentalEnableMenuBlock ? navigationMenuItem : null,
+					socialLinks,
+					...socialLink.sites,
 
-				// Register Full Site Editing Blocks.
-				...( __experimentalEnableFullSiteEditing ? [ siteTitle ] : [] ),
-			].forEach( registerBlock );
-		} :
-		undefined;
+					// Register Full Site Editing Blocks.
+					...( __experimentalEnableFullSiteEditing ? [ siteTitle ] : [] ),
+				].forEach( registerBlock );
+		  }
+		: undefined;

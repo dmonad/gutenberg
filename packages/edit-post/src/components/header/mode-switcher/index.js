@@ -35,14 +35,8 @@ function ModeSwitcher( { onSwitch, mode } ) {
 	} );
 
 	return (
-		<MenuGroup
-			label={ __( 'Editor' ) }
-		>
-			<MenuItemsChoice
-				choices={ choices }
-				value={ mode }
-				onSelect={ onSwitch }
-			/>
+		<MenuGroup label={ __( 'Editor' ) }>
+			<MenuItemsChoice choices={ choices } value={ mode } onSelect={ onSwitch } />
 		</MenuGroup>
 	);
 }
@@ -53,7 +47,10 @@ export default compose( [
 		isCodeEditingEnabled: select( 'core/editor' ).getEditorSettings().codeEditingEnabled,
 		mode: select( 'core/edit-post' ).getEditorMode(),
 	} ) ),
-	ifCondition( ( { isRichEditingEnabled, isCodeEditingEnabled } ) => isRichEditingEnabled && isCodeEditingEnabled ),
+	ifCondition(
+		( { isRichEditingEnabled, isCodeEditingEnabled } ) =>
+			isRichEditingEnabled && isCodeEditingEnabled
+	),
 	withDispatch( ( dispatch ) => ( {
 		onSwitch( mode ) {
 			dispatch( 'core/edit-post' ).switchEditorMode( mode );

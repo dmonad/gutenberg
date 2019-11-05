@@ -21,18 +21,23 @@ const EmbedPlaceholder = ( props ) => {
 					className="components-placeholder__input"
 					aria-label={ label }
 					placeholder={ __( 'Enter URL to embed here…' ) }
-					onChange={ onChange } />
-				<Button
-					isLarge
-					type="submit">
+					onChange={ onChange }
+				/>
+				<Button isLarge type="submit">
 					{ _x( 'Embed', 'button label' ) }
 				</Button>
-				{ cannotEmbed &&
+				{ cannotEmbed && (
 					<p className="components-placeholder__error">
-						{ __( 'Sorry, this content could not be embedded.' ) }<br />
-						<Button isLarge onClick={ tryAgain }>{ _x( 'Try again', 'button label' ) }</Button> <Button isLarge onClick={ fallback }>{ _x( 'Convert to link', 'button label' ) }</Button>
+						{ __( 'Sorry, this content could not be embedded.' ) }
+						<br />
+						<Button isLarge onClick={ tryAgain }>
+							{ _x( 'Try again', 'button label' ) }
+						</Button>{' '}
+						<Button isLarge onClick={ fallback }>
+							{ _x( 'Convert to link', 'button label' ) }
+						</Button>
 					</p>
-				}
+				) }
 			</form>
 			<div className="components-placeholder__learn-more">
 				<ExternalLink href={ __( 'https://wordpress.org/support/article/embeds/' ) }>

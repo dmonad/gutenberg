@@ -95,11 +95,13 @@ describe( 'PanelColorSettings', () => {
 						value: '#000',
 						onChange: noop,
 						label: 'border color',
-						colors: [ {
-							slug: 'red',
-							name: 'Red',
-							color: '#ff0000',
-						} ],
+						colors: [
+							{
+								slug: 'red',
+								name: 'Red',
+								color: '#ff0000',
+							},
+						],
 					},
 					{
 						value: '#111',

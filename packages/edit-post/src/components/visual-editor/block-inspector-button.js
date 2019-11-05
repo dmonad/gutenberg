@@ -32,12 +32,18 @@ export function BlockInspectorButton( {
 		}
 	};
 
-	const label = areAdvancedSettingsOpened ? __( 'Hide Block Settings' ) : __( 'Show Block Settings' );
+	const label = areAdvancedSettingsOpened
+		? __( 'Hide Block Settings' )
+		: __( 'Show Block Settings' );
 
 	return (
 		<MenuItem
 			className="editor-block-settings-menu__control block-editor-block-settings-menu__control"
-			onClick={ flow( areAdvancedSettingsOpened ? closeSidebar : openEditorSidebar, speakMessage, onClick ) }
+			onClick={ flow(
+				areAdvancedSettingsOpened ? closeSidebar : openEditorSidebar,
+				speakMessage,
+				onClick
+			) }
 			icon="admin-generic"
 			shortcut={ shortcuts.toggleSidebar }
 		>
@@ -48,11 +54,12 @@ export function BlockInspectorButton( {
 
 export default compose(
 	withSelect( ( select ) => ( {
-		areAdvancedSettingsOpened: select( 'core/edit-post' ).getActiveGeneralSidebarName() === 'edit-post/block',
+		areAdvancedSettingsOpened:
+			select( 'core/edit-post' ).getActiveGeneralSidebarName() === 'edit-post/block',
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
 		openEditorSidebar: () => dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/block' ),
 		closeSidebar: dispatch( 'core/edit-post' ).closeGeneralSidebar,
 	} ) ),
-	withSpokenMessages,
+	withSpokenMessages
 )( BlockInspectorButton );

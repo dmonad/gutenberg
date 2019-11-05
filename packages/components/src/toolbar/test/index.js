@@ -68,13 +68,15 @@ describe( 'Toolbar', () => {
 
 		it( 'should render a nested list of controls with separator between', () => {
 			const controls = [
-				[ // First set
+				[
+					// First set
 					{
 						icon: 'wordpress',
 						title: 'WordPress',
 					},
 				],
-				[ // Second set
+				[
+					// Second set
 					{
 						icon: 'wordpress',
 						title: 'WordPress',

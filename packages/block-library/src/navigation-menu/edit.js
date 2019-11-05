@@ -6,23 +6,10 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import {
-	useMemo,
-	useEffect,
-} from '@wordpress/element';
-import {
-	InnerBlocks,
-	InspectorControls,
-	BlockControls,
-	withColors,
-} from '@wordpress/block-editor';
+import { useMemo, useEffect } from '@wordpress/element';
+import { InnerBlocks, InspectorControls, BlockControls, withColors } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
-import {
-	CheckboxControl,
-	PanelBody,
-	Spinner,
-	Toolbar,
-} from '@wordpress/components';
+import { CheckboxControl, PanelBody, Spinner, Toolbar } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
 import { __ } from '@wordpress/i18n';
@@ -46,19 +33,17 @@ function NavigationMenu( {
 	setAttributes,
 } ) {
 	const { navigatorToolbarButton, navigatorModal } = useBlockNavigator( clientId );
-	const defaultMenuItems = useMemo(
-		() => {
-			if ( ! pages ) {
-				return null;
-			}
-			return pages.map( ( page ) => {
-				return [ 'core/navigation-menu-item',
-					{ label: page.title.rendered, url: page.permalink_template },
-				];
-			} );
-		},
-		[ pages ]
-	);
+	const defaultMenuItems = useMemo( () => {
+		if ( ! pages ) {
+			return null;
+		}
+		return pages.map( ( page ) => {
+			return [
+				'core/navigation-menu-item',
+				{ label: page.title.rendered, url: page.permalink_template },
+			];
+		} );
+	}, [ pages ] );
 
 	const navigationMenuStyles = {};
 	if ( textColor.color ) {
@@ -69,12 +54,10 @@ function NavigationMenu( {
 		navigationMenuStyles[ '--background-color-menu-link' ] = backgroundColor.color;
 	}
 
-	const navigationMenuClasses = classnames(
-		'wp-block-navigation-menu', {
-			'has-text-color': textColor.color,
-			'has-background-color': backgroundColor.color,
-		}
-	);
+	const navigationMenuClasses = classnames( 'wp-block-navigation-menu', {
+		'has-text-color': textColor.color,
+		'has-background-color': backgroundColor.color,
+	} );
 
 	/**
 	 * Set the color type according to the given values.
@@ -111,9 +94,7 @@ function NavigationMenu( {
 	return (
 		<>
 			<BlockControls>
-				<Toolbar>
-					{ navigatorToolbarButton }
-				</Toolbar>
+				<Toolbar>{ navigatorToolbarButton }</Toolbar>
 				<BlockColorsStyleSelector
 					style={ navigationMenuStyles }
 					className={ navigationMenuClasses }
@@ -124,9 +105,7 @@ function NavigationMenu( {
 			</BlockControls>
 			{ navigatorModal }
 			<InspectorControls>
-				<PanelBody
-					title={ __( 'Menu Settings' ) }
-				>
+				<PanelBody title={ __( 'Menu Settings' ) }>
 					<CheckboxControl
 						value={ attributes.automaticallyAdd }
 						onChange={ ( automaticallyAdd ) => setAttributes( { automaticallyAdd } ) }
@@ -134,23 +113,25 @@ function NavigationMenu( {
 						help={ __( 'Automatically add new top level pages to this menu.' ) }
 					/>
 				</PanelBody>
-				<PanelBody
-					title={ __( 'Navigation Structure' ) }
-				>
+				<PanelBody title={ __( 'Navigation Structure' ) }>
 					<BlockNavigationList clientId={ clientId } />
 				</PanelBody>
 			</InspectorControls>
 
 			<div className={ navigationMenuClasses } style={ navigationMenuStyles }>
-				{ isRequesting && <><Spinner /> { __( 'Loading Navigation…' ) } </> }
-				{ pages &&
+				{ isRequesting && (
+					<>
+						<Spinner /> { __( 'Loading Navigation…' ) }{' '}
+					</>
+				) }
+				{ pages && (
 					<InnerBlocks
 						template={ defaultMenuItems ? defaultMenuItems : null }
 						allowedBlocks={ [ 'core/navigation-menu-item' ] }
 						templateInsertUpdatesSelection={ false }
 						__experimentalMoverDirection={ 'horizontal' }
 					/>
-				}
+				) }
 			</div>
 		</>
 	);
@@ -168,7 +149,11 @@ export default compose( [
 		};
 		return {
 			pages: getEntityRecords( 'postType', 'page', filterDefaultPages ),
-			isRequesting: isResolving( 'core', 'getEntityRecords', [ 'postType', 'page', filterDefaultPages ] ),
+			isRequesting: isResolving( 'core', 'getEntityRecords', [
+				'postType',
+				'page',
+				filterDefaultPages,
+			] ),
 		};
 	} ),
 ] )( NavigationMenu );

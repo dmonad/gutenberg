@@ -66,33 +66,34 @@ export class IgnoreNestedEvents extends Component {
 	render() {
 		const { childHandledEvents = [], forwardedRef, tagName = 'div', ...props } = this.props;
 
-		const eventHandlers = reduce( [
-			...childHandledEvents,
-			...Object.keys( props ),
-		], ( result, key ) => {
-			// Try to match prop key as event handler
-			const match = key.match( /^on([A-Z][a-zA-Z]+?)(Handled)?$/ );
-			if ( match ) {
-				const isHandledProp = !! match[ 2 ];
-				if ( isHandledProp ) {
-					// Avoid assigning through the invalid prop key. This
-					// assumes mutation of shallow clone by above spread.
-					delete props[ key ];
+		const eventHandlers = reduce(
+			[ ...childHandledEvents, ...Object.keys( props ) ],
+			( result, key ) => {
+				// Try to match prop key as event handler
+				const match = key.match( /^on([A-Z][a-zA-Z]+?)(Handled)?$/ );
+				if ( match ) {
+					const isHandledProp = !! match[ 2 ];
+					if ( isHandledProp ) {
+						// Avoid assigning through the invalid prop key. This
+						// assumes mutation of shallow clone by above spread.
+						delete props[ key ];
+					}
+
+					// Re-map the prop to the local proxy handler to check whether
+					// the event has already been handled.
+					const proxiedPropName = 'on' + match[ 1 ];
+					result[ proxiedPropName ] = this.proxyEvent;
+
+					// Assign event -> propName into an instance variable, so as to
+					// avoid re-renders which could be incurred either by setState
+					// or in mapping values to a newly created function.
+					this.eventMap[ match[ 1 ].toLowerCase() ] = proxiedPropName;
 				}
 
-				// Re-map the prop to the local proxy handler to check whether
-				// the event has already been handled.
-				const proxiedPropName = 'on' + match[ 1 ];
-				result[ proxiedPropName ] = this.proxyEvent;
-
-				// Assign event -> propName into an instance variable, so as to
-				// avoid re-renders which could be incurred either by setState
-				// or in mapping values to a newly created function.
-				this.eventMap[ match[ 1 ].toLowerCase() ] = proxiedPropName;
-			}
-
-			return result;
-		}, {} );
+				return result;
+			},
+			{}
+		);
 
 		return createElement( tagName, { ref: forwardedRef, ...props, ...eventHandlers } );
 	}

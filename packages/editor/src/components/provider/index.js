@@ -167,7 +167,7 @@ class EditorProvider extends Component {
 			settings,
 			reusableBlocks,
 			hasUploadPermissions,
-			canUserUseUnfilteredHTML,
+			canUserUseUnfilteredHTML
 		);
 
 		return (

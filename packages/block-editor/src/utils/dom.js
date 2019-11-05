@@ -70,8 +70,9 @@ export function isInSameBlock( a, b ) {
  */
 export function isInsideRootBlock( blockElement, element ) {
 	const innerBlocksContainer = blockElement.querySelector( '.block-editor-block-list__layout' );
-	return blockElement.contains( element ) && (
-		! innerBlocksContainer || ! innerBlocksContainer.contains( element )
+	return (
+		blockElement.contains( element ) &&
+		( ! innerBlocksContainer || ! innerBlocksContainer.contains( element ) )
 	);
 }
 

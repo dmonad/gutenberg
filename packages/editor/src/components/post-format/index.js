@@ -29,7 +29,13 @@ export const POST_FORMATS = [
 	{ id: 'chat', caption: __( 'Chat' ) },
 ];
 
-function PostFormat( { onUpdatePostFormat, postFormat = 'standard', supportedFormats, suggestedFormat, instanceId } ) {
+function PostFormat( {
+	onUpdatePostFormat,
+	postFormat = 'standard',
+	supportedFormats,
+	suggestedFormat,
+	instanceId,
+} ) {
 	const postFormatSelectorId = 'post-format-selector-' + instanceId;
 	const formats = POST_FORMATS.filter( ( format ) => includes( supportedFormats, format.id ) );
 	const suggestion = find( formats, ( format ) => format.id === suggestedFormat );
@@ -54,7 +60,7 @@ function PostFormat( { onUpdatePostFormat, postFormat = 'standard', supportedFor
 
 				{ suggestion && suggestion.id !== postFormat && (
 					<div className="editor-post-format__suggestion">
-						{ __( 'Suggestion:' ) }{ ' ' }
+						{ __( 'Suggestion:' ) }{' '}
 						<Button isLink onClick={ () => onUpdatePostFormat( suggestion.id ) }>
 							{ suggestion.caption }
 						</Button>

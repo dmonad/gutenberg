@@ -25,29 +25,26 @@ describe( 'Preloading Middleware', () => {
 		} );
 	} );
 
-	describe.each( [
-		[ 'GET' ],
-		[ 'OPTIONS' ],
-	] )( '%s', ( method ) => {
-		describe.each( [
-			[ 'all empty', {} ],
-			[ 'method empty', { [ method ]: {} } ],
-		] )( '%s', ( label, preloadedData ) => {
-			it( 'should move to the next middleware if no preloaded data', () => {
-				const prelooadingMiddleware = createPreloadingMiddleware( preloadedData );
-				const requestOptions = {
-					method,
-					path: 'wp/v2/posts',
-				};
+	describe.each( [ [ 'GET' ], [ 'OPTIONS' ] ] )( '%s', ( method ) => {
+		describe.each( [ [ 'all empty', {} ], [ 'method empty', { [ method ]: {} } ] ] )(
+			'%s',
+			( label, preloadedData ) => {
+				it( 'should move to the next middleware if no preloaded data', () => {
+					const prelooadingMiddleware = createPreloadingMiddleware( preloadedData );
+					const requestOptions = {
+						method,
+						path: 'wp/v2/posts',
+					};
 
-				const callback = ( options ) => {
-					expect( options ).toBe( requestOptions );
-					return true;
-				};
+					const callback = ( options ) => {
+						expect( options ).toBe( requestOptions );
+						return true;
+					};
 
-				const ret = prelooadingMiddleware( requestOptions, callback );
-				expect( ret ).toBe( true );
-			} );
-		} );
+					const ret = prelooadingMiddleware( requestOptions, callback );
+					expect( ret ).toBe( true );
+				} );
+			}
+		);
 	} );
 } );

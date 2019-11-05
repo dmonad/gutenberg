@@ -1,4 +1,3 @@
-
 /**
  * WordPress dependencies
  */
@@ -61,7 +60,6 @@ const LinkControlSearchInput = ( {
 				className="block-editor-link-control__search-reset"
 				onClick={ onReset }
 			/>
-
 		</form>
 	);
 };

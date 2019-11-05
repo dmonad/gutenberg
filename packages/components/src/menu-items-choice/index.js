@@ -3,11 +3,7 @@
  */
 import MenuItem from '../menu-item';
 
-export default function MenuItemsChoice( {
-	choices = [],
-	onSelect,
-	value,
-} ) {
+export default function MenuItemsChoice( { choices = [], onSelect, value } ) {
 	return choices.map( ( item ) => {
 		const isSelected = value === item.value;
 		return (

@@ -1,4 +1,3 @@
-
 /**
  * External dependencies
  */
@@ -10,7 +9,13 @@ import { isEqual } from 'lodash';
  */
 import { Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { getBlockAttributes, getBlockContent, getBlockType, isValidBlockContent, getSaveContent } from '@wordpress/blocks';
+import {
+	getBlockAttributes,
+	getBlockContent,
+	getBlockType,
+	isValidBlockContent,
+	getSaveContent,
+} from '@wordpress/blocks';
 import { withSelect, withDispatch } from '@wordpress/data';
 
 export class BlockHTML extends Component {
@@ -71,7 +76,11 @@ export default compose( [
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
 		onChange( clientId, attributes, originalContent, isValid ) {
-			dispatch( 'core/block-editor' ).updateBlock( clientId, { attributes, originalContent, isValid } );
+			dispatch( 'core/block-editor' ).updateBlock( clientId, {
+				attributes,
+				originalContent,
+				isValid,
+			} );
 		},
 	} ) ),
 ] )( BlockHTML );

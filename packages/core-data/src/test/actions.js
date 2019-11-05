@@ -1,7 +1,13 @@
 /**
  * Internal dependencies
  */
-import { saveEntityRecord, receiveEntityRecords, receiveUserPermission, receiveAutosaves, receiveCurrentUser } from '../actions';
+import {
+	saveEntityRecord,
+	receiveEntityRecords,
+	receiveUserPermission,
+	receiveAutosaves,
+	receiveCurrentUser,
+} from '../actions';
 
 describe( 'saveEntityRecord', () => {
 	it( 'triggers a POST request for a new record', async () => {
@@ -11,9 +17,7 @@ describe( 'saveEntityRecord', () => {
 		// Trigger generator
 		fulfillment.next();
 		// Provide entities and trigger apiFetch
-		expect( fulfillment.next( entities ).value.type ).toBe(
-			'SAVE_ENTITY_RECORD_START'
-		);
+		expect( fulfillment.next( entities ).value.type ).toBe( 'SAVE_ENTITY_RECORD_START' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
@@ -28,13 +32,7 @@ describe( 'saveEntityRecord', () => {
 		const updatedRecord = { ...post, id: 10 };
 		const { value: received } = fulfillment.next( updatedRecord );
 		expect( received ).toEqual(
-			receiveEntityRecords(
-				'postType',
-				'post',
-				updatedRecord,
-				undefined,
-				true
-			)
+			receiveEntityRecords( 'postType', 'post', updatedRecord, undefined, true )
 		);
 		expect( fulfillment.next().value.type ).toBe( 'SAVE_ENTITY_RECORD_FINISH' );
 		expect( fulfillment.next().value ).toBe( updatedRecord );
@@ -47,9 +45,7 @@ describe( 'saveEntityRecord', () => {
 		// Trigger generator
 		fulfillment.next();
 		// Provide entities and trigger apiFetch
-		expect( fulfillment.next( entities ).value.type ).toBe(
-			'SAVE_ENTITY_RECORD_START'
-		);
+		expect( fulfillment.next( entities ).value.type ).toBe( 'SAVE_ENTITY_RECORD_START' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
@@ -73,9 +69,7 @@ describe( 'saveEntityRecord', () => {
 		// Trigger generator
 		fulfillment.next();
 		// Provide entities and trigger apiFetch
-		expect( fulfillment.next( entities ).value.type ).toBe(
-			'SAVE_ENTITY_RECORD_START'
-		);
+		expect( fulfillment.next( entities ).value.type ).toBe( 'SAVE_ENTITY_RECORD_START' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
 		expect( fulfillment.next().value.type ).toBe( 'SELECT' );
@@ -88,7 +82,9 @@ describe( 'saveEntityRecord', () => {
 		} );
 		// Provide response and trigger action
 		const { value: received } = fulfillment.next( postType );
-		expect( received ).toEqual( receiveEntityRecords( 'root', 'postType', postType, undefined, true ) );
+		expect( received ).toEqual(
+			receiveEntityRecords( 'root', 'postType', postType, undefined, true )
+		);
 		expect( fulfillment.next().value.type ).toBe( 'SAVE_ENTITY_RECORD_FINISH' );
 	} );
 } );

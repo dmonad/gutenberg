@@ -60,14 +60,19 @@ export default function BlockNavigationList( {
 					<li key={ block.clientId }>
 						<div className="editor-block-navigation__item block-editor-block-navigation__item">
 							<Button
-								className={ classnames( 'editor-block-navigation__item-button block-editor-block-navigation__item-button', {
-									'is-selected': isSelected,
-								} ) }
+								className={ classnames(
+									'editor-block-navigation__item-button block-editor-block-navigation__item-button',
+									{
+										'is-selected': isSelected,
+									}
+								) }
 								onClick={ () => selectBlock( block.clientId ) }
 							>
 								<BlockIcon icon={ blockType.icon } showColors />
 								{ getBlockDisplayName( blockType, block.attributes ) }
-								{ isSelected && <span className="screen-reader-text">{ __( '(selected block)' ) }</span> }
+								{ isSelected && (
+									<span className="screen-reader-text">{ __( '(selected block)' ) }</span>
+								) }
 							</Button>
 						</div>
 						{ showNestedBlocks && !! block.innerBlocks && !! block.innerBlocks.length && (

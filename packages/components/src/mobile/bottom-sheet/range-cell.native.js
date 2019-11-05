@@ -25,12 +25,14 @@ class BottomSheetRangeCell extends Component {
 		this.onChangeValue = this.onChangeValue.bind( this );
 		this.onCellPress = this.onCellPress.bind( this );
 
-		const initialValue = this.validateInput( props.value || props.defaultValue || props.minimumValue );
+		const initialValue = this.validateInput(
+			props.value || props.defaultValue || props.minimumValue
+		);
 
 		this.state = { accessible: true, sliderValue: initialValue, initialValue, hasFocus: false };
 	}
 
-	componentDidUpdate( ) {
+	componentDidUpdate() {
 		const reset = this.props.value === null;
 		if ( reset ) {
 			this.handleReset();
@@ -71,7 +73,10 @@ class BottomSheetRangeCell extends Component {
 		if ( typeof text === 'number' ) {
 			return Math.min( Math.max( text, minimumValue ), maximumValue );
 		}
-		return Math.min( Math.max( text.replace( /[^0-9]/g, '' ).replace( /^0+(?=\d)/, '' ), minimumValue ), maximumValue );
+		return Math.min(
+			Math.max( text.replace( /[^0-9]/g, '' ).replace( /^0+(?=\d)/, '' ), minimumValue ),
+			maximumValue
+		);
 	}
 
 	handleValueSave( text ) {
@@ -125,11 +130,11 @@ class BottomSheetRangeCell extends Component {
 
 		const { hasFocus, sliderValue, accessible } = this.state;
 
-		const accessibilityLabel =
-		sprintf(
+		const accessibilityLabel = sprintf(
 			/* translators: accessibility text. Inform about current value. %1$s: Control label %2$s: Current value. */
 			_x( '%1$s. Current value is %2$s', 'Slider for picking a number inside a range' ),
-			cellProps.label, value
+			cellProps.label,
+			value
 		);
 
 		return (

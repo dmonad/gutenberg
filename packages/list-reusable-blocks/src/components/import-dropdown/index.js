@@ -20,17 +20,17 @@ function ImportDropdown( { onUpload } ) {
 			position="bottom right"
 			contentClassName="list-reusable-blocks-import-dropdown__content"
 			renderToggle={ ( { isOpen, onToggle } ) => (
-				<Button
-					type="button"
-					aria-expanded={ isOpen }
-					onClick={ onToggle }
-					isPrimary
-				>
+				<Button type="button" aria-expanded={ isOpen } onClick={ onToggle } isPrimary>
 					{ __( 'Import from JSON' ) }
 				</Button>
 			) }
 			renderContent={ ( { onClose } ) => (
-				<ImportForm onUpload={ flow( onClose, onUpload ) } />
+				<ImportForm
+					onUpload={ flow(
+						onClose,
+						onUpload
+					) }
+				/>
 			) }
 		/>
 	);

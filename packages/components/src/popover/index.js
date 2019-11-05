@@ -46,7 +46,12 @@ function useThrottledWindowScrollOrResize( handler, ignoredScrollableRef ) {
 		let refreshHandle;
 		const throttledRefresh = ( event ) => {
 			window.cancelAnimationFrame( refreshHandle );
-			if ( ignoredScrollableRef && event && event.type === 'scroll' && ignoredScrollableRef.current.contains( event.target ) ) {
+			if (
+				ignoredScrollableRef &&
+				event &&
+				event.type === 'scroll' &&
+				ignoredScrollableRef.current.contains( event.target )
+			) {
 				return;
 			}
 			refreshHandle = window.requestAnimationFrame( handler );
@@ -111,12 +116,12 @@ function useAnchor( anchorRef, contentRef, anchorRect, getAnchorRect ) {
 	useEffect( () => {
 		if ( ! anchorRect ) {
 			/*
-			* There are sometimes we need to reposition or resize the popover that are not
-			* handled by the resize/scroll window events (i.e. CSS changes in the layout
-			* that changes the position of the anchor).
-			*
-			* For these situations, we refresh the popover every 0.5s
-			*/
+			 * There are sometimes we need to reposition or resize the popover that are not
+			 * handled by the resize/scroll window events (i.e. CSS changes in the layout
+			 * that changes the position of the anchor).
+			 *
+			 * For these situations, we refresh the popover every 0.5s
+			 */
 			const intervalHandle = setInterval( refreshAnchorRect, 500 );
 
 			return () => clearInterval( intervalHandle );
@@ -223,8 +228,8 @@ function useFocusContentOnMount( focusOnMount, contentRef ) {
 			}
 
 			if ( focusOnMount === 'firstElement' ) {
-			// Find first tabbable node within content and shift focus, falling
-			// back to the popover panel itself.
+				// Find first tabbable node within content and shift focus, falling
+				// back to the popover panel itself.
 				const firstTabbable = focus.tabbable.find( contentRef.current )[ 0 ];
 				if ( firstTabbable ) {
 					firstTabbable.focus();
@@ -236,8 +241,8 @@ function useFocusContentOnMount( focusOnMount, contentRef ) {
 			}
 
 			if ( focusOnMount === 'container' ) {
-			// Focus the popover panel itself so items in the popover are easily
-			// accessed via keyboard navigation.
+				// Focus the popover panel itself so items in the popover are easily
+				// accessed via keyboard navigation.
 				contentRef.current.focus();
 			}
 		}, 0 );
@@ -337,7 +342,23 @@ const Popover = ( {
 			clickEvent = new window.MouseEvent( 'click' );
 		} catch ( error ) {
 			clickEvent = document.createEvent( 'MouseEvent' );
-			clickEvent.initMouseEvent( 'click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null );
+			clickEvent.initMouseEvent(
+				'click',
+				true,
+				true,
+				window,
+				0,
+				0,
+				0,
+				0,
+				0,
+				false,
+				false,
+				false,
+				false,
+				0,
+				null
+			);
 		}
 
 		Object.defineProperty( clickEvent, 'target', {
@@ -370,10 +391,8 @@ const Popover = ( {
 		'is-' + popoverPosition.xAxis,
 		{
 			'is-mobile': popoverPosition.isMobile,
-			'is-without-arrow': noArrow || (
-				popoverPosition.xAxis === 'center' &&
-				popoverPosition.yAxis === 'middle'
-			),
+			'is-without-arrow':
+				noArrow || ( popoverPosition.xAxis === 'center' && popoverPosition.yAxis === 'middle' ),
 		}
 	);
 
@@ -390,8 +409,14 @@ const Popover = ( {
 					<IsolatedEventContainer
 						className={ classnames( classes, animateClassName ) }
 						style={ {
-							top: ! popoverPosition.isMobile && popoverPosition.popoverTop ? popoverPosition.popoverTop + 'px' : undefined,
-							left: ! popoverPosition.isMobile && popoverPosition.popoverLeft ? popoverPosition.popoverLeft + 'px' : undefined,
+							top:
+								! popoverPosition.isMobile && popoverPosition.popoverTop
+									? popoverPosition.popoverTop + 'px'
+									: undefined,
+							left:
+								! popoverPosition.isMobile && popoverPosition.popoverLeft
+									? popoverPosition.popoverLeft + 'px'
+									: undefined,
 							visibility: contentSize ? undefined : 'hidden',
 						} }
 						{ ...contentProps }
@@ -399,18 +424,26 @@ const Popover = ( {
 					>
 						{ popoverPosition.isMobile && (
 							<div className="components-popover__header">
-								<span className="components-popover__header-title">
-									{ headerTitle }
-								</span>
-								<IconButton className="components-popover__close" icon="no-alt" onClick={ onClose } />
+								<span className="components-popover__header-title">{ headerTitle }</span>
+								<IconButton
+									className="components-popover__close"
+									icon="no-alt"
+									onClick={ onClose }
+								/>
 							</div>
 						) }
 						<div
 							ref={ contentRef }
 							className="components-popover__content"
 							style={ {
-								maxHeight: ! popoverPosition.isMobile && popoverPosition.contentHeight ? popoverPosition.contentHeight + 'px' : undefined,
-								maxWidth: ! popoverPosition.isMobile && popoverPosition.contentWidth ? popoverPosition.contentWidth + 'px' : undefined,
+								maxHeight:
+									! popoverPosition.isMobile && popoverPosition.contentHeight
+										? popoverPosition.contentHeight + 'px'
+										: undefined,
+								maxWidth:
+									! popoverPosition.isMobile && popoverPosition.contentWidth
+										? popoverPosition.contentWidth + 'px'
+										: undefined,
 							} }
 							tabIndex="-1"
 						>

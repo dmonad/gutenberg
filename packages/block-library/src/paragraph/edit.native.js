@@ -25,31 +25,25 @@ class ParagraphEdit extends Component {
 
 	onReplace( blocks ) {
 		const { attributes, onReplace } = this.props;
-		onReplace( blocks.map( ( block, index ) => (
-			index === 0 && block.name === name ?
-				{ ...block,
-					attributes: {
-						...attributes,
-						...block.attributes,
-					},
-				} :
-				block
-		) ) );
+		onReplace(
+			blocks.map( ( block, index ) =>
+				index === 0 && block.name === name
+					? {
+							...block,
+							attributes: {
+								...attributes,
+								...block.attributes,
+							},
+					  }
+					: block
+			)
+		);
 	}
 
 	render() {
-		const {
-			attributes,
-			setAttributes,
-			mergeBlocks,
-			onReplace,
-			style,
-		} = this.props;
+		const { attributes, setAttributes, mergeBlocks, onReplace, style } = this.props;
 
-		const {
-			placeholder,
-			content,
-		} = attributes;
+		const { placeholder, content } = attributes;
 
 		return (
 			<View>

@@ -19,10 +19,7 @@ import withClientId from './with-client-id';
 export const DefaultBlockAppender = ( { clientId, lastBlockClientId } ) => {
 	return (
 		<IgnoreNestedEvents childHandledEvents={ [ 'onFocus', 'onClick', 'onKeyDown' ] }>
-			<BaseDefaultBlockAppender
-				rootClientId={ clientId }
-				lastBlockClientId={ lastBlockClientId }
-			/>
+			<BaseDefaultBlockAppender rootClientId={ clientId } lastBlockClientId={ lastBlockClientId } />
 		</IgnoreNestedEvents>
 	);
 };
@@ -30,9 +27,7 @@ export const DefaultBlockAppender = ( { clientId, lastBlockClientId } ) => {
 export default compose( [
 	withClientId,
 	withSelect( ( select, { clientId } ) => {
-		const {
-			getBlockOrder,
-		} = select( 'core/block-editor' );
+		const { getBlockOrder } = select( 'core/block-editor' );
 
 		const blockClientIds = getBlockOrder( clientId );
 

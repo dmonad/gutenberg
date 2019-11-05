@@ -14,7 +14,9 @@ export { dragAndResize } from './drag-and-resize';
 export { enablePageDialogAccept } from './enable-page-dialog-accept';
 export { enablePrePublishChecks } from './enable-pre-publish-checks';
 export { ensureSidebarOpened } from './ensure-sidebar-opened';
-export { findSidebarPanelToggleButtonWithTitle } from './find-sidebar-panel-toggle-button-with-title';
+export {
+	findSidebarPanelToggleButtonWithTitle,
+} from './find-sidebar-panel-toggle-button-with-title';
 export { findSidebarPanelWithTitle } from './find-sidebar-panel-with-title';
 export { getAllBlockInserterItemTitles } from './get-all-block-inserter-item-titles';
 export { getAllBlocks } from './get-all-blocks';
@@ -35,7 +37,9 @@ export { openPublishPanel } from './open-publish-panel';
 export { pressKeyTimes } from './press-key-times';
 export { pressKeyWithModifier } from './press-key-with-modifier';
 export { publishPost } from './publish-post';
-export { publishPostWithPrePublishChecksDisabled } from './publish-post-with-pre-publish-checks-disabled';
+export {
+	publishPostWithPrePublishChecksDisabled,
+} from './publish-post-with-pre-publish-checks-disabled';
 export { saveDraft } from './save-draft';
 export { searchForBlock } from './search-for-block';
 export { selectBlockByClientId } from './select-block-by-client-id';

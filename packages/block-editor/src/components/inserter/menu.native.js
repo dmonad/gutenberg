@@ -7,10 +7,7 @@ import { FlatList, View, Text, TouchableHighlight } from 'react-native';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import {
-	createBlock,
-	isUnmodifiedDefaultBlock,
-} from '@wordpress/blocks';
+import { createBlock, isUnmodifiedDefaultBlock } from '@wordpress/blocks';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { withInstanceId, compose, withPreferredColorScheme } from '@wordpress/compose';
 import { BottomSheet, Icon } from '@wordpress/components';
@@ -41,7 +38,10 @@ export class InserterMenu extends Component {
 	calculateNumberOfColumns() {
 		const bottomSheetWidth = BottomSheet.getWidth();
 		const { paddingLeft: itemPaddingLeft, paddingRight: itemPaddingRight } = styles.modalItem;
-		const { paddingLeft: containerPaddingLeft, paddingRight: containerPaddingRight } = styles.content;
+		const {
+			paddingLeft: containerPaddingLeft,
+			paddingRight: containerPaddingRight,
+		} = styles.content;
 		const { width: itemWidth } = styles.modalIconWrapper;
 		const itemTotalWidth = itemWidth + itemPaddingLeft + itemPaddingRight;
 		const containerTotalWidth = bottomSheetWidth - ( containerPaddingLeft + containerPaddingRight );
@@ -64,9 +64,15 @@ export class InserterMenu extends Component {
 	render() {
 		const { getStylesFromColorScheme } = this.props;
 		const bottomPadding = styles.contentBottomPadding;
-		const modalIconWrapperStyle = getStylesFromColorScheme( styles.modalIconWrapper, styles.modalIconWrapperDark );
+		const modalIconWrapperStyle = getStylesFromColorScheme(
+			styles.modalIconWrapper,
+			styles.modalIconWrapperDark
+		);
 		const modalIconStyle = getStylesFromColorScheme( styles.modalIcon, styles.modalIconDark );
-		const modalItemLabelStyle = getStylesFromColorScheme( styles.modalItemLabel, styles.modalItemLabelDark );
+		const modalItemLabelStyle = getStylesFromColorScheme(
+			styles.modalItemLabel,
+			styles.modalItemLabelDark
+		);
 
 		return (
 			<BottomSheet
@@ -82,27 +88,30 @@ export class InserterMenu extends Component {
 					keyboardShouldPersistTaps="always"
 					numColumns={ this.state.numberOfColumns }
 					data={ this.props.items }
-					ItemSeparatorComponent={ () =>
-						<View style={ styles.rowSeparator } />
-					}
+					ItemSeparatorComponent={ () => <View style={ styles.rowSeparator } /> }
 					keyExtractor={ ( item ) => item.name }
-					renderItem={ ( { item } ) =>
+					renderItem={ ( { item } ) => (
 						<TouchableHighlight
 							style={ styles.touchableArea }
 							underlayColor="transparent"
-							activeOpacity={ .5 }
+							activeOpacity={ 0.5 }
 							accessibilityLabel={ item.title }
-							onPress={ () => this.props.onSelect( item ) }>
+							onPress={ () => this.props.onSelect( item ) }
+						>
 							<View style={ styles.modalItem }>
 								<View style={ modalIconWrapperStyle }>
 									<View style={ modalIconStyle }>
-										<Icon icon={ item.icon.src } fill={ modalIconStyle.fill } size={ modalIconStyle.width } />
+										<Icon
+											icon={ item.icon.src }
+											fill={ modalIconStyle.fill }
+											size={ modalIconStyle.width }
+										/>
 									</View>
 								</View>
 								<Text style={ modalItemLabelStyle }>{ item.title }</Text>
 							</View>
 						</TouchableHighlight>
-					}
+					) }
 				/>
 			</BottomSheet>
 		);
@@ -111,15 +120,10 @@ export class InserterMenu extends Component {
 
 export default compose(
 	withSelect( ( select, { clientId, isAppender, rootClientId } ) => {
-		const {
-			getInserterItems,
-			getBlockName,
-			getBlockRootClientId,
-			getBlockSelectionEnd,
-		} = select( 'core/block-editor' );
-		const {
-			getChildBlockNames,
-		} = select( 'core/blocks' );
+		const { getInserterItems, getBlockName, getBlockRootClientId, getBlockSelectionEnd } = select(
+			'core/block-editor'
+		);
+		const { getChildBlockNames } = select( 'core/blocks' );
 
 		let destinationRootClientId = rootClientId;
 		if ( ! destinationRootClientId && ! clientId && ! isAppender ) {
@@ -137,10 +141,7 @@ export default compose(
 		};
 	} ),
 	withDispatch( ( dispatch, ownProps, { select } ) => {
-		const {
-			showInsertionPoint,
-			hideInsertionPoint,
-		} = dispatch( 'core/block-editor' );
+		const { showInsertionPoint, hideInsertionPoint } = dispatch( 'core/block-editor' );
 
 		// To avoid duplication, getInsertionIndex is extracted and used in two event handlers
 		// This breaks the withDispatch not containing any logic rule.
@@ -148,15 +149,10 @@ export default compose(
 		// it's fine to extract it.
 		// eslint-disable-next-line no-restricted-syntax
 		function getInsertionIndex() {
-			const {
-				getBlock,
-				getBlockIndex,
-				getBlockSelectionEnd,
-				getBlockOrder,
-			} = select( 'core/block-editor' );
-			const {
-				isPostTitleSelected,
-			} = select( 'core/editor' );
+			const { getBlock, getBlockIndex, getBlockSelectionEnd, getBlockOrder } = select(
+				'core/block-editor'
+			);
+			const { isPostTitleSelected } = select( 'core/editor' );
 			const { clientId, destinationRootClientId, isAppender } = ownProps;
 
 			// if post title is selected insert as first block
@@ -192,13 +188,8 @@ export default compose(
 			},
 			hideInsertionPoint,
 			onSelect( item ) {
-				const {
-					replaceBlocks,
-					insertBlock,
-				} = dispatch( 'core/block-editor' );
-				const {
-					getSelectedBlock,
-				} = select( 'core/block-editor' );
+				const { replaceBlocks, insertBlock } = dispatch( 'core/block-editor' );
+				const { getSelectedBlock } = select( 'core/block-editor' );
 				const { isAppender } = ownProps;
 				const { name, initialAttributes } = item;
 				const selectedBlock = getSelectedBlock();
@@ -206,11 +197,7 @@ export default compose(
 				if ( ! isAppender && selectedBlock && isUnmodifiedDefaultBlock( selectedBlock ) ) {
 					replaceBlocks( selectedBlock.clientId, insertedBlock );
 				} else {
-					insertBlock(
-						insertedBlock,
-						getInsertionIndex(),
-						ownProps.destinationRootClientId
-					);
+					insertBlock( insertedBlock, getInsertionIndex(), ownProps.destinationRootClientId );
 				}
 
 				ownProps.onSelect();
@@ -218,5 +205,5 @@ export default compose(
 		};
 	} ),
 	withInstanceId,
-	withPreferredColorScheme,
+	withPreferredColorScheme
 )( InserterMenu );

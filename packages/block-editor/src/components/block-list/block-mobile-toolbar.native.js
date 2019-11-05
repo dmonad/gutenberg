@@ -18,11 +18,7 @@ import styles from './block-mobile-toolbar.scss';
 import BlockMover from '../block-mover';
 import { BlockSettingsButton } from '../block-settings';
 
-const BlockMobileToolbar = ( {
-	clientId,
-	onDelete,
-	order,
-} ) => (
+const BlockMobileToolbar = ( { clientId, onDelete, order } ) => (
 	<View style={ styles.toolbar }>
 		<BlockMover clientIds={ [ clientId ] } />
 
@@ -31,13 +27,11 @@ const BlockMobileToolbar = ( {
 		<BlockSettingsButton.Slot />
 
 		<ToolbarButton
-			title={
-				sprintf(
-					/* translators: accessibility text. %s: current block position (number). */
-					__( 'Remove block at row %s' ),
-					order + 1
-				)
-			}
+			title={ sprintf(
+				/* translators: accessibility text. %s: current block position (number). */
+				__( 'Remove block at row %s' ),
+				order + 1
+			) }
 			onClick={ onDelete }
 			icon="trash"
 			extraProps={ { hint: __( 'Double tap to remove the block' ) } }
@@ -47,9 +41,7 @@ const BlockMobileToolbar = ( {
 
 export default compose(
 	withSelect( ( select, { clientId } ) => {
-		const {
-			getBlockIndex,
-		} = select( 'core/block-editor' );
+		const { getBlockIndex } = select( 'core/block-editor' );
 
 		return {
 			order: getBlockIndex( clientId ),
@@ -63,5 +55,5 @@ export default compose(
 				removeBlock( clientId, rootClientId );
 			},
 		};
-	} ),
+	} )
 )( BlockMobileToolbar );

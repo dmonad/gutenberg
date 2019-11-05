@@ -59,29 +59,26 @@ const controls = {
 		return registry.select( 'core' )[ selectorName ]( ...args );
 	} ),
 
-	RESOLVE_SELECT: createRegistryControl(
-		( registry ) => ( { selectorName, args } ) => {
-			return new Promise( ( resolve ) => {
-				const hasFinished = () => registry.select( 'core/data' )
-					.hasFinishedResolution( 'core', selectorName, args );
-				const getResult = () => registry.select( 'core' )[ selectorName ]
-					.apply( null, args );
+	RESOLVE_SELECT: createRegistryControl( ( registry ) => ( { selectorName, args } ) => {
+		return new Promise( ( resolve ) => {
+			const hasFinished = () =>
+				registry.select( 'core/data' ).hasFinishedResolution( 'core', selectorName, args );
+			const getResult = () => registry.select( 'core' )[ selectorName ].apply( null, args );
 
-				// trigger the selector (to trigger the resolver)
-				const result = getResult();
+			// trigger the selector (to trigger the resolver)
+			const result = getResult();
+			if ( hasFinished() ) {
+				return resolve( result );
+			}
+
+			const unsubscribe = registry.subscribe( () => {
 				if ( hasFinished() ) {
-					return resolve( result );
+					unsubscribe();
+					resolve( getResult() );
 				}
-
-				const unsubscribe = registry.subscribe( () => {
-					if ( hasFinished() ) {
-						unsubscribe();
-						resolve( getResult() );
-					}
-				} );
 			} );
-		}
-	),
+		} );
+	} ),
 };
 
 export default controls;

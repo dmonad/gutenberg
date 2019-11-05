@@ -12,14 +12,18 @@ import { getBlockType, hasBlockSupport } from '@wordpress/blocks';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 
-export function BlockModeToggle( { blockType, mode, onToggleMode, small = false, isCodeEditingEnabled = true } ) {
+export function BlockModeToggle( {
+	blockType,
+	mode,
+	onToggleMode,
+	small = false,
+	isCodeEditingEnabled = true,
+} ) {
 	if ( ! hasBlockSupport( blockType, 'html', true ) || ! isCodeEditingEnabled ) {
 		return null;
 	}
 
-	const label = mode === 'visual' ?
-		__( 'Edit as HTML' ) :
-		__( 'Edit visually' );
+	const label = mode === 'visual' ? __( 'Edit as HTML' ) : __( 'Edit visually' );
 
 	return (
 		<MenuItem

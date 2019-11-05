@@ -1,10 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	createNewPost,
-	toggleScreenOption,
-} from '@wordpress/e2e-test-utils';
+import { createNewPost, toggleScreenOption } from '@wordpress/e2e-test-utils';
 
 describe( 'New User Experience (NUX)', () => {
 	async function clickAllTips( page ) {
@@ -43,7 +40,9 @@ describe( 'New User Experience (NUX)', () => {
 		await nextTipButton.click();
 
 		const secondTipText = await page.$eval( '.nux-dot-tip', ( element ) => element.innerText );
-		expect( secondTipText ).toContain( 'You’ll find more settings for your page and blocks in the sidebar.' );
+		expect( secondTipText ).toContain(
+			'You’ll find more settings for your page and blocks in the sidebar.'
+		);
 	} );
 
 	it( 'should show "Got it" once all tips have been displayed', async () => {

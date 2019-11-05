@@ -42,11 +42,16 @@ import ToolbarContainer from './toolbar-container';
  *
  * @return {WPComponent} The rendered component.
  */
-function Toolbar( { controls = [], children, className, isCollapsed, icon, label, ...otherProps } ) {
-	if (
-		( ! controls || ! controls.length ) &&
-		! children
-	) {
+function Toolbar( {
+	controls = [],
+	children,
+	className,
+	isCollapsed,
+	icon,
+	label,
+	...otherProps
+} ) {
+	if ( ( ! controls || ! controls.length ) && ! children ) {
 		return null;
 	}
 
@@ -70,15 +75,17 @@ function Toolbar( { controls = [], children, className, isCollapsed, icon, label
 
 	return (
 		<ToolbarContainer className={ classnames( 'components-toolbar', className ) } { ...otherProps }>
-			{ flatMap( controlSets, ( controlSet, indexOfSet ) => (
+			{ flatMap( controlSets, ( controlSet, indexOfSet ) =>
 				controlSet.map( ( control, indexOfControl ) => (
 					<ToolbarButton
 						key={ [ indexOfSet, indexOfControl ].join() }
-						containerClassName={ indexOfSet > 0 && indexOfControl === 0 ? 'has-left-divider' : null }
+						containerClassName={
+							indexOfSet > 0 && indexOfControl === 0 ? 'has-left-divider' : null
+						}
 						{ ...control }
 					/>
 				) )
-			) ) }
+			) }
 			{ children }
 		</ToolbarContainer>
 	);

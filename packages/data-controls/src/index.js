@@ -105,10 +105,9 @@ export function dispatch( storeKey, actionName, ...args ) {
  */
 const resolveSelect = ( registry, { storeKey, selectorName, args } ) => {
 	return new Promise( ( resolve ) => {
-		const hasFinished = () => registry.select( 'core/data' )
-			.hasFinishedResolution( storeKey, selectorName, args );
-		const getResult = () => registry.select( storeKey )[ selectorName ]
-			.apply( null, args );
+		const hasFinished = () =>
+			registry.select( 'core/data' ).hasFinishedResolution( storeKey, selectorName, args );
+		const getResult = () => registry.select( storeKey )[ selectorName ].apply( null, args );
 
 		// trigger the selector (to trigger the resolver)
 		const result = getResult();
@@ -157,16 +156,12 @@ export const controls = {
 	API_FETCH( { request } ) {
 		return triggerFetch( request );
 	},
-	SELECT: createRegistryControl(
-		( registry ) => ( { storeKey, selectorName, args } ) => {
-			return registry.select( storeKey )[ selectorName ].hasResolver ?
-				resolveSelect( registry, { storeKey, selectorName, args } ) :
-				registry.select( storeKey )[ selectorName ]( ...args );
-		}
-	),
-	DISPATCH: createRegistryControl(
-		( registry ) => ( { storeKey, actionName, args } ) => {
-			return registry.dispatch( storeKey )[ actionName ]( ...args );
-		}
-	),
+	SELECT: createRegistryControl( ( registry ) => ( { storeKey, selectorName, args } ) => {
+		return registry.select( storeKey )[ selectorName ].hasResolver
+			? resolveSelect( registry, { storeKey, selectorName, args } )
+			: registry.select( storeKey )[ selectorName ]( ...args );
+	} ),
+	DISPATCH: createRegistryControl( ( registry ) => ( { storeKey, actionName, args } ) => {
+		return registry.dispatch( storeKey )[ actionName ]( ...args );
+	} ),
 };

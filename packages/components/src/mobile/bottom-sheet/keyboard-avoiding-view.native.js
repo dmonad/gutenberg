@@ -1,16 +1,8 @@
-
 /**
  * External dependencies
  */
 import React from 'react';
-import {
-	Keyboard,
-	LayoutAnimation,
-	Platform,
-	StyleSheet,
-	View,
-	Dimensions,
-} from 'react-native';
+import { Keyboard, LayoutAnimation, Platform, StyleSheet, View, Dimensions } from 'react-native';
 
 /**
  * This is a simplified version of Facebook's KeyboardAvoidingView.
@@ -96,14 +88,14 @@ class KeyboardAvoidingView extends React.Component {
 		let finalStyle = style;
 		if ( Platform.OS === 'ios' ) {
 			const bottomHeight = enabled ? this.state.bottom : 0;
-			finalStyle = StyleSheet.compose( style, { paddingBottom: bottomHeight } );
+			finalStyle = StyleSheet.compose(
+				style,
+				{ paddingBottom: bottomHeight }
+			);
 		}
 
 		return (
-			<View
-				style={ finalStyle }
-				{ ...props }
-			>
+			<View style={ finalStyle } { ...props }>
 				{ children }
 			</View>
 		);

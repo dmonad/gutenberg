@@ -8,12 +8,7 @@ import classnames from 'classnames';
  */
 import { __, _x } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
-import {
-	PanelBody,
-	ToggleControl,
-	Toolbar,
-	withFallbackStyles,
-} from '@wordpress/components';
+import { PanelBody, ToggleControl, Toolbar, withFallbackStyles } from '@wordpress/components';
 import {
 	withColors,
 	AlignmentToolbar,
@@ -39,9 +34,13 @@ const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
 	//verify if editableNode is available, before using getComputedStyle.
 	const computedStyles = editableNode ? getComputedStyle( editableNode ) : null;
 	return {
-		fallbackBackgroundColor: backgroundColor || ! computedStyles ? undefined : computedStyles.backgroundColor,
+		fallbackBackgroundColor:
+			backgroundColor || ! computedStyles ? undefined : computedStyles.backgroundColor,
 		fallbackTextColor: textColor || ! computedStyles ? undefined : computedStyles.color,
-		fallbackFontSize: fontSize || customFontSize || ! computedStyles ? undefined : parseInt( computedStyles.fontSize ) || undefined,
+		fallbackFontSize:
+			fontSize || customFontSize || ! computedStyles
+				? undefined
+				: parseInt( computedStyles.fontSize ) || undefined,
 	};
 } );
 
@@ -58,7 +57,9 @@ class ParagraphBlock extends Component {
 	}
 
 	getDropCapHelp( checked ) {
-		return checked ? __( 'Showing large initial letter.' ) : __( 'Toggle to show a large initial letter.' );
+		return checked
+			? __( 'Showing large initial letter.' )
+			: __( 'Toggle to show a large initial letter.' );
 	}
 
 	render() {
@@ -80,13 +81,7 @@ class ParagraphBlock extends Component {
 			isRTL,
 		} = this.props;
 
-		const {
-			align,
-			content,
-			dropCap,
-			placeholder,
-			direction,
-		} = attributes;
+		const { align, content, dropCap, placeholder, direction } = attributes;
 
 		return (
 			<>
@@ -193,7 +188,11 @@ class ParagraphBlock extends Component {
 					onMerge={ mergeBlocks }
 					onReplace={ onReplace }
 					onRemove={ onReplace ? () => onReplace( [] ) : undefined }
-					aria-label={ content ? __( 'Paragraph block' ) : __( 'Empty block; start writing or type forward slash to choose a block' ) }
+					aria-label={
+						content
+							? __( 'Paragraph block' )
+							: __( 'Empty block; start writing or type forward slash to choose a block' )
+					}
 					placeholder={ placeholder || __( 'Start writing or type / to choose a block' ) }
 					__unstableEmbedURLOnPaste
 				/>

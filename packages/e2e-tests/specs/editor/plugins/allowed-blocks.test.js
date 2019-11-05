@@ -43,19 +43,14 @@ describe( 'Allowed Blocks Filter', () => {
 	it( 'should remove not allowed blocks from the block manager', async () => {
 		await clickOnMoreMenuItem( 'Block Manager' );
 
-		const BLOCK_LABEL_SELECTOR = '.edit-post-manage-blocks-modal__checklist-item .components-checkbox-control__label';
+		const BLOCK_LABEL_SELECTOR =
+			'.edit-post-manage-blocks-modal__checklist-item .components-checkbox-control__label';
 		await page.waitForSelector( BLOCK_LABEL_SELECTOR );
-		const blocks = await page.evaluate(
-			( selector ) => {
-				return Array.from( document.querySelectorAll( selector ) ).map(
-					( element ) => ( ( element.innerText || '' ).trim() )
-				).sort();
-			},
-			BLOCK_LABEL_SELECTOR
-		);
-		expect( blocks ).toEqual( [
-			'Image',
-			'Paragraph',
-		] );
+		const blocks = await page.evaluate( ( selector ) => {
+			return Array.from( document.querySelectorAll( selector ) )
+				.map( ( element ) => ( element.innerText || '' ).trim() )
+				.sort();
+		}, BLOCK_LABEL_SELECTOR );
+		expect( blocks ).toEqual( [ 'Image', 'Paragraph' ] );
 	} );
 } );

@@ -2,11 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	navigateRegions,
-	Popover,
-	SlotFillProvider,
-} from '@wordpress/components';
+import { navigateRegions, Popover, SlotFillProvider } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -28,9 +24,7 @@ function Layout( { blockEditorSettings } ) {
 				aria-label={ __( 'Widgets screen content' ) }
 				tabIndex="-1"
 			>
-				<WidgetAreas
-					blockEditorSettings={ blockEditorSettings }
-				/>
+				<WidgetAreas blockEditorSettings={ blockEditorSettings } />
 			</div>
 			<Popover.Slot />
 		</SlotFillProvider>

@@ -1,4 +1,3 @@
-
 function apiFetch( options ) {
 	// eslint-disable-next-line no-console
 	console.warn( 'apiFetch called with options', options );

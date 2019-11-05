@@ -7,7 +7,14 @@ import { filter } from 'lodash';
 /**
  * Internal dependencies
  */
-import { terms, entities, embedPreviews, userPermissions, autosaves, currentUser } from '../reducer';
+import {
+	terms,
+	entities,
+	embedPreviews,
+	userPermissions,
+	autosaves,
+	currentUser,
+} from '../reducer';
 
 describe( 'terms()', () => {
 	it( 'returns an empty object by default', () => {
@@ -151,37 +158,44 @@ describe( 'autosaves', () => {
 	} );
 
 	it( 'returns the current state with the new autosaves merged in, keyed by the parent post id', () => {
-		const existingAutosaves = [ {
-			title: {
-				raw: 'Some',
+		const existingAutosaves = [
+			{
+				title: {
+					raw: 'Some',
+				},
+				content: {
+					raw: 'other',
+				},
+				excerpt: {
+					raw: 'autosave',
+				},
+				status: 'publish',
 			},
-			content: {
-				raw: 'other',
-			},
-			excerpt: {
-				raw: 'autosave',
-			},
-			status: 'publish',
-		} ];
+		];
 
-		const newAutosaves = [ {
-			title: {
-				raw: 'The Title',
+		const newAutosaves = [
+			{
+				title: {
+					raw: 'The Title',
+				},
+				content: {
+					raw: 'The Content',
+				},
+				excerpt: {
+					raw: 'The Excerpt',
+				},
+				status: 'draft',
 			},
-			content: {
-				raw: 'The Content',
-			},
-			excerpt: {
-				raw: 'The Excerpt',
-			},
-			status: 'draft',
-		} ];
+		];
 
-		const state = autosaves( { 1: existingAutosaves }, {
-			type: 'RECEIVE_AUTOSAVES',
-			postId: 2,
-			autosaves: newAutosaves,
-		} );
+		const state = autosaves(
+			{ 1: existingAutosaves },
+			{
+				type: 'RECEIVE_AUTOSAVES',
+				postId: 2,
+				autosaves: newAutosaves,
+			}
+		);
 
 		expect( state ).toEqual( {
 			1: existingAutosaves,
@@ -190,37 +204,44 @@ describe( 'autosaves', () => {
 	} );
 
 	it( 'overwrites any existing state if new autosaves are received with the same post id', () => {
-		const existingAutosaves = [ {
-			title: {
-				raw: 'Some',
+		const existingAutosaves = [
+			{
+				title: {
+					raw: 'Some',
+				},
+				content: {
+					raw: 'other',
+				},
+				excerpt: {
+					raw: 'autosave',
+				},
+				status: 'publish',
 			},
-			content: {
-				raw: 'other',
-			},
-			excerpt: {
-				raw: 'autosave',
-			},
-			status: 'publish',
-		} ];
+		];
 
-		const newAutosaves = [ {
-			title: {
-				raw: 'The Title',
+		const newAutosaves = [
+			{
+				title: {
+					raw: 'The Title',
+				},
+				content: {
+					raw: 'The Content',
+				},
+				excerpt: {
+					raw: 'The Excerpt',
+				},
+				status: 'draft',
 			},
-			content: {
-				raw: 'The Content',
-			},
-			excerpt: {
-				raw: 'The Excerpt',
-			},
-			status: 'draft',
-		} ];
+		];
 
-		const state = autosaves( { 1: existingAutosaves }, {
-			type: 'RECEIVE_AUTOSAVES',
-			postId: 1,
-			autosaves: newAutosaves,
-		} );
+		const state = autosaves(
+			{ 1: existingAutosaves },
+			{
+				type: 'RECEIVE_AUTOSAVES',
+				postId: 1,
+				autosaves: newAutosaves,
+			}
+		);
 
 		expect( state ).toEqual( {
 			1: newAutosaves,
@@ -237,10 +258,13 @@ describe( 'currentUser', () => {
 	it( 'returns the current user', () => {
 		const currentUserData = { id: 1 };
 
-		const state = currentUser( {}, {
-			type: 'RECEIVE_CURRENT_USER',
-			currentUser: currentUserData,
-		} );
+		const state = currentUser(
+			{},
+			{
+				type: 'RECEIVE_CURRENT_USER',
+				currentUser: currentUserData,
+			}
+		);
 
 		expect( state ).toEqual( currentUserData );
 	} );
@@ -248,10 +272,13 @@ describe( 'currentUser', () => {
 	it( 'overwrites any existing current user state', () => {
 		const currentUserData = { id: 2 };
 
-		const state = currentUser( { id: 1 }, {
-			type: 'RECEIVE_CURRENT_USER',
-			currentUser: currentUserData,
-		} );
+		const state = currentUser(
+			{ id: 1 },
+			{
+				type: 'RECEIVE_CURRENT_USER',
+				currentUser: currentUserData,
+			}
+		);
 
 		expect( state ).toEqual( currentUserData );
 	} );

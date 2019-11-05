@@ -17,10 +17,16 @@ const SkipToSelectedBlock = ( { selectedBlockClientId } ) => {
 	};
 
 	return (
-		selectedBlockClientId &&
-		<Button isDefault type="button" className="editor-skip-to-selected-block block-editor-skip-to-selected-block" onClick={ onClick }>
-			{ __( 'Skip to the selected block' ) }
-		</Button>
+		selectedBlockClientId && (
+			<Button
+				isDefault
+				type="button"
+				className="editor-skip-to-selected-block block-editor-skip-to-selected-block"
+				onClick={ onClick }
+			>
+				{ __( 'Skip to the selected block' ) }
+			</Button>
+		)
 	);
 };
 

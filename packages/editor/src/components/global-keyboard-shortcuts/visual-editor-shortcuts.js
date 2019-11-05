@@ -48,10 +48,7 @@ class VisualEditorGlobalKeyboardShortcuts extends Component {
 }
 
 const EnhancedVisualEditorGlobalKeyboardShortcuts = withDispatch( ( dispatch ) => {
-	const {
-		redo,
-		undo,
-	} = dispatch( 'core/editor' );
+	const { redo, undo } = dispatch( 'core/editor' );
 
 	return {
 		onRedo: redo,

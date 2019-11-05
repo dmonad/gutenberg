@@ -2,14 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import {
-	every,
-	filter,
-	find,
-	forEach,
-	map,
-	some,
-} from 'lodash';
+import { every, filter, find, forEach, map, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -22,12 +15,7 @@ import {
 	ToggleControl,
 	withNotices,
 } from '@wordpress/components';
-import {
-	BlockIcon,
-	MediaPlaceholder,
-	InspectorControls,
-	RichText,
-} from '@wordpress/block-editor';
+import { BlockIcon, MediaPlaceholder, InspectorControls, RichText } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { getBlobByURL, isBlobURL, revokeBlobURL } from '@wordpress/blob';
@@ -74,7 +62,9 @@ class GalleryEdit extends Component {
 
 	setAttributes( attributes ) {
 		if ( attributes.ids ) {
-			throw new Error( 'The "ids" attribute should not be changed directly. It is managed automatically when "images" attribute changes' );
+			throw new Error(
+				'The "ids" attribute should not be changed directly. It is managed automatically when "images" attribute changes'
+			);
 		}
 
 		if ( attributes.images ) {
@@ -136,9 +126,7 @@ class GalleryEdit extends Component {
 	}
 
 	selectCaption( newImage, images, attachmentCaptions ) {
-		const currentImage = find(
-			images, { id: newImage.id }
-		);
+		const currentImage = find( images, { id: newImage.id } );
 
 		const currentImageCaption = currentImage ? currentImage.caption : newImage.caption;
 
@@ -146,12 +134,10 @@ class GalleryEdit extends Component {
 			return currentImageCaption;
 		}
 
-		const attachment = find(
-			attachmentCaptions, { id: newImage.id }
-		);
+		const attachment = find( attachmentCaptions, { id: newImage.id } );
 
 		// if the attachment caption is updated
-		if ( attachment && ( attachment.caption !== newImage.caption ) ) {
+		if ( attachment && attachment.caption !== newImage.caption ) {
 			return newImage.caption;
 		}
 
@@ -161,14 +147,12 @@ class GalleryEdit extends Component {
 	onSelectImages( newImages ) {
 		const { columns, images } = this.props.attributes;
 		const { attachmentCaptions } = this.state;
-		this.setState(
-			{
-				attachmentCaptions: newImages.map( ( newImage ) => ( {
-					id: newImage.id,
-					caption: newImage.caption,
-				} ) ),
-			}
-		);
+		this.setState( {
+			attachmentCaptions: newImages.map( ( newImage ) => ( {
+				id: newImage.id,
+				caption: newImage.caption,
+			} ) ),
+		} );
 		this.setAttributes( {
 			images: newImages.map( ( newImage ) => ( {
 				...pickRelevantMediaFiles( newImage ),
@@ -207,7 +191,9 @@ class GalleryEdit extends Component {
 	}
 
 	setImageAttributes( index, attributes ) {
-		const { attributes: { images } } = this.props;
+		const {
+			attributes: { images },
+		} = this.props;
 		const { setAttributes } = this;
 		if ( ! images[ index ] ) {
 			return;
@@ -249,13 +235,7 @@ class GalleryEdit extends Component {
 	}
 
 	render() {
-		const {
-			attributes,
-			className,
-			isSelected,
-			noticeUI,
-			setAttributes,
-		} = this.props;
+		const { attributes, className, isSelected, noticeUI, setAttributes } = this.props;
 		const {
 			align,
 			columns = defaultColumnsNumber( attributes ),
@@ -277,7 +257,8 @@ class GalleryEdit extends Component {
 				icon={ ! hasImages && <BlockIcon icon={ icon } /> }
 				labels={ {
 					title: ! hasImages && __( 'Gallery' ),
-					instructions: ! hasImages && __( 'Drag images, upload new ones or select files from your library.' ),
+					instructions:
+						! hasImages && __( 'Drag images, upload new ones or select files from your library.' ),
 				} }
 				onSelect={ this.onSelectImages }
 				accept="image/*"
@@ -293,24 +274,23 @@ class GalleryEdit extends Component {
 			return mediaPlaceholder;
 		}
 
-		const captionClassNames = classnames(
-			'blocks-gallery-caption',
-			{
-				'screen-reader-text': ! isSelected && RichText.isEmpty( caption ),
-			}
-		);
+		const captionClassNames = classnames( 'blocks-gallery-caption', {
+			'screen-reader-text': ! isSelected && RichText.isEmpty( caption ),
+		} );
 		return (
 			<>
 				<InspectorControls>
 					<PanelBody title={ __( 'Gallery Settings' ) }>
-						{ images.length > 1 && <RangeControl
-							label={ __( 'Columns' ) }
-							value={ columns }
-							onChange={ this.setColumnsNumber }
-							min={ 1 }
-							max={ Math.min( MAX_COLUMNS, images.length ) }
-							required
-						/> }
+						{ images.length > 1 && (
+							<RangeControl
+								label={ __( 'Columns' ) }
+								value={ columns }
+								onChange={ this.setColumnsNumber }
+								min={ 1 }
+								max={ Math.min( MAX_COLUMNS, images.length ) }
+								required
+							/>
+						) }
 						<ToggleControl
 							label={ __( 'Crop Images' ) }
 							checked={ !! imageCrop }
@@ -326,19 +306,21 @@ class GalleryEdit extends Component {
 					</PanelBody>
 				</InspectorControls>
 				{ noticeUI }
-				<figure className={ classnames(
-					className,
-					{
+				<figure
+					className={ classnames( className, {
 						[ `align${ align }` ]: align,
 						[ `columns-${ columns }` ]: columns,
 						'is-cropped': imageCrop,
-					}
-				) }
+					} ) }
 				>
 					<ul className="blocks-gallery-grid">
 						{ images.map( ( img, index ) => {
-						/* translators: %1$d is the order number of the image, %2$d is the total number of images. */
-							const ariaLabel = sprintf( __( 'image %1$d of %2$d in gallery' ), ( index + 1 ), images.length );
+							/* translators: %1$d is the order number of the image, %2$d is the total number of images. */
+							const ariaLabel = sprintf(
+								__( 'image %1$d of %2$d in gallery' ),
+								index + 1,
+								images.length
+							);
 
 							return (
 								<li className="blocks-gallery-item" key={ img.id || img.url }>
@@ -347,7 +329,7 @@ class GalleryEdit extends Component {
 										alt={ img.alt }
 										id={ img.id }
 										isFirstItem={ index === 0 }
-										isLastItem={ ( index + 1 ) === images.length }
+										isLastItem={ index + 1 === images.length }
 										isSelected={ isSelected && this.state.selectedImage === index }
 										onMoveBackward={ this.onMoveBackward( index ) }
 										onMoveForward={ this.onMoveForward( index ) }

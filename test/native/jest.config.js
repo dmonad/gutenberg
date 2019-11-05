@@ -15,8 +15,9 @@ if ( process.env.TEST_RN_PLATFORM ) {
 
 const configPath = 'test/native';
 
-const transpiledPackageNames = glob( '../../packages/*/src/index.js' )
-	.map( ( fileName ) => fileName.split( '/' )[ 3 ] );
+const transpiledPackageNames = glob( '../../packages/*/src/index.js' ).map(
+	( fileName ) => fileName.split( '/' )[ 3 ]
+);
 
 module.exports = {
 	verbose: true,
@@ -29,14 +30,8 @@ module.exports = {
 		'<rootDir>/' + configPath + '/enzyme.config.js',
 	],
 	testEnvironment: 'jsdom',
-	testMatch: [
-		'**/test/*.native.[jt]s?(x)',
-	],
-	testPathIgnorePatterns: [
-		'/node_modules/',
-		'/wordpress/',
-		'/__device-tests__/',
-	],
+	testMatch: [ '**/test/*.native.[jt]s?(x)' ],
+	testPathIgnorePatterns: [ '/node_modules/', '/wordpress/', '/__device-tests__/' ],
 	testURL: 'http://localhost/',
 	moduleDirectories: [ 'node_modules' ],
 	moduleNameMapper: {
@@ -46,16 +41,9 @@ module.exports = {
 	},
 	haste: {
 		defaultPlatform: rnPlatform,
-		platforms: [
-			'android',
-			'ios',
-			'native',
-		],
+		platforms: [ 'android', 'ios', 'native' ],
 		hasteImplModulePath: '<rootDir>/node_modules/react-native/jest/hasteImpl.js',
-		providesModuleNodeModules: [
-			'react-native',
-			'react-native-svg',
-		],
+		providesModuleNodeModules: [ 'react-native', 'react-native-svg' ],
 	},
 	transformIgnorePatterns: [
 		// This is required for now to have jest transform some of our modules
@@ -64,8 +52,6 @@ module.exports = {
 		// https://github.com/facebook/react-native/blob/master/jest-preset.json#L20
 		'node_modules/(?!(simple-html-tokenizer|(jest-)?react-native|react-clone-referenced-element))',
 	],
-	snapshotSerializers: [
-		'enzyme-to-json/serializer',
-	],
+	snapshotSerializers: [ 'enzyme-to-json/serializer' ],
 	reporters: [ 'default', 'jest-junit' ],
 };

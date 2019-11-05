@@ -48,10 +48,7 @@ import SvgIcon, { editImageIcon } from './icon';
 import SvgIconRetry from './icon-retry';
 import { getUpdatedLinkTargetSettings } from './utils';
 
-import {
-	LINK_DESTINATION_CUSTOM,
-	LINK_DESTINATION_NONE,
-} from './constants';
+import { LINK_DESTINATION_CUSTOM, LINK_DESTINATION_NONE } from './constants';
 
 const IMAGE_SIZE_THUMBNAIL = 'thumbnail';
 const IMAGE_SIZE_MEDIUM = 'medium';
@@ -256,11 +253,7 @@ export class ImageEdit extends React.Component {
 		const getToolbarEditButton = ( open ) => (
 			<BlockControls>
 				<Toolbar>
-					<ToolbarButton
-						title={ __( 'Edit image' ) }
-						icon={ editImageIcon }
-						onClick={ open }
-					/>
+					<ToolbarButton title={ __( 'Edit image' ) } icon={ editImageIcon } onClick={ open } />
 				</Toolbar>
 				<BlockAlignmentToolbar
 					value={ align }
@@ -272,7 +265,7 @@ export class ImageEdit extends React.Component {
 
 		const getInspectorControls = () => (
 			<InspectorControls>
-				<PanelBody title={ __( 'Image Settings' ) } >
+				<PanelBody title={ __( 'Image Settings' ) }>
 					<TextControl
 						icon={ 'admin-links' }
 						label={ __( 'Link To' ) }
@@ -290,7 +283,7 @@ export class ImageEdit extends React.Component {
 						onChange={ this.onSetNewTab }
 					/>
 					{ // eslint-disable-next-line no-undef
-						__DEV__ &&
+					__DEV__ && (
 						<SelectControl
 							hideCancelButton
 							icon={ 'editor-expand' }
@@ -298,7 +291,8 @@ export class ImageEdit extends React.Component {
 							value={ sizeOptionLabels[ sizeSlug || DEFAULT_SIZE_SLUG ] }
 							onChangeValue={ ( newValue ) => this.onSetSizeSlug( newValue ) }
 							options={ sizeOptions }
-						/> }
+						/>
+					) }
 					<TextControl
 						icon={ 'editor-textcolor' }
 						label={ __( 'Alt Text' ) }
@@ -314,7 +308,7 @@ export class ImageEdit extends React.Component {
 
 		if ( ! url ) {
 			return (
-				<View style={ { flex: 1 } } >
+				<View style={ { flex: 1 } }>
 					<MediaPlaceholder
 						allowedTypes={ [ MEDIA_TYPE_IMAGE ] }
 						onSelect={ this.onSelectMediaUploadOption }
@@ -344,9 +338,7 @@ export class ImageEdit extends React.Component {
 				<View style={ { flex: 1 } }>
 					{ getInspectorControls() }
 					{ getMediaOptions() }
-					{ ( ! this.state.isCaptionSelected ) &&
-						getToolbarEditButton( openMediaOptions )
-					}
+					{ ! this.state.isCaptionSelected && getToolbarEditButton( openMediaOptions ) }
 					<MediaUploadProgress
 						height={ height }
 						width={ width }
@@ -356,22 +348,26 @@ export class ImageEdit extends React.Component {
 						onFinishMediaUploadWithSuccess={ this.finishMediaUploadWithSuccess }
 						onFinishMediaUploadWithFailure={ this.finishMediaUploadWithFailure }
 						onMediaUploadStateReset={ this.mediaUploadStateReset }
-						renderContent={ ( { isUploadInProgress, isUploadFailed, finalWidth, finalHeight, imageWidthWithinContainer, retryMessage } ) => {
+						renderContent={ ( {
+							isUploadInProgress,
+							isUploadFailed,
+							finalWidth,
+							finalHeight,
+							imageWidthWithinContainer,
+							retryMessage,
+						} ) => {
 							const opacity = isUploadInProgress ? 0.3 : 1;
 							const icon = this.getIcon( isUploadFailed );
 
-							const iconContainer = (
-								<View style={ styles.modalIcon }>
-									{ icon }
-								</View>
-							);
+							const iconContainer = <View style={ styles.modalIcon }>{ icon }</View>;
 
 							return (
-								<View style={ { flex: 1, alignSelf: alignToFlex[ align ] } } >
-									{ ! imageWidthWithinContainer &&
-										<View style={ [ styles.imageContainer, { height: imageContainerHeight } ] } >
+								<View style={ { flex: 1, alignSelf: alignToFlex[ align ] } }>
+									{ ! imageWidthWithinContainer && (
+										<View style={ [ styles.imageContainer, { height: imageContainerHeight } ] }>
 											{ this.getIcon( false ) }
-										</View> }
+										</View>
+									) }
 									<ImageBackground
 										accessible={ true }
 										disabled={ ! isSelected }
@@ -383,12 +379,17 @@ export class ImageEdit extends React.Component {
 										source={ { uri: url } }
 										key={ url }
 									>
-										{ isUploadFailed &&
-											<View style={ [ styles.imageContainer, { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' } ] } >
+										{ isUploadFailed && (
+											<View
+												style={ [
+													styles.imageContainer,
+													{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+												] }
+											>
 												{ iconContainer }
 												<Text style={ styles.uploadFailedText }>{ retryMessage }</Text>
 											</View>
-										}
+										) }
 									</ImageBackground>
 								</View>
 							);
@@ -399,13 +400,14 @@ export class ImageEdit extends React.Component {
 						isSelected={ this.state.isCaptionSelected }
 						accessible={ true }
 						accessibilityLabelCreator={ ( caption ) =>
-							isEmpty( caption ) ?
-							/* translators: accessibility text. Empty image caption. */
-								( 'Image caption. Empty' ) :
-								sprintf(
-								/* translators: accessibility text. %s: image caption. */
-									__( 'Image caption. %s' ),
-									caption )
+							isEmpty( caption )
+								? /* translators: accessibility text. Empty image caption. */
+								  'Image caption. Empty'
+								: sprintf(
+										/* translators: accessibility text. %s: image caption. */
+										__( 'Image caption. %s' ),
+										caption
+								  )
 						}
 						onFocus={ this.onFocusCaption }
 						onBlur={ this.props.onBlur } // always assign onBlur as props
@@ -415,7 +417,8 @@ export class ImageEdit extends React.Component {
 		);
 
 		return (
-			<MediaUpload allowedTypes={ [ MEDIA_TYPE_IMAGE ] }
+			<MediaUpload
+				allowedTypes={ [ MEDIA_TYPE_IMAGE ] }
 				onSelect={ this.onSelectMediaUploadOption }
 				render={ ( { open, getMediaOptions } ) => {
 					return getImageComponent( open, getMediaOptions );

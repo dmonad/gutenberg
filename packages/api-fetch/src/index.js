@@ -67,15 +67,12 @@ const defaultFetchHandler = ( nextOptions ) => {
 		headers[ 'Content-Type' ] = 'application/json';
 	}
 
-	const responsePromise = window.fetch(
-		url || path,
-		{
-			...DEFAULT_OPTIONS,
-			...remainingOptions,
-			body,
-			headers,
-		}
-	);
+	const responsePromise = window.fetch( url || path, {
+		...DEFAULT_OPTIONS,
+		...remainingOptions,
+		body,
+		headers,
+	} );
 
 	return responsePromise
 		.then( checkStatus )
@@ -117,7 +114,8 @@ function apiFetch( options ) {
 				}
 
 				// If the nonce is invalid, refresh it and try again.
-				window.fetch( apiFetch.nonceEndpoint )
+				window
+					.fetch( apiFetch.nonceEndpoint )
 					.then( checkStatus )
 					.then( ( data ) => data.text() )
 					.then( ( text ) => {

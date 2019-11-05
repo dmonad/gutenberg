@@ -7,9 +7,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	IconButton,
-} from '@wordpress/components';
+import { IconButton } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -25,10 +23,7 @@ export default function LinkEditor( {
 } ) {
 	return (
 		<form
-			className={ classnames(
-				'block-editor-url-popover__link-editor',
-				className
-			) }
+			className={ classnames( 'block-editor-url-popover__link-editor', className ) }
 			{ ...props }
 		>
 			<URLInput

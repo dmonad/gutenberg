@@ -7,9 +7,7 @@ import { partial } from 'lodash';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	ToggleControl,
-} from '@wordpress/components';
+import { ToggleControl } from '@wordpress/components';
 
 const LinkControlSettingsDrawer = ( { settings, onSettingChange } ) => {
 	if ( ! settings || settings.length ) {
@@ -21,7 +19,8 @@ const LinkControlSettingsDrawer = ( { settings, onSettingChange } ) => {
 			<ToggleControl
 				label={ __( 'Open in New Tab' ) }
 				onChange={ partial( onSettingChange, 'new-tab' ) }
-				checked={ settings[ 'new-tab' ] } />
+				checked={ settings[ 'new-tab' ] }
+			/>
 		</div>
 	);
 };

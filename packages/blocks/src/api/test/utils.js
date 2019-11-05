@@ -7,7 +7,12 @@ import { noop } from 'lodash';
  * Internal dependencies
  */
 import { createBlock } from '../factory';
-import { getBlockTypes, unregisterBlockType, registerBlockType, setDefaultBlockName } from '../registration';
+import {
+	getBlockTypes,
+	unregisterBlockType,
+	registerBlockType,
+	setDefaultBlockName,
+} from '../registration';
 import { isUnmodifiedDefaultBlock } from '../utils';
 
 describe( 'block helpers', () => {

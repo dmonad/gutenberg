@@ -6,10 +6,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import {
-	InnerBlocks,
-	getColorClassName,
-} from '@wordpress/block-editor';
+import { InnerBlocks, getColorClassName } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -34,9 +31,7 @@ export default function save( { attributes } ) {
 		minHeight,
 	} = attributes;
 	const overlayColorClass = getColorClassName( 'background-color', overlayColor );
-	const style = backgroundType === IMAGE_BACKGROUND_TYPE ?
-		backgroundImageStyles( url ) :
-		{};
+	const style = backgroundType === IMAGE_BACKGROUND_TYPE ? backgroundImageStyles( url ) : {};
 	if ( ! overlayColorClass ) {
 		style.backgroundColor = customOverlayColor;
 	}
@@ -48,15 +43,11 @@ export default function save( { attributes } ) {
 	}
 	style.minHeight = minHeight || undefined;
 
-	const classes = classnames(
-		dimRatioToClass( dimRatio ),
-		overlayColorClass,
-		{
-			'has-background-dim': dimRatio !== 0,
-			'has-parallax': hasParallax,
-			'has-background-gradient': customGradient,
-		},
-	);
+	const classes = classnames( dimRatioToClass( dimRatio ), overlayColorClass, {
+		'has-background-dim': dimRatio !== 0,
+		'has-parallax': hasParallax,
+		'has-background-gradient': customGradient,
+	} );
 
 	return (
 		<div className={ classes } style={ style }>
@@ -67,13 +58,9 @@ export default function save( { attributes } ) {
 					style={ { background: customGradient } }
 				/>
 			) }
-			{ VIDEO_BACKGROUND_TYPE === backgroundType && url && ( <video
-				className="wp-block-cover__video-background"
-				autoPlay
-				muted
-				loop
-				src={ url }
-			/> ) }
+			{ VIDEO_BACKGROUND_TYPE === backgroundType && url && (
+				<video className="wp-block-cover__video-background" autoPlay muted loop src={ url } />
+			) }
 			<div className="wp-block-cover__inner-container">
 				<InnerBlocks.Content />
 			</div>

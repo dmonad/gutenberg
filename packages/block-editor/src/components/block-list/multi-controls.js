@@ -8,11 +8,7 @@ import { withSelect } from '@wordpress/data';
  */
 import BlockMover from '../block-mover';
 
-function BlockListMultiControls( {
-	multiSelectedBlockClientIds,
-	isSelecting,
-	moverDirection,
-} ) {
+function BlockListMultiControls( { multiSelectedBlockClientIds, isSelecting, moverDirection } ) {
 	if ( isSelecting ) {
 		return null;
 	}
@@ -26,10 +22,7 @@ function BlockListMultiControls( {
 }
 
 export default withSelect( ( select ) => {
-	const {
-		getMultiSelectedBlockClientIds,
-		isMultiSelecting,
-	} = select( 'core/block-editor' );
+	const { getMultiSelectedBlockClientIds, isMultiSelecting } = select( 'core/block-editor' );
 	const clientIds = getMultiSelectedBlockClientIds();
 
 	return {

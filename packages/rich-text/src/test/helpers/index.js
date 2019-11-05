@@ -623,11 +623,15 @@ export const specWithRegistration = [
 		},
 		html: '<a class="custom-format">a</a>',
 		value: {
-			formats: [ [ {
-				type: 'my-plugin/link',
-				attributes: {},
-				unregisteredAttributes: {},
-			} ] ],
+			formats: [
+				[
+					{
+						type: 'my-plugin/link',
+						attributes: {},
+						unregisteredAttributes: {},
+					},
+				],
+			],
 			replacements: [ , ],
 			text: 'a',
 		},
@@ -643,13 +647,17 @@ export const specWithRegistration = [
 		},
 		html: '<a class="custom-format test">a</a>',
 		value: {
-			formats: [ [ {
-				type: 'my-plugin/link',
-				attributes: {},
-				unregisteredAttributes: {
-					class: 'test',
-				},
-			} ] ],
+			formats: [
+				[
+					{
+						type: 'my-plugin/link',
+						attributes: {},
+						unregisteredAttributes: {
+							class: 'test',
+						},
+					},
+				],
+			],
 			replacements: [ , ],
 			text: 'a',
 		},
@@ -665,13 +673,17 @@ export const specWithRegistration = [
 		},
 		html: '<a class="custom-format">a</a>',
 		value: {
-			formats: [ [ {
-				type: 'core/link',
-				attributes: {},
-				unregisteredAttributes: {
-					class: 'custom-format',
-				},
-			} ] ],
+			formats: [
+				[
+					{
+						type: 'core/link',
+						attributes: {},
+						unregisteredAttributes: {
+							class: 'custom-format',
+						},
+					},
+				],
+			],
 			replacements: [ , ],
 			text: 'a',
 		},
@@ -680,12 +692,16 @@ export const specWithRegistration = [
 		description: 'should create fallback format',
 		html: '<a class="custom-format">a</a>',
 		value: {
-			formats: [ [ {
-				type: 'a',
-				attributes: {
-					class: 'custom-format',
-				},
-			} ] ],
+			formats: [
+				[
+					{
+						type: 'a',
+						attributes: {
+							class: 'custom-format',
+						},
+					},
+				],
+			],
 			replacements: [ , ],
 			text: 'a',
 		},
@@ -721,11 +737,15 @@ export const specWithRegistration = [
 		},
 		html: '<a class="custom-format">a</a>',
 		value: {
-			formats: [ [ {
-				type: 'my-plugin/link',
-				attributes: {},
-				unregisteredAttributes: {},
-			} ] ],
+			formats: [
+				[
+					{
+						type: 'my-plugin/link',
+						attributes: {},
+						unregisteredAttributes: {},
+					},
+				],
+			],
 			replacements: [ , ],
 			text: 'a',
 		},

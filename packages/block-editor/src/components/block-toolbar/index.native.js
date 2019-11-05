@@ -33,11 +33,7 @@ export const BlockToolbar = ( { blockClientIds, isValid, mode } ) => {
 };
 
 export default withSelect( ( select ) => {
-	const {
-		getBlockMode,
-		getSelectedBlockClientIds,
-		isBlockValid,
-	} = select( 'core/block-editor' );
+	const { getBlockMode, getSelectedBlockClientIds, isBlockValid } = select( 'core/block-editor' );
 	const blockClientIds = getSelectedBlockClientIds();
 
 	return {

@@ -8,8 +8,16 @@ export default function save( { attributes } ) {
 
 	return (
 		<figure>
-			<audio controls="controls" src={ src } autoPlay={ autoplay } loop={ loop } preload={ preload } />
-			{ ! RichText.isEmpty( caption ) && <RichText.Content tagName="figcaption" value={ caption } /> }
+			<audio
+				controls="controls"
+				src={ src }
+				autoPlay={ autoplay }
+				loop={ loop }
+				preload={ preload }
+			/>
+			{ ! RichText.isEmpty( caption ) && (
+				<RichText.Content tagName="figcaption" value={ caption } />
+			) }
 		</figure>
 	);
 }

@@ -1,11 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	insertBlock,
-	getEditedPostContent,
-	createNewPost,
-} from '@wordpress/e2e-test-utils';
+import { insertBlock, getEditedPostContent, createNewPost } from '@wordpress/e2e-test-utils';
 
 describe( 'Button', () => {
 	beforeEach( async () => {

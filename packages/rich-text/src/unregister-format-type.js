@@ -16,9 +16,7 @@ export function unregisterFormatType( name ) {
 	const oldFormat = select( 'core/rich-text' ).getFormatType( name );
 
 	if ( ! oldFormat ) {
-		window.console.error(
-			`Format ${ name } is not registered.`
-		);
+		window.console.error( `Format ${ name } is not registered.` );
 		return;
 	}
 

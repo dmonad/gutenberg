@@ -1,4 +1,6 @@
-const requestIdleCallback = window.requestIdleCallback ? window.requestIdleCallback : window.requestAnimationFrame;
+const requestIdleCallback = window.requestIdleCallback
+	? window.requestIdleCallback
+	: window.requestAnimationFrame;
 
 /**
  * Creates a context-aware queue that only executes

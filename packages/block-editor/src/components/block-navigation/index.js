@@ -21,19 +21,19 @@ function BlockNavigation( { rootBlock, rootBlocks, selectedBlockClientId, select
 		return null;
 	}
 
-	const hasHierarchy = (
-		rootBlock && (
-			rootBlock.clientId !== selectedBlockClientId ||
-			( rootBlock.innerBlocks && rootBlock.innerBlocks.length !== 0 )
-		)
-	);
+	const hasHierarchy =
+		rootBlock &&
+		( rootBlock.clientId !== selectedBlockClientId ||
+			( rootBlock.innerBlocks && rootBlock.innerBlocks.length !== 0 ) );
 
 	return (
 		<NavigableMenu
 			role="presentation"
 			className="editor-block-navigation__container block-editor-block-navigation__container"
 		>
-			<p className="editor-block-navigation__label block-editor-block-navigation__label">{ __( 'Block navigation' ) }</p>
+			<p className="editor-block-navigation__label block-editor-block-navigation__label">
+				{ __( 'Block navigation' ) }
+			</p>
 			{ hasHierarchy && (
 				<BlockNavigationList
 					blocks={ [ rootBlock ] }
@@ -55,16 +55,15 @@ function BlockNavigation( { rootBlock, rootBlocks, selectedBlockClientId, select
 
 export default compose(
 	withSelect( ( select ) => {
-		const {
-			getSelectedBlockClientId,
-			getBlockHierarchyRootClientId,
-			getBlock,
-			getBlocks,
-		} = select( 'core/block-editor' );
+		const { getSelectedBlockClientId, getBlockHierarchyRootClientId, getBlock, getBlocks } = select(
+			'core/block-editor'
+		);
 		const selectedBlockClientId = getSelectedBlockClientId();
 		return {
 			rootBlocks: getBlocks(),
-			rootBlock: selectedBlockClientId ? getBlock( getBlockHierarchyRootClientId( selectedBlockClientId ) ) : null,
+			rootBlock: selectedBlockClientId
+				? getBlock( getBlockHierarchyRootClientId( selectedBlockClientId ) )
+				: null,
 			selectedBlockClientId,
 		};
 	} ),

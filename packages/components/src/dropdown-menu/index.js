@@ -70,10 +70,13 @@ function DropdownMenu( {
 			controlSets = [ controlSets ];
 		}
 	}
-	const mergedPopoverProps = mergeProps( {
-		className: 'components-dropdown-menu__popover',
-		position,
-	}, popoverProps );
+	const mergedPopoverProps = mergeProps(
+		{
+			className: 'components-dropdown-menu__popover',
+			position,
+		},
+		popoverProps
+	);
 
 	return (
 		<Dropdown
@@ -87,12 +90,15 @@ function DropdownMenu( {
 						onToggle();
 					}
 				};
-				const mergedToggleProps = mergeProps( {
-					className: classnames( 'components-dropdown-menu__toggle', {
-						'is-opened': isOpen,
-					} ),
-					tooltip: label,
-				}, toggleProps );
+				const mergedToggleProps = mergeProps(
+					{
+						className: classnames( 'components-dropdown-menu__toggle', {
+							'is-opened': isOpen,
+						} ),
+						tooltip: label,
+					},
+					toggleProps
+				);
 
 				return (
 					<IconButton
@@ -104,27 +110,25 @@ function DropdownMenu( {
 						aria-expanded={ isOpen }
 						label={ label }
 					>
-						{ ( ! icon || hasArrowIndicator ) && <span className="components-dropdown-menu__indicator" /> }
+						{ ( ! icon || hasArrowIndicator ) && (
+							<span className="components-dropdown-menu__indicator" />
+						) }
 					</IconButton>
 				);
 			} }
 			renderContent={ ( props ) => {
-				const mergedMenuProps = mergeProps( {
-					'aria-label': menuLabel || label,
-					className: 'components-dropdown-menu__menu',
-				}, menuProps );
+				const mergedMenuProps = mergeProps(
+					{
+						'aria-label': menuLabel || label,
+						className: 'components-dropdown-menu__menu',
+					},
+					menuProps
+				);
 
 				return (
-					<NavigableMenu
-						{ ...mergedMenuProps }
-						role="menu"
-					>
-						{
-							isFunction( children ) ?
-								children( props ) :
-								null
-						}
-						{ flatMap( controlSets, ( controlSet, indexOfSet ) => (
+					<NavigableMenu { ...mergedMenuProps } role="menu">
+						{ isFunction( children ) ? children( props ) : null }
+						{ flatMap( controlSets, ( controlSet, indexOfSet ) =>
 							controlSet.map( ( control, indexOfControl ) => (
 								<IconButton
 									key={ [ indexOfSet, indexOfControl ].join() }
@@ -135,13 +139,10 @@ function DropdownMenu( {
 											control.onClick();
 										}
 									} }
-									className={ classnames(
-										'components-dropdown-menu__menu-item',
-										{
-											'has-separator': indexOfSet > 0 && indexOfControl === 0,
-											'is-active': control.isActive,
-										},
-									) }
+									className={ classnames( 'components-dropdown-menu__menu-item', {
+										'has-separator': indexOfSet > 0 && indexOfControl === 0,
+										'is-active': control.isActive,
+									} ) }
 									icon={ control.icon }
 									role="menuitem"
 									disabled={ control.isDisabled }
@@ -149,7 +150,7 @@ function DropdownMenu( {
 									{ control.title }
 								</IconButton>
 							) )
-						) ) }
+						) }
 					</NavigableMenu>
 				);
 			} }

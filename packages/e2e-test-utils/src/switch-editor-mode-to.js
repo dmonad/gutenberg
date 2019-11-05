@@ -10,9 +10,7 @@ import { toggleMoreMenu } from './toggle-more-menu';
  */
 export async function switchEditorModeTo( mode ) {
 	await toggleMoreMenu();
-	const [ button ] = await page.$x(
-		`//button[contains(text(), '${ mode } Editor')]`
-	);
+	const [ button ] = await page.$x( `//button[contains(text(), '${ mode } Editor')]` );
 	await button.click( 'button' );
 	await toggleMoreMenu();
 	if ( mode === 'Code' ) {

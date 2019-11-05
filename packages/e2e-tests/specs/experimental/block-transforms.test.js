@@ -1,13 +1,7 @@
 /**
  * External dependencies
  */
-import {
-	flatMap,
-	map,
-	mapValues,
-	pickBy,
-	some,
-} from 'lodash';
+import { flatMap, map, mapValues, pickBy, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -43,18 +37,16 @@ import {
 import { EXPECTED_TRANSFORMS } from '../../fixtures/block-transforms.js';
 
 /*
-* Returns true if the fileBase refers to a fixture of a block
-* that should not be handled e.g: because of being deprecated,
-* or because of being a block that tests an error state.
-*/
+ * Returns true if the fileBase refers to a fixture of a block
+ * that should not be handled e.g: because of being deprecated,
+ * or because of being a block that tests an error state.
+ */
 const isAnExpectedUnhandledBlock = ( fileBase ) => {
 	if ( fileBase.includes( 'deprecated' ) ) {
 		return true;
 	}
 	const { file: fixture } = getBlockFixtureParsedJSON( fileBase );
-	const parsedBlockObject = JSON.parse(
-		fixture
-	)[ 0 ];
+	const parsedBlockObject = JSON.parse( fixture )[ 0 ];
 	return some(
 		[
 			null,
@@ -115,9 +107,7 @@ describe( 'Block transforms', () => {
 		await createNewPost();
 
 		for ( const fileBase of fileBasenames ) {
-			const structure = await getTransformStructureFromFile(
-				fileBase
-			);
+			const structure = await getTransformStructureFromFile( fileBase );
 			if ( ! structure ) {
 				continue;
 			}
@@ -127,29 +117,22 @@ describe( 'Block transforms', () => {
 		}
 	} );
 
-	afterAll(
-		async () => {
-			await disableExperimentalFeatures( [
-				'#gutenberg-widget-experiments',
-				'#gutenberg-menu-block',
-				'#gutenberg-full-site-editing',
-			] );
-		}
-	);
+	afterAll( async () => {
+		await disableExperimentalFeatures( [
+			'#gutenberg-widget-experiments',
+			'#gutenberg-menu-block',
+			'#gutenberg-full-site-editing',
+		] );
+	} );
 
 	it( 'should contain the expected transforms', async () => {
 		const transforms = mapValues(
-			pickBy(
-				transformStructure,
-				( { availableTransforms } ) => availableTransforms,
-			),
+			pickBy( transformStructure, ( { availableTransforms } ) => availableTransforms ),
 			( { availableTransforms, originalBlock } ) => {
 				return { originalBlock, availableTransforms };
 			}
 		);
-		expect(
-			transforms
-		).toEqual( EXPECTED_TRANSFORMS );
+		expect( transforms ).toEqual( EXPECTED_TRANSFORMS );
 	} );
 
 	describe( 'correctly transform', () => {
@@ -164,30 +147,29 @@ describe( 'Block transforms', () => {
 
 		const testTable = flatMap(
 			EXPECTED_TRANSFORMS,
-			( { originalBlock, availableTransforms }, fixture ) => (
-				map(
-					availableTransforms,
-					( destinationBlock ) => ( [
-						originalBlock,
-						fixture,
-						destinationBlock,
-					] )
-				)
-			)
+			( { originalBlock, availableTransforms }, fixture ) =>
+				map( availableTransforms, ( destinationBlock ) => [
+					originalBlock,
+					fixture,
+					destinationBlock,
+				] )
 		);
 
 		// As Group is available as a transform on *all* blocks this would create a lot of
 		// tests which would impact on the performance of the e2e test suite.
 		// To avoid this, we remove `core/group` from test table for all but 2 block types.
-		const testTableWithSomeGroupsFiltered = testTable.filter( ( transform ) => ( transform[ 2 ] !== 'Group' || transform[ 1 ] === 'core__paragraph__align-right' || transform[ 1 ] === 'core__image' ) );
+		const testTableWithSomeGroupsFiltered = testTable.filter(
+			( transform ) =>
+				transform[ 2 ] !== 'Group' ||
+				transform[ 1 ] === 'core__paragraph__align-right' ||
+				transform[ 1 ] === 'core__image'
+		);
 
 		it.each( testTableWithSomeGroupsFiltered )(
 			'block %s in fixture %s into the %s block',
 			async ( originalBlock, fixture, destinationBlock ) => {
 				const { content } = transformStructure[ fixture ];
-				expect(
-					await getTransformResult( content, destinationBlock )
-				).toMatchSnapshot();
+				expect( await getTransformResult( content, destinationBlock ) ).toMatchSnapshot();
 			}
 		);
 	} );

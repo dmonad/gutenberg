@@ -6,9 +6,7 @@ import { escapeRegExp } from 'lodash';
 /**
  * WordPress dependencies
  */
-import {
-	Fragment,
-} from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 
 const TextHighlight = ( { text = '', highlight = '' } ) => {
 	if ( ! highlight.trim() ) {
@@ -19,9 +17,11 @@ const TextHighlight = ( { text = '', highlight = '' } ) => {
 	const parts = text.split( regex );
 	return (
 		<Fragment>
-			{ parts.filter( ( part ) => part ).map( ( part, i ) => (
-				regex.test( part ) ? <mark key={ i }>{ part }</mark> : <span key={ i }>{ part }</span>
-			) ) }
+			{ parts
+				.filter( ( part ) => part )
+				.map( ( part, i ) =>
+					regex.test( part ) ? <mark key={ i }>{ part }</mark> : <span key={ i }>{ part }</span>
+				) }
 		</Fragment>
 	);
 };

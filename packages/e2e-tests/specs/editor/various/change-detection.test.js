@@ -93,7 +93,9 @@ describe( 'Change detection', () => {
 		// Toggle post as needing review (not persisted for autosave).
 		await ensureSidebarOpened();
 
-		const postPendingReviewButton = ( await page.$x( "//label[contains(text(), 'Pending Review')]" ) )[ 0 ];
+		const postPendingReviewButton = ( await page.$x(
+			"//label[contains(text(), 'Pending Review')]"
+		) )[ 0 ];
 		await postPendingReviewButton.click( 'button' );
 
 		// Force autosave to occur immediately.
@@ -225,7 +227,9 @@ describe( 'Change detection', () => {
 
 		await assertIsDirty( true );
 
-		expect( console ).toHaveErroredWith( 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED' );
+		expect( console ).toHaveErroredWith(
+			'Failed to load resource: net::ERR_INTERNET_DISCONNECTED'
+		);
 	} );
 
 	it( 'Should prompt if changes and save is in-flight', async () => {
@@ -319,7 +323,9 @@ describe( 'Change detection', () => {
 		// long as the experimental reusable blocks fetching data flow exists.
 		//
 		// See: https://github.com/WordPress/gutenberg/issues/14766
-		await page.evaluate( () => window.wp.data.dispatch( 'core/editor' ).__experimentalReceiveReusableBlocks( [] ) );
+		await page.evaluate( () =>
+			window.wp.data.dispatch( 'core/editor' ).__experimentalReceiveReusableBlocks( [] )
+		);
 
 		await assertIsDirty( false );
 	} );
@@ -339,10 +345,7 @@ describe( 'Change detection', () => {
 		] );
 
 		// Verify that the title is empty.
-		const title = await page.$eval(
-			'.editor-post-title__input',
-			( element ) => element.innerHTML
-		);
+		const title = await page.$eval( '.editor-post-title__input', ( element ) => element.innerHTML );
 		expect( title ).toBe( '' );
 
 		// Verify that the post is not dirty.

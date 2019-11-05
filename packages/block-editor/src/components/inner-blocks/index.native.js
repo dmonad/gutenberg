@@ -34,10 +34,7 @@ class InnerBlocks extends Component {
 	}
 
 	getTemplateLock() {
-		const {
-			templateLock,
-			parentLock,
-		} = this.props;
+		const { templateLock, parentLock } = this.props;
 		return templateLock === undefined ? parentLock : templateLock;
 	}
 
@@ -80,17 +77,13 @@ class InnerBlocks extends Component {
 
 		// Synchronize with templates. If the next set differs, replace.
 		const nextBlocks = synchronizeBlocksWithTemplate( innerBlocks, template );
-		if ( ! isEqual( nextBlocks, innerBlocks	) ) {
+		if ( ! isEqual( nextBlocks, innerBlocks ) ) {
 			replaceInnerBlocks( nextBlocks );
 		}
 	}
 
 	updateNestedSettings() {
-		const {
-			blockListSettings,
-			allowedBlocks,
-			updateNestedSettings,
-		} = this.props;
+		const { blockListSettings, allowedBlocks, updateNestedSettings } = this.props;
 
 		const newSettings = {
 			allowedBlocks,
@@ -115,16 +108,15 @@ class InnerBlocks extends Component {
 
 		return (
 			<>
-				{ ! templateInProcess && (
-					isPlaceholder ?
-						null :
+				{ ! templateInProcess &&
+					( isPlaceholder ? null : (
 						<BlockList
 							rootClientId={ clientId }
 							renderAppender={ renderAppender }
 							withFooter={ false }
 							isFullyBordered={ true }
 						/>
-				) }
+					) ) }
 			</>
 		);
 	}
@@ -148,20 +140,24 @@ InnerBlocks = compose( [
 		return {
 			block,
 			blockListSettings: getBlockListSettings( clientId ),
-			hasOverlay: block.name !== 'core/template' && ! isBlockSelected( clientId ) && ! hasSelectedInnerBlock( clientId, true ),
+			hasOverlay:
+				block.name !== 'core/template' &&
+				! isBlockSelected( clientId ) &&
+				! hasSelectedInnerBlock( clientId, true ),
 			parentLock: getTemplateLock( rootClientId ),
 		};
 	} ),
 	withDispatch( ( dispatch, ownProps ) => {
-		const {
-			replaceInnerBlocks,
-			updateBlockListSettings,
-		} = dispatch( 'core/block-editor' );
+		const { replaceInnerBlocks, updateBlockListSettings } = dispatch( 'core/block-editor' );
 		const { block, clientId, templateInsertUpdatesSelection = true } = ownProps;
 
 		return {
 			replaceInnerBlocks( blocks ) {
-				replaceInnerBlocks( clientId, blocks, block.innerBlocks.length === 0 && templateInsertUpdatesSelection );
+				replaceInnerBlocks(
+					clientId,
+					blocks,
+					block.innerBlocks.length === 0 && templateInsertUpdatesSelection
+				);
 			},
 			updateNestedSettings( settings ) {
 				dispatch( updateBlockListSettings( clientId, settings ) );
@@ -174,9 +170,7 @@ InnerBlocks = compose( [
 InnerBlocks.DefaultBlockAppender = DefaultBlockAppender;
 InnerBlocks.ButtonBlockAppender = ButtonBlockAppender;
 
-InnerBlocks.Content = withBlockContentContext(
-	( { BlockContent } ) => <BlockContent />
-);
+InnerBlocks.Content = withBlockContentContext( ( { BlockContent } ) => <BlockContent /> );
 
 /**
  * @see https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md

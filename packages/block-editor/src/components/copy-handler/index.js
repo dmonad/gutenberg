@@ -16,11 +16,9 @@ function CopyHandler( { children, onCopy, onCut } ) {
 
 export default compose( [
 	withDispatch( ( dispatch, ownProps, { select } ) => {
-		const {
-			getBlocksByClientId,
-			getSelectedBlockClientIds,
-			hasMultiSelection,
-		} = select( 'core/block-editor' );
+		const { getBlocksByClientId, getSelectedBlockClientIds, hasMultiSelection } = select(
+			'core/block-editor'
+		);
 		const { removeBlocks } = dispatch( 'core/block-editor' );
 
 		const onCopy = ( event ) => {

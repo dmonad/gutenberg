@@ -21,54 +21,51 @@ function ResizableBox( { className, ...props } ) {
 
 	return (
 		<Resizable
-			className={ classnames(
-				'components-resizable-box__container',
-				className,
-			) }
+			className={ classnames( 'components-resizable-box__container', className ) }
 			handleClasses={ {
 				top: classnames(
 					handleClassName,
 					sideHandleClassName,
-					'components-resizable-box__handle-top',
+					'components-resizable-box__handle-top'
 				),
 				right: classnames(
 					handleClassName,
 					sideHandleClassName,
-					'components-resizable-box__handle-right',
+					'components-resizable-box__handle-right'
 				),
 				bottom: classnames(
 					handleClassName,
 					sideHandleClassName,
-					'components-resizable-box__handle-bottom',
+					'components-resizable-box__handle-bottom'
 				),
 				left: classnames(
 					handleClassName,
 					sideHandleClassName,
-					'components-resizable-box__handle-left',
+					'components-resizable-box__handle-left'
 				),
 				topLeft: classnames(
 					handleClassName,
 					cornerHandleClassName,
 					'components-resizable-box__handle-top',
-					'components-resizable-box__handle-left',
+					'components-resizable-box__handle-left'
 				),
 				topRight: classnames(
 					handleClassName,
 					cornerHandleClassName,
 					'components-resizable-box__handle-top',
-					'components-resizable-box__handle-right',
+					'components-resizable-box__handle-right'
 				),
 				bottomRight: classnames(
 					handleClassName,
 					cornerHandleClassName,
 					'components-resizable-box__handle-bottom',
-					'components-resizable-box__handle-right',
+					'components-resizable-box__handle-right'
 				),
 				bottomLeft: classnames(
 					handleClassName,
 					cornerHandleClassName,
 					'components-resizable-box__handle-bottom',
-					'components-resizable-box__handle-left',
+					'components-resizable-box__handle-left'
 				),
 			} }
 			handleStyles={ {

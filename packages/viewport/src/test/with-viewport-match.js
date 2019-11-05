@@ -31,13 +31,10 @@ describe( 'withViewportMatch()', () => {
 
 	it( 'should render with result of query as custom prop name', () => {
 		dispatch( 'core/viewport' ).setIsMatching( { '> wide': true } );
-		const EnhancedComponent = withViewportMatch(
-			{ isWide: '> wide' }
-		)( ChildComponent );
+		const EnhancedComponent = withViewportMatch( { isWide: '> wide' } )( ChildComponent );
 		const wrapper = renderer.create( getTestComponent( EnhancedComponent ) );
 
-		expect( wrapper.root.findByType( ChildComponent ).props.isWide )
-			.toBe( true );
+		expect( wrapper.root.findByType( ChildComponent ).props.isWide ).toBe( true );
 
 		wrapper.unmount();
 	} );

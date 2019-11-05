@@ -20,27 +20,24 @@ const BlockInsertionPoint = ( { showInsertionPoint } ) => {
 	}
 
 	return (
-		<View style={ styles.containerStyleAddHere } >
+		<View style={ styles.containerStyleAddHere }>
 			<View style={ styles.lineStyleAddHere }></View>
-			<Text style={ styles.labelStyleAddHere } >{ __( 'ADD BLOCK HERE' ) }</Text>
+			<Text style={ styles.labelStyleAddHere }>{ __( 'ADD BLOCK HERE' ) }</Text>
 			<View style={ styles.lineStyleAddHere }></View>
 		</View>
 	);
 };
 
 export default withSelect( ( select, { clientId, rootClientId } ) => {
-	const {
-		getBlockIndex,
-		getBlockInsertionPoint,
-		isBlockInsertionPointVisible,
-	} = select( 'core/block-editor' );
+	const { getBlockIndex, getBlockInsertionPoint, isBlockInsertionPointVisible } = select(
+		'core/block-editor'
+	);
 	const blockIndex = getBlockIndex( clientId, rootClientId );
 	const insertionPoint = getBlockInsertionPoint();
-	const showInsertionPoint = (
+	const showInsertionPoint =
 		isBlockInsertionPointVisible() &&
 		insertionPoint.index === blockIndex &&
-		insertionPoint.rootClientId === rootClientId
-	);
+		insertionPoint.rootClientId === rootClientId;
 
 	return { showInsertionPoint };
 } )( BlockInsertionPoint );

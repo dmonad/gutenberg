@@ -124,17 +124,15 @@ export function __experimentalUseEntitySaving( kind, type, props ) {
 
 	const [ isDirty, isSaving, edits ] = useSelect(
 		( select ) => {
-			const { getEntityRecordNonTransientEdits, isSavingEntityRecord } = select(
-				'core'
-			);
+			const { getEntityRecordNonTransientEdits, isSavingEntityRecord } = select( 'core' );
 			const _edits = getEntityRecordNonTransientEdits( kind, type, id );
 			const editKeys = Object.keys( _edits );
 			return [
-				props ?
-					editKeys.some( ( key ) =>
-						typeof props === 'string' ? key === props : props.includes( key )
-					) :
-					editKeys.length > 0,
+				props
+					? editKeys.some( ( key ) =>
+							typeof props === 'string' ? key === props : props.includes( key )
+					  )
+					: editKeys.length > 0,
 				isSavingEntityRecord( kind, type, id ),
 				_edits,
 			];

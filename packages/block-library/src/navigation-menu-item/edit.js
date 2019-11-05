@@ -20,14 +20,7 @@ import {
 	ToggleControl,
 	ToolbarButton,
 } from '@wordpress/components';
-import {
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-	BACKSPACE,
-	ENTER,
-} from '@wordpress/keycodes';
+import { LEFT, RIGHT, UP, DOWN, BACKSPACE, ENTER } from '@wordpress/keycodes';
 import { __ } from '@wordpress/i18n';
 import {
 	BlockControls,
@@ -36,11 +29,7 @@ import {
 	URLPopover,
 	RichText,
 } from '@wordpress/block-editor';
-import {
-	Fragment,
-	useRef,
-	useState,
-} from '@wordpress/element';
+import { Fragment, useRef, useState } from '@wordpress/element';
 
 function NavigationMenuItemEdit( {
 	attributes,
@@ -95,45 +84,46 @@ function NavigationMenuItemEdit( {
 						title={ __( 'Link' ) }
 						onClick={ () => setIsLinkOpen( ! isLinkOpen ) }
 					/>
-					{ <ToolbarButton
-						name="submenu"
-						icon={ <SVG xmlns="http://www.w3.org/2000/svg" width="24" height="24"><Path d="M14 5h8v2h-8zm0 5.5h8v2h-8zm0 5.5h8v2h-8zM2 11.5C2 15.08 4.92 18 8.5 18H9v2l3-3-3-3v2h-.5C6.02 16 4 13.98 4 11.5S6.02 7 8.5 7H12V5H8.5C4.92 5 2 7.92 2 11.5z" /><Path fill="none" d="M0 0h24v24H0z" /></SVG> }
-						title={ __( 'Add submenu item' ) }
-						onClick={ insertMenuItemBlock }
-					/> }
+					{
+						<ToolbarButton
+							name="submenu"
+							icon={
+								<SVG xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+									<Path d="M14 5h8v2h-8zm0 5.5h8v2h-8zm0 5.5h8v2h-8zM2 11.5C2 15.08 4.92 18 8.5 18H9v2l3-3-3-3v2h-.5C6.02 16 4 13.98 4 11.5S6.02 7 8.5 7H12V5H8.5C4.92 5 2 7.92 2 11.5z" />
+									<Path fill="none" d="M0 0h24v24H0z" />
+								</SVG>
+							}
+							title={ __( 'Add submenu item' ) }
+							onClick={ insertMenuItemBlock }
+						/>
+					}
 				</Toolbar>
-				{ isLinkOpen &&
+				{ isLinkOpen && (
 					<>
 						<URLPopover
 							className="wp-block-navigation-menu-item__inline-link-input"
 							onClose={ closeURLPopover }
 							onFocusOutside={ onFocusOutside }
 						>
-							{ ( ! url || isEditingLink ) &&
-							<URLPopover.LinkEditor
-								value={ inputValue }
-								onChangeInputValue={ setUrlInput }
-								onKeyPress={ stopPropagation }
-								onKeyDown={ onKeyDown }
-								onSubmit={ ( event ) => event.preventDefault() }
-								autocompleteRef={ autocompleteRef }
-							/>
-							}
-							{ ( url && ! isEditingLink ) &&
-								<URLPopover.LinkViewer
+							{ ( ! url || isEditingLink ) && (
+								<URLPopover.LinkEditor
+									value={ inputValue }
+									onChangeInputValue={ setUrlInput }
 									onKeyPress={ stopPropagation }
-									url={ url }
+									onKeyDown={ onKeyDown }
+									onSubmit={ ( event ) => event.preventDefault() }
+									autocompleteRef={ autocompleteRef }
 								/>
-							}
-
+							) }
+							{ url && ! isEditingLink && (
+								<URLPopover.LinkViewer onKeyPress={ stopPropagation } url={ url } />
+							) }
 						</URLPopover>
 					</>
-				}
+				) }
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody
-					title={ __( 'Menu Settings' ) }
-				>
+				<PanelBody title={ __( 'Menu Settings' ) }>
 					<ToggleControl
 						checked={ attributes.opensInNewTab }
 						onChange={ ( opensInNewTab ) => {
@@ -149,9 +139,7 @@ function NavigationMenuItemEdit( {
 						label={ __( 'Description' ) }
 					/>
 				</PanelBody>
-				<PanelBody
-					title={ __( 'SEO Settings' ) }
-				>
+				<PanelBody title={ __( 'SEO Settings' ) }>
 					<TextControl
 						value={ attributes.title || '' }
 						onChange={ ( title ) => {
@@ -166,22 +154,22 @@ function NavigationMenuItemEdit( {
 							setAttributes( { nofollow } );
 						} }
 						label={ __( 'Add nofollow to menu item' ) }
-						help={ (
+						help={
 							<Fragment>
-								{ __( 'Don\'t let search engines follow this link.' ) }
+								{ __( "Don't let search engines follow this link." ) }
 								<ExternalLink
 									className="wp-block-navigation-menu-item__nofollow-external-link"
 									href={ __( 'https://codex.wordpress.org/Nofollow' ) }
 								>
-									{ __( 'What\'s this?' ) }
+									{ __( "What's this?" ) }
 								</ExternalLink>
 							</Fragment>
-						) }
+						}
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div className={ classnames(
-				'wp-block-navigation-menu-item', {
+			<div
+				className={ classnames( 'wp-block-navigation-menu-item', {
 					'is-editing': isSelected || isParentOfSelectedBlock,
 					'is-selected': isSelected,
 				} ) }
@@ -193,12 +181,12 @@ function NavigationMenuItemEdit( {
 					placeholder={ __( 'Add item…' ) }
 					withoutInteractiveFormatting
 				/>
-				{ ( isSelected || isParentOfSelectedBlock ) &&
+				{ ( isSelected || isParentOfSelectedBlock ) && (
 					<InnerBlocks
 						allowedBlocks={ [ 'core/navigation-menu-item' ] }
 						renderAppender={ hasDescendants ? InnerBlocks.ButtonBlockAppender : false }
 					/>
-				}
+				) }
 			</div>
 		</Fragment>
 	);
@@ -219,16 +207,10 @@ export default compose( [
 			insertMenuItemBlock() {
 				const { clientId } = ownProps;
 
-				const {
-					insertBlock,
-				} = dispatch( 'core/block-editor' );
+				const { insertBlock } = dispatch( 'core/block-editor' );
 
 				const blockToInsert = createBlock( 'core/navigation-menu-item' );
-				insertBlock(
-					blockToInsert,
-					0,
-					clientId,
-				);
+				insertBlock( blockToInsert, 0, clientId );
 			},
 		};
 	} ),

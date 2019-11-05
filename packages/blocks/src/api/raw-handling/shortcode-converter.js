@@ -19,10 +19,12 @@ function segmentHTMLToShortcodeBlock( HTML, lastIndex = 0 ) {
 	// Get all matches.
 	const transformsFrom = getBlockTransforms( 'from' );
 
-	const transformation = findTransform( transformsFrom, ( transform ) => (
-		transform.type === 'shortcode' &&
-		some( castArray( transform.tag ), ( tag ) => regexp( tag ).test( HTML ) )
-	) );
+	const transformation = findTransform(
+		transformsFrom,
+		( transform ) =>
+			transform.type === 'shortcode' &&
+			some( castArray( transform.tag ), ( tag ) => regexp( tag ).test( HTML ) )
+	);
 
 	if ( ! transformation ) {
 		return [ HTML ];
@@ -42,10 +44,7 @@ function segmentHTMLToShortcodeBlock( HTML, lastIndex = 0 ) {
 		// not on a new line (or in paragraph from Markdown converter),
 		// consider the shortcode as inline text, and thus skip conversion for
 		// this segment.
-		if (
-			! includes( match.shortcode.content || '', '<' ) &&
-			! /(\n|<p>)\s*$/.test( beforeHTML )
-		) {
+		if ( ! includes( match.shortcode.content || '', '<' ) && ! /(\n|<p>)\s*$/.test( beforeHTML ) ) {
 			return segmentHTMLToShortcodeBlock( HTML, lastIndex );
 		}
 
@@ -55,7 +54,7 @@ function segmentHTMLToShortcodeBlock( HTML, lastIndex = 0 ) {
 			// but shouldn't be too relied upon.
 			//
 			// See: https://github.com/WordPress/gutenberg/pull/3610#discussion_r152546926
-			( schema ) => schema.shortcode( match.shortcode.attrs, match ),
+			( schema ) => schema.shortcode( match.shortcode.attrs, match )
 		);
 
 		const block = createBlock(
@@ -66,15 +65,11 @@ function segmentHTMLToShortcodeBlock( HTML, lastIndex = 0 ) {
 					attributes: transformation.attributes,
 				},
 				match.shortcode.content,
-				attributes,
+				attributes
 			)
 		);
 
-		return [
-			beforeHTML,
-			block,
-			...segmentHTMLToShortcodeBlock( HTML.substr( lastIndex ) ),
-		];
+		return [ beforeHTML, block, ...segmentHTMLToShortcodeBlock( HTML.substr( lastIndex ) ) ];
 	}
 
 	return [ HTML ];

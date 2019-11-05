@@ -15,14 +15,10 @@ export async function transformBlockTo( name ) {
 	if ( closeBlockStylesButton.length > 0 ) {
 		await closeBlockStylesButton[ 0 ].click();
 	}
-	const insertButton = ( await page.$x(
-		`//button//span[contains(text(), '${ name }')]`
-	) )[ 0 ];
+	const insertButton = ( await page.$x( `//button//span[contains(text(), '${ name }')]` ) )[ 0 ];
 	await insertButton.click();
 	const BLOCK_SELECTOR = '.block-editor-block-list__block';
 	const BLOCK_NAME_SELECTOR = `[aria-label="Block: ${ name }"]`;
 	// Wait for the transformed block to appear.
-	await page.waitForSelector(
-		`${ BLOCK_SELECTOR }${ BLOCK_NAME_SELECTOR }`
-	);
+	await page.waitForSelector( `${ BLOCK_SELECTOR }${ BLOCK_NAME_SELECTOR }` );
 }

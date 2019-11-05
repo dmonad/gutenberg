@@ -20,16 +20,12 @@ const SidebarHeader = ( { children, className, closeLabel, closeSidebar, title }
 	return (
 		<>
 			<div className="components-panel__header edit-post-sidebar-header__small">
-				<span className="edit-post-sidebar-header__title">
-					{ title || __( '(no title)' ) }
-				</span>
-				<IconButton
-					onClick={ closeSidebar }
-					icon="no-alt"
-					label={ closeLabel }
-				/>
+				<span className="edit-post-sidebar-header__title">{ title || __( '(no title)' ) }</span>
+				<IconButton onClick={ closeSidebar } icon="no-alt" label={ closeLabel } />
 			</div>
-			<div className={ classnames( 'components-panel__header edit-post-sidebar-header', className ) }>
+			<div
+				className={ classnames( 'components-panel__header edit-post-sidebar-header', className ) }
+			>
 				{ children }
 				<IconButton
 					onClick={ closeSidebar }
@@ -48,5 +44,5 @@ export default compose(
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
 		closeSidebar: dispatch( 'core/edit-post' ).closeGeneralSidebar,
-	} ) ),
+	} ) )
 )( SidebarHeader );

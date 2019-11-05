@@ -23,12 +23,18 @@ export const settings = {
 	icon,
 	example: {
 		attributes: {
-			content: __( 'WHAT was he doing, the great god Pan,' ) + '<br>' +
-			__( '    Down in the reeds by the river?' ) + '<br>' +
-			__( 'Spreading ruin and scattering ban,' ) + '<br>' +
-			__( 'Splashing and paddling with hoofs of a goat,' ) + '<br>' +
-			__( 'And breaking the golden lilies afloat' ) + '<br>' +
-			__( '    With the dragon-fly on the river.' ),
+			content:
+				__( 'WHAT was he doing, the great god Pan,' ) +
+				'<br>' +
+				__( '    Down in the reeds by the river?' ) +
+				'<br>' +
+				__( 'Spreading ruin and scattering ban,' ) +
+				'<br>' +
+				__( 'Splashing and paddling with hoofs of a goat,' ) +
+				'<br>' +
+				__( 'And breaking the golden lilies afloat' ) +
+				'<br>' +
+				__( '    With the dragon-fly on the river.' ),
 		},
 	},
 	keywords: [ __( 'poetry' ) ],

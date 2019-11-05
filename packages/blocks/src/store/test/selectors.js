@@ -1,11 +1,7 @@
 /**
  * Internal dependencies
  */
-import {
-	getChildBlockNames,
-	isMatchingSearchTerm,
-	getGroupingBlockName,
-} from '../selectors';
+import { getChildBlockNames, isMatchingSearchTerm, getGroupingBlockName } from '../selectors';
 
 describe( 'selectors', () => {
 	describe( 'getChildBlockNames', () => {
@@ -153,52 +149,52 @@ describe( 'selectors', () => {
 			},
 		};
 
-		describe.each( [
-			[ 'name', name ],
-			[ 'block type', blockType ],
-		] )( 'by %s', ( label, nameOrType ) => {
-			it( 'should return false if not match', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, 'Quote' );
+		describe.each( [ [ 'name', name ], [ 'block type', blockType ] ] )(
+			'by %s',
+			( label, nameOrType ) => {
+				it( 'should return false if not match', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, 'Quote' );
 
-				expect( result ).toBe( false );
-			} );
+					expect( result ).toBe( false );
+				} );
 
-			it( 'should return true if match by title', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, 'Paragraph' );
+				it( 'should return true if match by title', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, 'Paragraph' );
 
-				expect( result ).toBe( true );
-			} );
+					expect( result ).toBe( true );
+				} );
 
-			it( 'should return true if match ignoring case', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, 'PARAGRAPH' );
+				it( 'should return true if match ignoring case', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, 'PARAGRAPH' );
 
-				expect( result ).toBe( true );
-			} );
+					expect( result ).toBe( true );
+				} );
 
-			it( 'should return true if match ignoring diacritics', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, 'PÁRAGRAPH' );
+				it( 'should return true if match ignoring diacritics', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, 'PÁRAGRAPH' );
 
-				expect( result ).toBe( true );
-			} );
+					expect( result ).toBe( true );
+				} );
 
-			it( 'should return true if match ignoring whitespace', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, '  PARAGRAPH  ' );
+				it( 'should return true if match ignoring whitespace', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, '  PARAGRAPH  ' );
 
-				expect( result ).toBe( true );
-			} );
+					expect( result ).toBe( true );
+				} );
 
-			it( 'should return true if match using the keywords', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, 'TEXT' );
+				it( 'should return true if match using the keywords', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, 'TEXT' );
 
-				expect( result ).toBe( true );
-			} );
+					expect( result ).toBe( true );
+				} );
 
-			it( 'should return true if match using the categories', () => {
-				const result = isMatchingSearchTerm( state, nameOrType, 'COMMON' );
+				it( 'should return true if match using the categories', () => {
+					const result = isMatchingSearchTerm( state, nameOrType, 'COMMON' );
 
-				expect( result ).toBe( true );
-			} );
-		} );
+					expect( result ).toBe( true );
+				} );
+			}
+		);
 	} );
 
 	describe( 'getGroupingBlockName', () => {

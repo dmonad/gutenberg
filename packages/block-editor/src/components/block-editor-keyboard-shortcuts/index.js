@@ -97,18 +97,30 @@ class BlockEditorKeyboardShortcuts extends Component {
 								shortcuts={ {
 									// Prevents bookmark all Tabs shortcut in Chrome when devtools are closed.
 									// Prevents reposition Chrome devtools pane shortcut when devtools are open.
-									[ shortcuts.duplicate.raw ]: flow( preventDefault, onDuplicate ),
+									[ shortcuts.duplicate.raw ]: flow(
+										preventDefault,
+										onDuplicate
+									),
 
 									// Does not clash with any known browser/native shortcuts, but preventDefault
 									// is used to prevent any obscure unknown shortcuts from triggering.
-									[ shortcuts.removeBlock.raw ]: flow( preventDefault, onRemove ),
+									[ shortcuts.removeBlock.raw ]: flow(
+										preventDefault,
+										onRemove
+									),
 
 									// Prevent 'view recently closed tabs' in Opera using preventDefault.
-									[ shortcuts.insertBefore.raw ]: flow( preventDefault, onInsertBefore ),
+									[ shortcuts.insertBefore.raw ]: flow(
+										preventDefault,
+										onInsertBefore
+									),
 
 									// Does not clash with any known browser/native shortcuts, but preventDefault
 									// is used to prevent any obscure unknown shortcuts from triggering.
-									[ shortcuts.insertAfter.raw ]: flow( preventDefault, onInsertAfter ),
+									[ shortcuts.insertAfter.raw ]: flow(
+										preventDefault,
+										onInsertAfter
+									),
 								} }
 							/>
 						) }
@@ -141,11 +153,7 @@ export default compose( [
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const {
-			clearSelectedBlock,
-			multiSelect,
-			removeBlocks,
-		} = dispatch( 'core/block-editor' );
+		const { clearSelectedBlock, multiSelect, removeBlocks } = dispatch( 'core/block-editor' );
 
 		return {
 			clearSelectedBlock,

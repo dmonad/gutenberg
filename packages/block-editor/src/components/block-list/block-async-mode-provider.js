@@ -10,11 +10,7 @@ const BlockAsyncModeProvider = ( { children, clientId, isBlockInSelection } ) =>
 
 	const isSyncModeForced = isBlockInSelection || isParentOfSelectedBlock;
 
-	return (
-		<AsyncModeProvider value={ ! isSyncModeForced }>
-			{ children }
-		</AsyncModeProvider>
-	);
+	return <AsyncModeProvider value={ ! isSyncModeForced }>{ children }</AsyncModeProvider>;
 };
 
 export default BlockAsyncModeProvider;

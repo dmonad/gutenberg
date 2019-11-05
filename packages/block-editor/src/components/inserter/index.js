@@ -10,9 +10,7 @@ import { Dropdown, IconButton } from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose, ifCondition } from '@wordpress/compose';
-import {
-	createBlock,
-} from '@wordpress/blocks';
+import { createBlock } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -125,14 +123,11 @@ class Inserter extends Component {
 
 export default compose( [
 	withSelect( ( select, { rootClientId } ) => {
-		const {
-			hasInserterItems,
-			__experimentalGetAllowedBlocks,
-		} = select( 'core/block-editor' );
+		const { hasInserterItems, __experimentalGetAllowedBlocks } = select( 'core/block-editor' );
 
 		const allowedBlocks = __experimentalGetAllowedBlocks( rootClientId );
 
-		const hasSingleBlockType = allowedBlocks && ( get( allowedBlocks, [ 'length' ], 0 ) === 1 );
+		const hasSingleBlockType = allowedBlocks && get( allowedBlocks, [ 'length' ], 0 ) === 1;
 		let allowedBlockType = false;
 		if ( hasSingleBlockType ) {
 			allowedBlockType = allowedBlocks[ 0 ];
@@ -148,21 +143,16 @@ export default compose( [
 		return {
 			insertOnlyAllowedBlock() {
 				const { rootClientId, clientId, isAppender } = ownProps;
-				const {
-					hasSingleBlockType,
-					allowedBlockType,
-				} = ownProps;
+				const { hasSingleBlockType, allowedBlockType } = ownProps;
 
 				if ( ! hasSingleBlockType ) {
 					return;
 				}
 
 				function getInsertionIndex() {
-					const {
-						getBlockIndex,
-						getBlockSelectionEnd,
-						getBlockOrder,
-					} = select( 'core/block-editor' );
+					const { getBlockIndex, getBlockSelectionEnd, getBlockOrder } = select(
+						'core/block-editor'
+					);
 
 					// If the clientId is defined, we insert at the position of the block.
 					if ( clientId ) {
@@ -179,16 +169,10 @@ export default compose( [
 					return getBlockOrder( rootClientId ).length;
 				}
 
-				const {
-					insertBlock,
-				} = dispatch( 'core/block-editor' );
+				const { insertBlock } = dispatch( 'core/block-editor' );
 
 				const blockToInsert = createBlock( allowedBlockType.name );
-				insertBlock(
-					blockToInsert,
-					getInsertionIndex(),
-					rootClientId
-				);
+				insertBlock( blockToInsert, getInsertionIndex(), rootClientId );
 			},
 		};
 	} ),

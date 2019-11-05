@@ -98,26 +98,14 @@ describe( 'DOM', () => {
 		 *
 		 * @type {string[]}
 		 */
-		const NON_TEXT_INPUT_TYPES = [
-			'button',
-			'checkbox',
-			'image',
-			'hidden',
-			'radio',
-			'submit',
-		];
+		const NON_TEXT_INPUT_TYPES = [ 'button', 'checkbox', 'image', 'hidden', 'radio', 'submit' ];
 
 		/**
 		 * A sampling of input types expected to be text eligible.
 		 *
 		 * @type {string[]}
 		 */
-		const TEXT_INPUT_TYPES = [
-			'text',
-			'password',
-			'search',
-			'url',
-		];
+		const TEXT_INPUT_TYPES = [ 'text', 'password', 'search', 'url' ];
 
 		it( 'should return false for non-text input elements', () => {
 			NON_TEXT_INPUT_TYPES.forEach( ( type ) => {

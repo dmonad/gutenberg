@@ -8,18 +8,17 @@ import { Svg } from 'react-native-svg';
  */
 import styles from './style.scss';
 
-export {
-	Circle,
-	G,
-	Path,
-	Polygon,
-	Rect,
-} from 'react-native-svg';
+export { Circle, G, Path, Polygon, Rect } from 'react-native-svg';
 
 export const SVG = ( props ) => {
 	const colorScheme = props.colorScheme || 'light';
-	const stylesFromClasses = ( props.className || '' ).split( ' ' ).map( ( element ) => styles[ element ] ).filter( Boolean );
-	const defaultStyle = props.__unstableActive ? styles[ 'is-active' ] : styles[ 'components-toolbar__control-' + colorScheme ];
+	const stylesFromClasses = ( props.className || '' )
+		.split( ' ' )
+		.map( ( element ) => styles[ element ] )
+		.filter( Boolean );
+	const defaultStyle = props.__unstableActive
+		? styles[ 'is-active' ]
+		: styles[ 'components-toolbar__control-' + colorScheme ];
 	const styleValues = Object.assign( {}, props.style, defaultStyle, ...stylesFromClasses );
 
 	const safeProps = { ...props, style: styleValues };
@@ -34,4 +33,3 @@ export const SVG = ( props ) => {
 		/>
 	);
 };
-

@@ -14,12 +14,7 @@ export const _default = () => {
 	const icon = text( 'Icon', 'ellipsis' );
 	const label = text( 'Label', 'More' );
 
-	return (
-		<IconButton
-			icon={ icon }
-			label={ label }
-		/>
-	);
+	return <IconButton icon={ icon } label={ label } />;
 };
 
 export const grouped = () => {

@@ -90,10 +90,18 @@ export function Button( props ) {
 		states.push( 'disabled' );
 	}
 
-	const subscriptInactive = getStylesFromColorScheme( styles.subscriptInactive, styles.subscriptInactiveDark );
+	const subscriptInactive = getStylesFromColorScheme(
+		styles.subscriptInactive,
+		styles.subscriptInactiveDark
+	);
 
 	const newChildren = Children.map( children, ( child ) => {
-		return child ? cloneElement( child, { colorScheme: props.preferredColorScheme, __unstableActive: ariaPressed } ) : child;
+		return child
+			? cloneElement( child, {
+					colorScheme: props.preferredColorScheme,
+					__unstableActive: ariaPressed,
+			  } )
+			: child;
 	} );
 
 	return (
@@ -111,7 +119,11 @@ export function Button( props ) {
 			<View style={ buttonViewStyle }>
 				<View style={ { flexDirection: 'row' } }>
 					{ newChildren }
-					{ subscript && ( <Text style={ ariaPressed ? styles.subscriptActive : subscriptInactive }>{ subscript }</Text> ) }
+					{ subscript && (
+						<Text style={ ariaPressed ? styles.subscriptActive : subscriptInactive }>
+							{ subscript }
+						</Text>
+					) }
 				</View>
 			</View>
 		</TouchableOpacity>

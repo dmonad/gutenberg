@@ -50,9 +50,7 @@ class NavigableToolbar extends Component {
 				orientation="horizontal"
 				role="toolbar"
 				ref={ this.toolbar }
-				{ ...omit( props, [
-					'focusOnMount',
-				] ) }
+				{ ...omit( props, [ 'focusOnMount' ] ) }
 			>
 				<KeyboardShortcuts
 					bindGlobal

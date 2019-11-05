@@ -1,12 +1,13 @@
 module.exports = {
-	extends: [
-		require.resolve( './jsdoc.js' ),
-	],
+	extends: [ require.resolve( './jsdoc.js' ) ],
 	rules: {
 		'array-callback-return': 'error',
-		camelcase: [ 'error', {
-			properties: 'never',
-		} ],
+		camelcase: [
+			'error',
+			{
+				properties: 'never',
+			},
+		],
 		curly: [ 'error', 'all' ],
 		'dot-notation': 'error',
 		'eol-last': 'error',

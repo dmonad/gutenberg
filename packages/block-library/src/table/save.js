@@ -9,13 +9,7 @@ import classnames from 'classnames';
 import { RichText, getColorClassName } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const {
-		hasFixedLayout,
-		head,
-		body,
-		foot,
-		backgroundColor,
-	} = attributes;
+	const { hasFixedLayout, head, body, foot, backgroundColor } = attributes;
 	const isEmpty = ! head.length && ! body.length && ! foot.length;
 
 	if ( isEmpty ) {

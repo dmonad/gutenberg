@@ -23,7 +23,7 @@ describe( 'adding blocks', () => {
 	 */
 	async function clickBelow( elementHandle ) {
 		const box = await elementHandle.boundingBox();
-		const x = box.x + ( box.width / 2 );
+		const x = box.x + box.width / 2;
 		const y = box.y + box.height + 100;
 		return page.mouse.click( x, y );
 	}
@@ -84,17 +84,20 @@ describe( 'adding blocks', () => {
 		await page.click( '.editor-post-title__input' );
 
 		// Using the between inserter
-		const insertionPoint = await page.$( '[data-type="core/quote"] .block-editor-inserter__toggle' );
+		const insertionPoint = await page.$(
+			'[data-type="core/quote"] .block-editor-inserter__toggle'
+		);
 		const rect = await insertionPoint.boundingBox();
-		await page.mouse.move( rect.x + ( rect.width / 2 ), rect.y + ( rect.height / 2 ), { steps: 10 } );
+		await page.mouse.move( rect.x + rect.width / 2, rect.y + rect.height / 2, { steps: 10 } );
 		await page.waitForSelector( '[data-type="core/quote"] .block-editor-inserter__toggle' );
 		await page.click( '[data-type="core/quote"] .block-editor-inserter__toggle' );
 		// [TODO]: Search input should be focused immediately. It shouldn't be
 		// necessary to have `waitForFunction`.
-		await page.waitForFunction( () => (
-			document.activeElement &&
-			document.activeElement.classList.contains( 'block-editor-inserter__search' )
-		) );
+		await page.waitForFunction(
+			() =>
+				document.activeElement &&
+				document.activeElement.classList.contains( 'block-editor-inserter__search' )
+		);
 		await page.keyboard.type( 'para' );
 		await pressKeyTimes( 'Tab', 3 );
 		await page.keyboard.press( 'Enter' );
@@ -109,7 +112,9 @@ describe( 'adding blocks', () => {
 	it( 'should not allow transfer of focus outside of the block-insertion menu once open', async () => {
 		// Enter the default block and click the inserter toggle button to the left of it.
 		await page.keyboard.press( 'ArrowDown' );
-		await page.click( '.block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle' );
+		await page.click(
+			'.block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle'
+		);
 
 		// Expect the inserter search input to be the active element.
 		let activeElementClassList = await page.evaluate( () => document.activeElement.classList );

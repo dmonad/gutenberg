@@ -23,7 +23,8 @@ export const settings = {
 	icon,
 	example: {
 		attributes: {
-			value: '<p>' + __( 'One of the hardest things to do in technology is disrupt yourself.' ) + '</p>',
+			value:
+				'<p>' + __( 'One of the hardest things to do in technology is disrupt yourself.' ) + '</p>',
 			citation: 'Matt Mullenweg',
 		},
 	},

@@ -16,12 +16,7 @@ import {
 	withColors,
 } from '@wordpress/block-editor';
 
-function GroupEdit( {
-	className,
-	setBackgroundColor,
-	backgroundColor,
-	hasInnerBlocks,
-} ) {
+function GroupEdit( { className, setBackgroundColor, backgroundColor, hasInnerBlocks } ) {
 	const styles = {
 		backgroundColor: backgroundColor.color,
 	};
@@ -46,9 +41,7 @@ function GroupEdit( {
 			</InspectorControls>
 			<div className={ classes } style={ styles }>
 				<div className="wp-block-group__inner-container">
-					<InnerBlocks
-						renderAppender={ ! hasInnerBlocks && InnerBlocks.ButtonBlockAppender }
-					/>
+					<InnerBlocks renderAppender={ ! hasInnerBlocks && InnerBlocks.ButtonBlockAppender } />
 				</div>
 			</div>
 		</>
@@ -58,9 +51,7 @@ function GroupEdit( {
 export default compose( [
 	withColors( 'backgroundColor' ),
 	withSelect( ( select, { clientId } ) => {
-		const {
-			getBlock,
-		} = select( 'core/block-editor' );
+		const { getBlock } = select( 'core/block-editor' );
 
 		const block = getBlock( clientId );
 

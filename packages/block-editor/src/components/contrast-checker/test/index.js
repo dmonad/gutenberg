@@ -23,7 +23,8 @@ describe( 'ContrastChecker', () => {
 			textColor={ textColor }
 			isLargeText={ isLargeText }
 			fallbackBackgroundColor={ fallbackBackgroundColor }
-			fallbackTextColor={ fallbackTextColor } />
+			fallbackTextColor={ fallbackTextColor }
+		/>
 	);
 
 	test( 'should render null when no colors are provided', () => {
@@ -41,7 +42,8 @@ describe( 'ContrastChecker', () => {
 				textColor={ sameShade }
 				isLargeText={ isLargeText }
 				fallbackBackgroundColor={ fallbackBackgroundColor }
-				fallbackTextColor={ fallbackTextColor } />
+				fallbackTextColor={ fallbackTextColor }
+			/>
 		);
 
 		expect( componentWrapper ).toMatchSnapshot();
@@ -54,7 +56,8 @@ describe( 'ContrastChecker', () => {
 				textColor={ sameShade }
 				isLargeText={ isLargeText }
 				fallbackBackgroundColor={ fallbackBackgroundColor }
-				fallbackTextColor={ fallbackTextColor } />
+				fallbackTextColor={ fallbackTextColor }
+			/>
 		);
 
 		expect( componentWrapper.html() ).toBeNull();
@@ -67,7 +70,8 @@ describe( 'ContrastChecker', () => {
 				textColor={ colorWithTransparency }
 				isLargeText={ isLargeText }
 				fallbackBackgroundColor={ fallbackBackgroundColor }
-				fallbackTextColor={ fallbackTextColor } />
+				fallbackTextColor={ fallbackTextColor }
+			/>
 		);
 
 		expect( componentWrapper.html() ).toBeNull();
@@ -82,7 +86,8 @@ describe( 'ContrastChecker', () => {
 				textColor={ sameShade }
 				isLargeText={ ! isLargeText }
 				fallbackBackgroundColor={ fallbackBackgroundColor }
-				fallbackTextColor={ fallbackTextColor } />
+				fallbackTextColor={ fallbackTextColor }
+			/>
 		);
 
 		expect( componentWrapper ).toMatchSnapshot();
@@ -90,21 +95,13 @@ describe( 'ContrastChecker', () => {
 
 	test( 'should take into consideration wherever text is large or not', () => {
 		const componentWrapperSmallText = mount(
-			<ContrastChecker
-				backgroundColor="#C44B4B"
-				textColor="#000000"
-				isLargeText={ false }
-			/>
+			<ContrastChecker backgroundColor="#C44B4B" textColor="#000000" isLargeText={ false } />
 		);
 
 		expect( componentWrapperSmallText ).toMatchSnapshot();
 
 		const componentWrapperLargeText = mount(
-			<ContrastChecker
-				backgroundColor="#C44B4B"
-				textColor="#000000"
-				isLargeText={ true }
-			/>
+			<ContrastChecker backgroundColor="#C44B4B" textColor="#000000" isLargeText={ true } />
 		);
 
 		expect( componentWrapperLargeText.html() ).toBeNull();
@@ -112,21 +109,13 @@ describe( 'ContrastChecker', () => {
 
 	test( 'should take into consideration the font size passed', () => {
 		const componentWrapperSmallFontSize = mount(
-			<ContrastChecker
-				backgroundColor="#C44B4B"
-				textColor="#000000"
-				fontSize={ 23 }
-			/>
+			<ContrastChecker backgroundColor="#C44B4B" textColor="#000000" fontSize={ 23 } />
 		);
 
 		expect( componentWrapperSmallFontSize ).toMatchSnapshot();
 
 		const componentWrapperLargeText = mount(
-			<ContrastChecker
-				backgroundColor="#C44B4B"
-				textColor="#000000"
-				fontSize={ 24 }
-			/>
+			<ContrastChecker backgroundColor="#C44B4B" textColor="#000000" fontSize={ 24 } />
 		);
 
 		expect( componentWrapperLargeText.html() ).toBeNull();
@@ -161,7 +150,8 @@ describe( 'ContrastChecker', () => {
 			<ContrastChecker
 				isLargeText={ isLargeText }
 				fallbackBackgroundColor={ fallbackBackgroundColor }
-				fallbackTextColor={ fallbackTextColor } />
+				fallbackTextColor={ fallbackTextColor }
+			/>
 		);
 
 		expect( componentWrapper.html() ).toBeNull();
@@ -169,9 +159,7 @@ describe( 'ContrastChecker', () => {
 
 	test( 'should render messages when the textColor is valid, but the fallback backgroundColor conflicts.', () => {
 		const componentWrapper = mount(
-			<ContrastChecker
-				textColor={ textColor }
-				fallbackBackgroundColor={ textColor } />
+			<ContrastChecker textColor={ textColor } fallbackBackgroundColor={ textColor } />
 		);
 
 		expect( componentWrapper ).toMatchSnapshot();

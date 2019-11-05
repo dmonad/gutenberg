@@ -3,14 +3,7 @@
 /**
  * External dependencies
  */
-import {
-	get,
-	omit,
-	pick,
-	isFunction,
-	isPlainObject,
-	some,
-} from 'lodash';
+import { get, omit, pick, isFunction, isPlainObject, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -98,7 +91,8 @@ export let serverSideBlockDefinitions = {};
  *
  * @param {Object} definitions Server-side block definitions
  */
-export function unstable__bootstrapServerSideBlockDefinitions( definitions ) { // eslint-disable-line camelcase
+export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
+	// eslint-disable-line camelcase
 	serverSideBlockDefinitions = {
 		...serverSideBlockDefinitions,
 		...definitions,
@@ -125,9 +119,7 @@ export function registerBlockType( name, settings ) {
 	};
 
 	if ( typeof name !== 'string' ) {
-		console.error(
-			'Block names must be strings.'
-		);
+		console.error( 'Block names must be strings.' );
 		return;
 	}
 	if ( ! /^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$/.test( name ) ) {
@@ -137,9 +129,7 @@ export function registerBlockType( name, settings ) {
 		return;
 	}
 	if ( select( 'core/blocks' ).getBlockType( name ) ) {
-		console.error(
-			'Block "' + name + '" is already registered.'
-		);
+		console.error( 'Block "' + name + '" is already registered.' );
 		return;
 	}
 
@@ -148,7 +138,8 @@ export function registerBlockType( name, settings ) {
 
 	if ( settings.deprecated ) {
 		settings.deprecated = settings.deprecated.map( ( deprecation ) =>
-			pick( // Only keep valid deprecation keys.
+			pick(
+				// Only keep valid deprecation keys.
 				applyFilters(
 					'blocks.registerBlockType',
 					// Merge deprecation keys with pre-filter settings
@@ -168,49 +159,35 @@ export function registerBlockType( name, settings ) {
 	}
 
 	if ( ! isPlainObject( settings ) ) {
-		console.error(
-			'Block settings must be a valid object.'
-		);
+		console.error( 'Block settings must be a valid object.' );
 		return;
 	}
 
 	if ( ! isFunction( settings.save ) ) {
-		console.error(
-			'The "save" property must be a valid function.'
-		);
+		console.error( 'The "save" property must be a valid function.' );
 		return;
 	}
 	if ( 'edit' in settings && ! isFunction( settings.edit ) ) {
-		console.error(
-			'The "edit" property must be a valid function.'
-		);
+		console.error( 'The "edit" property must be a valid function.' );
 		return;
 	}
 	if ( ! ( 'category' in settings ) ) {
-		console.error(
-			'The block "' + name + '" must have a category.'
-		);
+		console.error( 'The block "' + name + '" must have a category.' );
 		return;
 	}
 	if (
 		'category' in settings &&
 		! some( select( 'core/blocks' ).getCategories(), { slug: settings.category } )
 	) {
-		console.error(
-			'The block "' + name + '" must have a registered category.'
-		);
+		console.error( 'The block "' + name + '" must have a registered category.' );
 		return;
 	}
 	if ( ! ( 'title' in settings ) || settings.title === '' ) {
-		console.error(
-			'The block "' + name + '" must have a title.'
-		);
+		console.error( 'The block "' + name + '" must have a title.' );
 		return;
 	}
 	if ( typeof settings.title !== 'string' ) {
-		console.error(
-			'Block titles must be strings.'
-		);
+		console.error( 'Block titles must be strings.' );
 		return;
 	}
 
@@ -218,7 +195,7 @@ export function registerBlockType( name, settings ) {
 	if ( ! isValidIcon( settings.icon.src ) ) {
 		console.error(
 			'The icon passed is invalid. ' +
-			'The icon should be a string, an element, a function, or an object following the specifications documented in https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#icon-optional'
+				'The icon should be a string, an element, a function, or an object following the specifications documented in https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#icon-optional'
 		);
 		return;
 	}
@@ -239,9 +216,7 @@ export function registerBlockType( name, settings ) {
 export function unregisterBlockType( name ) {
 	const oldBlock = select( 'core/blocks' ).getBlockType( name );
 	if ( ! oldBlock ) {
-		console.error(
-			'Block "' + name + '" is not registered.'
-		);
+		console.error( 'Block "' + name + '" is not registered.' );
 		return;
 	}
 	dispatch( 'core/blocks' ).removeBlockTypes( name );

@@ -10,8 +10,7 @@ import { addFilter } from '@wordpress/hooks';
 
 const EMPTY_OBJECT = {};
 function useMetaAttributeSource( name, _attributes, _setAttributes ) {
-	const { attributes: attributeTypes = EMPTY_OBJECT } =
-		getBlockType( name ) || EMPTY_OBJECT;
+	const { attributes: attributeTypes = EMPTY_OBJECT } = getBlockType( name ) || EMPTY_OBJECT;
 	let [ attributes, setAttributes ] = [ _attributes, _setAttributes ];
 
 	if ( Object.values( attributeTypes ).some( ( type ) => type.source === 'meta' ) ) {
@@ -52,11 +51,7 @@ function useMetaAttributeSource( name, _attributes, _setAttributes ) {
 }
 const withMetaAttributeSource = createHigherOrderComponent(
 	( BlockListBlock ) => ( { attributes, setAttributes, name, ...props } ) => {
-		[ attributes, setAttributes ] = useMetaAttributeSource(
-			name,
-			attributes,
-			setAttributes
-		);
+		[ attributes, setAttributes ] = useMetaAttributeSource( name, attributes, setAttributes );
 		return (
 			<BlockListBlock
 				attributes={ attributes }

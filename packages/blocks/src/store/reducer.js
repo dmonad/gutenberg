@@ -1,17 +1,7 @@
 /**
  * External dependencies
  */
-import {
-	filter,
-	find,
-	get,
-	isEmpty,
-	keyBy,
-	map,
-	mapValues,
-	omit,
-	uniqBy,
-} from 'lodash';
+import { filter, find, get, isEmpty, keyBy, map, mapValues, omit, uniqBy } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -44,10 +34,7 @@ export function blockTypes( state = {}, action ) {
 		case 'ADD_BLOCK_TYPES':
 			return {
 				...state,
-				...keyBy(
-					map( action.blockTypes, ( blockType ) => omit( blockType, 'styles ' ) ),
-					'name'
-				),
+				...keyBy( map( action.blockTypes, ( blockType ) => omit( blockType, 'styles ' ) ), 'name' ),
 			};
 		case 'REMOVE_BLOCK_TYPES':
 			return omit( state, action.names );
@@ -70,26 +57,26 @@ export function blockStyles( state = {}, action ) {
 			return {
 				...state,
 				...mapValues( keyBy( action.blockTypes, 'name' ), ( blockType ) => {
-					return uniqBy( [
-						...get( blockType, [ 'styles' ], [] ),
-						...get( state, [ blockType.name ], [] ),
-					], ( style ) => style.name );
+					return uniqBy(
+						[ ...get( blockType, [ 'styles' ], [] ), ...get( state, [ blockType.name ], [] ) ],
+						( style ) => style.name
+					);
 				} ),
 			};
 		case 'ADD_BLOCK_STYLES':
 			return {
 				...state,
-				[ action.blockName ]: uniqBy( [
-					...get( state, [ action.blockName ], [] ),
-					...( action.styles ),
-				], ( style ) => style.name ),
+				[ action.blockName ]: uniqBy(
+					[ ...get( state, [ action.blockName ], [] ), ...action.styles ],
+					( style ) => style.name
+				),
 			};
 		case 'REMOVE_BLOCK_STYLES':
 			return {
 				...state,
 				[ action.blockName ]: filter(
 					get( state, [ action.blockName ], [] ),
-					( style ) => action.styleNames.indexOf( style.name ) === -1,
+					( style ) => action.styleNames.indexOf( style.name ) === -1
 				),
 			};
 	}
@@ -122,8 +109,12 @@ export function createBlockNameSetterReducer( setActionType ) {
 }
 
 export const defaultBlockName = createBlockNameSetterReducer( 'SET_DEFAULT_BLOCK_NAME' );
-export const freeformFallbackBlockName = createBlockNameSetterReducer( 'SET_FREEFORM_FALLBACK_BLOCK_NAME' );
-export const unregisteredFallbackBlockName = createBlockNameSetterReducer( 'SET_UNREGISTERED_FALLBACK_BLOCK_NAME' );
+export const freeformFallbackBlockName = createBlockNameSetterReducer(
+	'SET_FREEFORM_FALLBACK_BLOCK_NAME'
+);
+export const unregisteredFallbackBlockName = createBlockNameSetterReducer(
+	'SET_UNREGISTERED_FALLBACK_BLOCK_NAME'
+);
 export const groupingBlockName = createBlockNameSetterReducer( 'SET_GROUPING_BLOCK_NAME' );
 
 /**

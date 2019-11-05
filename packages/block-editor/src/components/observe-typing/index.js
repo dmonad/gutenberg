@@ -9,15 +9,7 @@ import { over, includes } from 'lodash';
 import { Component } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { isTextField } from '@wordpress/dom';
-import {
-	UP,
-	RIGHT,
-	DOWN,
-	LEFT,
-	ENTER,
-	BACKSPACE,
-	ESCAPE,
-} from '@wordpress/keycodes';
+import { UP, RIGHT, DOWN, LEFT, ENTER, BACKSPACE, ESCAPE } from '@wordpress/keycodes';
 import { withSafeTimeout, compose } from '@wordpress/compose';
 
 /**
@@ -51,10 +43,7 @@ class ObserveTyping extends Component {
 		this.stopTypingOnNonTextField = this.stopTypingOnNonTextField.bind( this );
 		this.stopTypingOnEscapeKey = this.stopTypingOnEscapeKey.bind( this );
 
-		this.onKeyDown = over( [
-			this.startTypingInTextField,
-			this.stopTypingOnEscapeKey,
-		] );
+		this.onKeyDown = over( [ this.startTypingInTextField, this.stopTypingOnEscapeKey ] );
 
 		this.lastMouseMove = null;
 	}
@@ -96,10 +85,7 @@ class ObserveTyping extends Component {
 		// We need to check that the mouse really moved because Safari triggers
 		// mousemove events when shift or ctrl are pressed.
 		if ( this.lastMouseMove ) {
-			const {
-				clientX: lastClientX,
-				clientY: lastClientY,
-			} = this.lastMouseMove;
+			const { clientX: lastClientX, clientY: lastClientY } = this.lastMouseMove;
 
 			if ( lastClientX !== clientX || lastClientY !== clientY ) {
 				this.props.onStopTyping();

@@ -24,11 +24,7 @@ import { compose } from '@wordpress/compose';
 /**
  * Internal dependencies
  */
-import {
-	isBlockFocusStop,
-	isInSameBlock,
-	hasInnerBlocksContext,
-} from '../../utils/dom';
+import { isBlockFocusStop, isInSameBlock, hasInnerBlocksContext } from '../../utils/dom';
 
 /**
  * Browser constants
@@ -44,10 +40,7 @@ const { getSelection, getComputedStyle } = window;
  *
  * @return {boolean} Whether element is a tabbable text field.
  */
-const isTabbableTextField = overEvery( [
-	isTextField,
-	focus.tabbable.isTabbableIndex,
-] );
+const isTabbableTextField = overEvery( [ isTextField, focus.tabbable.isTabbableIndex ] );
 
 /**
  * Returns true if the element should consider edge navigation upon a keyboard
@@ -60,7 +53,7 @@ const isTabbableTextField = overEvery( [
  * @return {boolean} Whether element should consider edge navigation.
  */
 export function isNavigationCandidate( element, keyCode, hasModifier ) {
-	const isVertical = ( keyCode === UP || keyCode === DOWN );
+	const isVertical = keyCode === UP || keyCode === DOWN;
 
 	// Currently, all elements support unmodified vertical navigation.
 	if ( isVertical && ! hasModifier ) {
@@ -195,9 +188,9 @@ class WritingFlow extends Component {
 			selectionAfterEndClientId,
 		} = this.props;
 
-		const nextSelectionEndClientId = isReverse ?
-			selectionBeforeEndClientId :
-			selectionAfterEndClientId;
+		const nextSelectionEndClientId = isReverse
+			? selectionBeforeEndClientId
+			: selectionAfterEndClientId;
 
 		if ( nextSelectionEndClientId ) {
 			this.props.onMultiSelect(
@@ -264,16 +257,18 @@ class WritingFlow extends Component {
 			const navigateDown = ( isTab && ! isShift ) || isDown;
 			const focusedBlockUid = navigateUp ? selectionBeforeEndClientId : selectionAfterEndClientId;
 
-			if (
-				( navigateDown || navigateUp ) &&
-				focusedBlockUid
-			) {
+			if ( ( navigateDown || navigateUp ) && focusedBlockUid ) {
 				event.preventDefault();
 				this.props.onSelectBlock( focusedBlockUid );
 			}
 
 			// Special case when reaching the end of the blocks (navigate to the next tabbable outside of the writing flow)
-			if ( navigateDown && selectedBlockClientId && ! selectionAfterEndClientId && [ UP, DOWN ].indexOf( keyCode ) === -1 ) {
+			if (
+				navigateDown &&
+				selectedBlockClientId &&
+				! selectionAfterEndClientId &&
+				[ UP, DOWN ].indexOf( keyCode ) === -1
+			) {
 				this.props.clearSelectedBlock();
 				this.appender.current.focus();
 			}
@@ -335,20 +330,15 @@ class WritingFlow extends Component {
 		// In the case of RTL scripts, right means previous and left means next,
 		// which is the exact reverse of LTR.
 		const { direction } = getComputedStyle( target );
-		const isReverseDir = direction === 'rtl' ? ( ! isReverse ) : isReverse;
+		const isReverseDir = direction === 'rtl' ? ! isReverse : isReverse;
 
 		if ( isShift ) {
 			if (
-				(
-					// Ensure that there is a target block.
-					( isReverse && selectionBeforeEndClientId ) ||
-					( ! isReverse && selectionAfterEndClientId )
-				) && (
-					hasMultiSelection || (
-						this.isTabbableEdge( target, isReverse ) &&
-						isNavEdge( target, isReverse )
-					)
-				)
+				// Ensure that there is a target block.
+				( ( isReverse && selectionBeforeEndClientId ) ||
+					( ! isReverse && selectionAfterEndClientId ) ) &&
+				( hasMultiSelection ||
+					( this.isTabbableEdge( target, isReverse ) && isNavEdge( target, isReverse ) ) )
 			) {
 				// Shift key is down, and there is multi selection or we're at
 				// the end of the current block.
@@ -366,7 +356,11 @@ class WritingFlow extends Component {
 				placeCaretAtVerticalEdge( closestTabbable, isReverse, this.verticalRect );
 				event.preventDefault();
 			}
-		} else if ( isHorizontal && getSelection().isCollapsed && isHorizontalEdge( target, isReverseDir ) ) {
+		} else if (
+			isHorizontal &&
+			getSelection().isCollapsed &&
+			isHorizontalEdge( target, isReverseDir )
+		) {
 			const closestTabbable = this.getClosestTabbable( target, isReverseDir );
 			placeCaretAtHorizontalEdge( closestTabbable, isReverseDir );
 			event.preventDefault();
@@ -435,8 +429,12 @@ export default compose( [
 		return {
 			selectedBlockClientId,
 			selectionStartClientId,
-			selectionBeforeEndClientId: getPreviousBlockClientId( selectionEndClientId || selectedBlockClientId ),
-			selectionAfterEndClientId: getNextBlockClientId( selectionEndClientId || selectedBlockClientId ),
+			selectionBeforeEndClientId: getPreviousBlockClientId(
+				selectionEndClientId || selectedBlockClientId
+			),
+			selectionAfterEndClientId: getNextBlockClientId(
+				selectionEndClientId || selectedBlockClientId
+			),
 			selectedFirstClientId: getFirstMultiSelectedBlockClientId(),
 			selectedLastClientId: getLastMultiSelectedBlockClientId(),
 			hasMultiSelection: hasMultiSelection(),
@@ -445,7 +443,9 @@ export default compose( [
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const { multiSelect, selectBlock, setNavigationMode, clearSelectedBlock } = dispatch( 'core/block-editor' );
+		const { multiSelect, selectBlock, setNavigationMode, clearSelectedBlock } = dispatch(
+			'core/block-editor'
+		);
 		return {
 			onMultiSelect: multiSelect,
 			onSelectBlock: selectBlock,

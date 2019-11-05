@@ -28,21 +28,22 @@ const MEDIA_ID = 123;
 
 describe( 'MediaUpload component', () => {
 	it( 'renders without crashing', () => {
-		const wrapper = shallow(
-			<MediaUpload allowedTypes={ [] } render={ () => {} } />
-		);
+		const wrapper = shallow( <MediaUpload allowedTypes={ [] } render={ () => {} } /> );
 		expect( wrapper ).toBeTruthy();
 	} );
 
 	it( 'opens media options picker', () => {
 		const wrapper = shallow(
-			<MediaUpload allowedTypes={ [] } render={ ( { open, getMediaOptions } ) => {
-				return (
-					<TouchableWithoutFeedback onPress={ open }>
-						{ getMediaOptions() }
-					</TouchableWithoutFeedback>
-				);
-			} } />
+			<MediaUpload
+				allowedTypes={ [] }
+				render={ ( { open, getMediaOptions } ) => {
+					return (
+						<TouchableWithoutFeedback onPress={ open }>
+							{ getMediaOptions() }
+						</TouchableWithoutFeedback>
+					);
+				} }
+			/>
 		);
 		expect( wrapper.find( 'Picker' ) ).toHaveLength( 1 );
 	} );
@@ -58,9 +59,15 @@ describe( 'MediaUpload component', () => {
 								{ getMediaOptions() }
 							</TouchableWithoutFeedback>
 						);
-					} } />
+					} }
+				/>
 			);
-			expect( wrapper.find( 'Picker' ).props().options.filter( ( item ) => item.label === expectedOption ) ).toHaveLength( 1 );
+			expect(
+				wrapper
+					.find( 'Picker' )
+					.props()
+					.options.filter( ( item ) => item.label === expectedOption )
+			).toHaveLength( 1 );
 		};
 		expectOptionForMediaType( MEDIA_TYPE_IMAGE, OPTION_TAKE_PHOTO );
 		expectOptionForMediaType( MEDIA_TYPE_VIDEO, OPTION_TAKE_VIDEO );
@@ -89,7 +96,8 @@ describe( 'MediaUpload component', () => {
 							{ getMediaOptions() }
 						</TouchableWithoutFeedback>
 					);
-				} } />
+				} }
+			/>
 		);
 		wrapper.find( 'Picker' ).simulate( 'change', option );
 		const media = { id: MEDIA_ID, url: MEDIA_URL };
@@ -101,22 +109,42 @@ describe( 'MediaUpload component', () => {
 	};
 
 	it( 'can select media from device library', () => {
-		expectMediaPickerForOption( MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_CHOOSE_FROM_DEVICE, false, requestMediaPickFromDeviceLibrary );
+		expectMediaPickerForOption(
+			MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_CHOOSE_FROM_DEVICE,
+			false,
+			requestMediaPickFromDeviceLibrary
+		);
 	} );
 
 	it( 'can select media from WP media library', () => {
-		expectMediaPickerForOption( MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_WORD_PRESS_LIBRARY, false, requestMediaPickFromMediaLibrary );
+		expectMediaPickerForOption(
+			MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_WORD_PRESS_LIBRARY,
+			false,
+			requestMediaPickFromMediaLibrary
+		);
 	} );
 
 	it( 'can select media by capturig', () => {
-		expectMediaPickerForOption( MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_TAKE_MEDIA, false, requestMediaPickFromDeviceCamera );
+		expectMediaPickerForOption(
+			MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_TAKE_MEDIA,
+			false,
+			requestMediaPickFromDeviceCamera
+		);
 	} );
 
 	it( 'can select multiple media from device library', () => {
-		expectMediaPickerForOption( MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_CHOOSE_FROM_DEVICE, true, requestMediaPickFromDeviceLibrary );
+		expectMediaPickerForOption(
+			MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_CHOOSE_FROM_DEVICE,
+			true,
+			requestMediaPickFromDeviceLibrary
+		);
 	} );
 
 	it( 'can select multiple media from WP media library', () => {
-		expectMediaPickerForOption( MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_WORD_PRESS_LIBRARY, true, requestMediaPickFromMediaLibrary );
+		expectMediaPickerForOption(
+			MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_WORD_PRESS_LIBRARY,
+			true,
+			requestMediaPickFromMediaLibrary
+		);
 	} );
 } );

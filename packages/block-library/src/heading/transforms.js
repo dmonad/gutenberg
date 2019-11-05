@@ -1,11 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	createBlock,
-	getPhrasingContentSchema,
-	getBlockAttributes,
-} from '@wordpress/blocks';
+import { createBlock, getPhrasingContentSchema, getBlockAttributes } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -36,10 +32,7 @@ const transforms = {
 			},
 			transform( node ) {
 				return createBlock( 'core/heading', {
-					...getBlockAttributes(
-						'core/heading',
-						node.outerHTML
-					),
+					...getBlockAttributes( 'core/heading', node.outerHTML ),
 					level: getLevelFromHeadingNodeName( node.nodeName ),
 				} );
 			},

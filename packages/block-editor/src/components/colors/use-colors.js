@@ -3,24 +3,14 @@
  */
 import memoize from 'memize';
 import classnames from 'classnames';
-import {
-	camelCase,
-	kebabCase,
-	map,
-	startCase,
-} from 'lodash';
+import { camelCase, kebabCase, map, startCase } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
-import {
-	useCallback,
-	useMemo,
-	Children,
-	cloneElement,
-} from '@wordpress/element';
+import { useCallback, useMemo, Children, cloneElement } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -45,16 +35,14 @@ const ColorPanel = ( {
 		{ ...colorPanelProps }
 	>
 		{ contrastCheckerProps &&
-			map( components, ( ( Component, key ) => (
+			map( components, ( Component, key ) => (
 				<ContrastChecker
 					key={ key }
 					textColor={ colorSettings[ key ].value }
 					{ ...contrastCheckerProps }
 				/>
-			) ) ) }
-		{ typeof panelChildren === 'function' ?
-			panelChildren( components ) :
-			panelChildren }
+			) ) }
+		{ typeof panelChildren === 'function' ? panelChildren( components ) : panelChildren }
 	</PanelColorSettings>
 );
 const InspectorControlsColorPanel = ( props ) => (
@@ -65,12 +53,7 @@ const InspectorControlsColorPanel = ( props ) => (
 
 export default function __experimentalUseColors(
 	colorConfigs,
-	{
-		panelTitle = __( 'Color Settings' ),
-		colorPanelProps,
-		contrastCheckerProps,
-		panelChildren,
-	} = {
+	{ panelTitle = __( 'Color Settings' ), colorPanelProps, contrastCheckerProps, panelChildren } = {
 		panelTitle: __( 'Color Settings' ),
 	},
 	deps = []
@@ -111,14 +94,10 @@ export default function __experimentalUseColors(
 						}
 
 						return cloneElement( child, {
-							className: classnames(
-								componentClassName,
-								child.props.className,
-								{
-									[ `has-${ kebabCase( color ) }-${ kebabCase( property ) }` ]: color,
-									[ className || `has-${ kebabCase( name ) }` ]: color || customColor,
-								}
-							),
+							className: classnames( componentClassName, child.props.className, {
+								[ `has-${ kebabCase( color ) }-${ kebabCase( property ) }` ]: color,
+								[ className || `has-${ kebabCase( name ) }` ]: color || customColor,
+							} ),
 							style: {
 								...colorStyle,
 								...componentStyle,
@@ -139,9 +118,7 @@ export default function __experimentalUseColors(
 						[ color ? camelCase( `custom ${ name }` ) : name ]: undefined,
 					} );
 					setAttributes( {
-						[ color ? name : camelCase( `custom ${ name }` ) ]: color ?
-							color.slug :
-							newColor,
+						[ color ? name : camelCase( `custom ${ name }` ) ]: color ? color.slug : newColor,
 					} );
 				},
 				{
@@ -189,9 +166,7 @@ export default function __experimentalUseColors(
 			acc[ componentName ].setColor = createSetColor( name, colors );
 
 			colorSettings[ componentName ] = {
-				value: _color ?
-					_color.color :
-					attributes[ camelCase( `custom ${ name }` ) ],
+				value: _color ? _color.color : attributes[ camelCase( `custom ${ name }` ) ],
 				onChange: acc[ componentName ].setColor,
 				label: panelLabel,
 				colors,
@@ -218,9 +193,7 @@ export default function __experimentalUseColors(
 		return {
 			...components,
 			ColorPanel: <ColorPanel { ...wrappedColorPanelProps } />,
-			InspectorControlsColorPanel: (
-				<InspectorControlsColorPanel { ...wrappedColorPanelProps } />
-			),
+			InspectorControlsColorPanel: <InspectorControlsColorPanel { ...wrappedColorPanelProps } />,
 		};
 	}, [ attributes, setAttributes, ...deps ] );
 }

@@ -12,12 +12,7 @@ import {
 	WritingFlow,
 	ObserveTyping,
 } from '@wordpress/block-editor';
-import {
-	Button,
-	Popover,
-	SlotFillProvider,
-	DropZoneProvider,
-} from '@wordpress/components';
+import { Button, Popover, SlotFillProvider, DropZoneProvider } from '@wordpress/components';
 import { registerCoreBlocks } from '@wordpress/block-library';
 import '@wordpress/format-library';
 

@@ -47,10 +47,8 @@ class Editable extends Component {
 		}
 
 		const { removedKeys, updatedKeys } = diffAriaProps( this.props, nextProps );
-		removedKeys.forEach( ( key ) =>
-			element.removeAttribute( key ) );
-		updatedKeys.forEach( ( key ) =>
-			element.setAttribute( key, nextProps[ key ] ) );
+		removedKeys.forEach( ( key ) => element.removeAttribute( key ) );
+		updatedKeys.forEach( ( key ) => element.setAttribute( key, nextProps[ key ] ) );
 
 		return false;
 	}

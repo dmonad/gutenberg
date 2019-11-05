@@ -55,10 +55,9 @@ async function emulateSelectAll() {
 			which: 65,
 		} );
 
-		const wasPrevented = (
+		const wasPrevented =
 			! document.activeElement.dispatchEvent( preventableEvent ) ||
-			preventableEvent.defaultPrevented
-		);
+			preventableEvent.defaultPrevented;
 
 		if ( ! wasPrevented ) {
 			document.execCommand( 'selectall', false, null );
@@ -75,7 +74,7 @@ async function emulateSelectAll() {
 				charCode: 0,
 				keyCode: isMac ? 93 : 17,
 				which: isMac ? 93 : 17,
-			} ),
+			} )
 		);
 	} );
 }
@@ -95,10 +94,10 @@ export async function pressKeyWithModifier( modifier, key ) {
 	const isAppleOS = () => process.platform === 'darwin';
 	const overWrittenModifiers = {
 		...modifiers,
-		shiftAlt: ( _isApple ) => _isApple() ? [ SHIFT, ALT ] : [ SHIFT, CTRL ],
+		shiftAlt: ( _isApple ) => ( _isApple() ? [ SHIFT, ALT ] : [ SHIFT, CTRL ] ),
 	};
 	const mappedModifiers = overWrittenModifiers[ modifier ]( isAppleOS );
-	const ctrlSwap = ( mod ) => mod === CTRL ? 'control' : mod;
+	const ctrlSwap = ( mod ) => ( mod === CTRL ? 'control' : mod );
 
 	await Promise.all(
 		mappedModifiers.map( async ( mod ) => {

@@ -17,7 +17,7 @@ describe( 'resolveSelector', () => {
 			return state;
 		},
 		selectors: {
-			selectAll: ( state, key ) => ( key === 'check' ) ? state : 'no-key',
+			selectAll: ( state, key ) => ( key === 'check' ? state : 'no-key' ),
 		},
 		resolvers: {
 			selectAll: () => {

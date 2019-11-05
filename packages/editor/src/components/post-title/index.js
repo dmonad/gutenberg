@@ -166,15 +166,8 @@ const applyWithSelect = withSelect( ( select ) => {
 } );
 
 const applyWithDispatch = withDispatch( ( dispatch ) => {
-	const {
-		insertDefaultBlock,
-		clearSelectedBlock,
-	} = dispatch( 'core/block-editor' );
-	const {
-		editPost,
-		undo,
-		redo,
-	} = dispatch( 'core/editor' );
+	const { insertDefaultBlock, clearSelectedBlock } = dispatch( 'core/block-editor' );
+	const { editPost, undo, redo } = dispatch( 'core/editor' );
 
 	return {
 		onEnterPress() {

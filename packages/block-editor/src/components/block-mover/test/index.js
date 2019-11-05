@@ -28,7 +28,8 @@ describe( 'BlockMover', () => {
 					clientIds={ selectedClientIds }
 					blockType={ blockType }
 					firstIndex={ 0 }
-					instanceId={ 1 } />
+					instanceId={ 1 }
+				/>
 			);
 			expect( blockMover.hasClass( 'block-editor-block-mover' ) ).toBe( true );
 
@@ -111,11 +112,7 @@ describe( 'BlockMover', () => {
 
 		it( 'should not render the drag handle if block is not draggable', () => {
 			const blockMover = shallow(
-				<BlockMover
-					clientIds={ selectedClientIds }
-					blockType={ blockType }
-					isDraggable={ false }
-				/>
+				<BlockMover clientIds={ selectedClientIds } blockType={ blockType } isDraggable={ false } />
 			);
 			const dragHandler = blockMover.childAt( 1 );
 			expect( dragHandler.type().name ).toBe( 'IconDragHandle' );

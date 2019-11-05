@@ -210,7 +210,9 @@ describe( 'computePopoverPosition', () => {
 		};
 
 		window.innerWidth = 200;
-		expect( computePopoverPosition( anchorRect, contentSize, 'bottom right', true ).isMobile ).toBe( true );
+		expect( computePopoverPosition( anchorRect, contentSize, 'bottom right', true ).isMobile ).toBe(
+			true
+		);
 		window.innerWidth = originalWidth;
 	} );
 } );

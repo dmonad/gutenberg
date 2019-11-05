@@ -65,14 +65,27 @@ export class MediaUpload extends React.Component {
 			return OPTION_TAKE_PHOTO;
 		} else if ( isVideo ) {
 			return OPTION_TAKE_VIDEO;
-		} return OPTION_TAKE_PHOTO_OR_VIDEO;
+		}
+		return OPTION_TAKE_PHOTO_OR_VIDEO;
 	}
 
 	getMediaOptionsItems() {
 		return [
-			{ icon: this.getChooseFromDeviceIcon(), value: MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_CHOOSE_FROM_DEVICE, label: __( 'Choose from device' ) },
-			{ icon: this.getTakeMediaIcon(), value: MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_TAKE_MEDIA, label: this.getTakeMediaLabel() },
-			{ icon: this.getWordPressLibraryIcon(), value: MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_WORD_PRESS_LIBRARY, label: __( 'WordPress Media Library' ) },
+			{
+				icon: this.getChooseFromDeviceIcon(),
+				value: MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_CHOOSE_FROM_DEVICE,
+				label: __( 'Choose from device' ),
+			},
+			{
+				icon: this.getTakeMediaIcon(),
+				value: MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_TAKE_MEDIA,
+				label: this.getTakeMediaLabel(),
+			},
+			{
+				icon: this.getWordPressLibraryIcon(),
+				value: MEDIA_UPLOAD_BOTTOM_SHEET_VALUE_WORD_PRESS_LIBRARY,
+				label: __( 'WordPress Media Library' ),
+			},
 		];
 	}
 
@@ -140,7 +153,7 @@ export class MediaUpload extends React.Component {
 		const getMediaOptions = () => (
 			<Picker
 				hideCancelButton
-				ref={ ( instance ) => this.picker = instance }
+				ref={ ( instance ) => ( this.picker = instance ) }
 				options={ mediaOptions }
 				onChange={ this.onPickerChange }
 			/>

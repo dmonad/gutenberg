@@ -25,24 +25,17 @@ const dockerComposeOptions = {
 
 // WP CLI Utils
 const wpCliRun = ( command, isTests = false ) =>
-	dockerCompose.run(
-		`${ isTests ? 'tests-' : '' }wordpress-cli`,
-		command,
-		dockerComposeOptions
-	);
+	dockerCompose.run( `${ isTests ? 'tests-' : '' }wordpress-cli`, command, dockerComposeOptions );
 const setupSite = ( isTests = false ) =>
 	wpCliRun(
 		`wp core install --url=localhost:${
-			isTests ?
-				process.env.WP_ENV_TESTS_PORT || 8889 :
-				process.env.WP_ENV_PORT || 8888
+			isTests ? process.env.WP_ENV_TESTS_PORT || 8889 : process.env.WP_ENV_PORT || 8888
 		} --title=${ cwdName } --admin_user=admin --admin_password=password --admin_email=admin@wordpress.org`,
 		isTests
 	);
 const activateContext = ( { type, pathBasename }, isTests = false ) =>
 	wpCliRun( `wp ${ type } activate ${ pathBasename }`, isTests );
-const resetDatabase = ( isTests = false ) =>
-	wpCliRun( 'wp db reset --yes', isTests );
+const resetDatabase = ( isTests = false ) => wpCliRun( 'wp db reset --yes', isTests );
 
 module.exports = {
 	async start( { ref, spinner = {} } ) {
@@ -107,10 +100,7 @@ module.exports = {
 
 		// These will bring up the database container,
 		// because it's a dependency.
-		await dockerCompose.upMany(
-			[ 'wordpress', 'tests-wordpress' ],
-			dockerComposeOptions
-		);
+		await dockerCompose.upMany( [ 'wordpress', 'tests-wordpress' ], dockerComposeOptions );
 
 		const retryableSiteSetup = async () => {
 			try {
@@ -148,9 +138,7 @@ module.exports = {
 		const dependencies = await resolveDependencies();
 		const activateDependencies = () => Promise.all( dependencies.map( activateContext ) );
 
-		const description = `${ environment } environment${
-			environment === 'all' ? 's' : ''
-		}`;
+		const description = `${ environment } environment${ environment === 'all' ? 's' : '' }`;
 		spinner.text = `Cleaning ${ description }.`;
 
 		// Parallelize task sequences for each environment.

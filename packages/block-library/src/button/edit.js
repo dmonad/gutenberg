@@ -7,13 +7,8 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	useCallback,
-} from '@wordpress/element';
-import {
-	compose,
-	withInstanceId,
-} from '@wordpress/compose';
+import { useCallback } from '@wordpress/element';
+import { compose, withInstanceId } from '@wordpress/compose';
 import {
 	BaseControl,
 	PanelBody,
@@ -40,10 +35,13 @@ const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
 	const backgroundColorValue = backgroundColor && backgroundColor.color;
 	const textColorValue = textColor && textColor.color;
 	//avoid the use of querySelector if textColor color is known and verify if node is available.
-	const textNode = ! textColorValue && node ? node.querySelector( '[contenteditable="true"]' ) : null;
+	const textNode =
+		! textColorValue && node ? node.querySelector( '[contenteditable="true"]' ) : null;
 	return {
-		fallbackBackgroundColor: backgroundColorValue || ! node ? undefined : getComputedStyle( node ).backgroundColor,
-		fallbackTextColor: textColorValue || ! textNode ? undefined : getComputedStyle( textNode ).color,
+		fallbackBackgroundColor:
+			backgroundColorValue || ! node ? undefined : getComputedStyle( node ).backgroundColor,
+		fallbackTextColor:
+			textColorValue || ! textNode ? undefined : getComputedStyle( textNode ).color,
 	};
 } );
 
@@ -87,15 +85,7 @@ function ButtonEdit( {
 	instanceId,
 	isSelected,
 } ) {
-	const {
-		borderRadius,
-		linkTarget,
-		placeholder,
-		rel,
-		text,
-		title,
-		url,
-	} = attributes;
+	const { borderRadius, linkTarget, placeholder, rel, text, title, url } = attributes;
 	const onSetLinkRel = useCallback(
 		( value ) => {
 			setAttributes( { rel: value } );
@@ -121,11 +111,7 @@ function ButtonEdit( {
 		},
 		[ rel, setAttributes ]
 	);
-	const {
-		gradientClass,
-		gradientValue,
-		setGradient,
-	} = __experimentalUseGradient();
+	const { gradientClass, gradientValue, setGradient } = __experimentalUseGradient();
 
 	const linkId = `wp-block-button__inline-link-${ instanceId }`;
 	return (
@@ -135,29 +121,23 @@ function ButtonEdit( {
 				value={ text }
 				onChange={ ( value ) => setAttributes( { text: value } ) }
 				withoutInteractiveFormatting
-				className={ classnames(
-					'wp-block-button__link', {
-						'has-background': backgroundColor.color || gradientValue,
-						[ backgroundColor.class ]: ! gradientValue && backgroundColor.class,
-						'has-text-color': textColor.color,
-						[ textColor.class ]: textColor.class,
-						[ gradientClass ]: gradientClass,
-						'no-border-radius': borderRadius === 0,
-					}
-				) }
+				className={ classnames( 'wp-block-button__link', {
+					'has-background': backgroundColor.color || gradientValue,
+					[ backgroundColor.class ]: ! gradientValue && backgroundColor.class,
+					'has-text-color': textColor.color,
+					[ textColor.class ]: textColor.class,
+					[ gradientClass ]: gradientClass,
+					'no-border-radius': borderRadius === 0,
+				} ) }
 				style={ {
-					...( ! backgroundColor.color && gradientValue ?
-						{ background: gradientValue } :
-						{ backgroundColor: backgroundColor.color }
-					),
+					...( ! backgroundColor.color && gradientValue
+						? { background: gradientValue }
+						: { backgroundColor: backgroundColor.color } ),
 					color: textColor.color,
 					borderRadius: borderRadius ? borderRadius + 'px' : undefined,
 				} }
 			/>
-			<BaseControl
-				label={ __( 'Link' ) }
-				className="wp-block-button__inline-link"
-				id={ linkId }>
+			<BaseControl label={ __( 'Link' ) } className="wp-block-button__inline-link" id={ linkId }>
 				<URLInput
 					className="wp-block-button__inline-link-input"
 					value={ url }
@@ -204,29 +184,20 @@ function ButtonEdit( {
 					/>
 				</PanelColorSettings>
 				<__experimentalGradientPickerPanel
-					onChange={
-						( newGradient ) => {
-							setGradient( newGradient );
-							setBackgroundColor();
-						}
-					}
+					onChange={ ( newGradient ) => {
+						setGradient( newGradient );
+						setBackgroundColor();
+					} }
 					value={ gradientValue }
 				/>
-				<BorderPanel
-					borderRadius={ borderRadius }
-					setAttributes={ setAttributes }
-				/>
+				<BorderPanel borderRadius={ borderRadius } setAttributes={ setAttributes } />
 				<PanelBody title={ __( 'Link settings' ) }>
 					<ToggleControl
 						label={ __( 'Open in new tab' ) }
 						onChange={ onToggleOpenInNewTab }
 						checked={ linkTarget === '_blank' }
 					/>
-					<TextControl
-						label={ __( 'Link rel' ) }
-						value={ rel || '' }
-						onChange={ onSetLinkRel }
-					/>
+					<TextControl label={ __( 'Link rel' ) } value={ rel || '' } onChange={ onSetLinkRel } />
 				</PanelBody>
 			</InspectorControls>
 		</div>

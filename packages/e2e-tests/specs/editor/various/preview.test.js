@@ -60,19 +60,19 @@ async function waitForPreviewNavigation( previewPage ) {
  * @param {boolean} shouldBeChecked If true, turns the option on. If false, off.
  */
 async function toggleCustomFieldsOption( shouldBeChecked ) {
-	const checkboxXPath = '//*[contains(@class, "edit-post-options-modal")]//label[contains(text(), "Custom Fields")]';
+	const checkboxXPath =
+		'//*[contains(@class, "edit-post-options-modal")]//label[contains(text(), "Custom Fields")]';
 	await clickOnMoreMenuItem( 'Options' );
 	await page.waitForXPath( checkboxXPath );
 	const [ checkboxHandle ] = await page.$x( checkboxXPath );
 
-	const isChecked = await page.evaluate(
-		( element ) => element.control.checked,
-		checkboxHandle
-	);
+	const isChecked = await page.evaluate( ( element ) => element.control.checked, checkboxHandle );
 
 	if ( isChecked !== shouldBeChecked ) {
 		await checkboxHandle.click();
-		const [ saveButton ] = await page.$x( shouldBeChecked ? '//button[text()="Enable & Reload"]' : '//button[text()="Disable & Reload"]' );
+		const [ saveButton ] = await page.$x(
+			shouldBeChecked ? '//button[text()="Enable & Reload"]' : '//button[text()="Disable & Reload"]'
+		);
 		const navigationCompleted = page.waitForNavigation();
 		saveButton.click();
 		await navigationCompleted;
@@ -93,7 +93,7 @@ describe( 'Preview', () => {
 		// Disabled until content present.
 		const isPreviewDisabled = await editorPage.$$eval(
 			'.editor-post-preview:not( :disabled )',
-			( enabledButtons ) => ! enabledButtons.length,
+			( enabledButtons ) => ! enabledButtons.length
 		);
 		expect( isPreviewDisabled ).toBe( true );
 
@@ -233,7 +233,10 @@ describe( 'Preview with Custom Fields enabled', () => {
 		// Check the title and preview match.
 		let previewTitle = await previewPage.$eval( '.entry-title', ( node ) => node.textContent );
 		expect( previewTitle ).toBe( 'title 1' );
-		let previewContent = await previewPage.$eval( '.entry-content p', ( node ) => node.textContent );
+		let previewContent = await previewPage.$eval(
+			'.entry-content p',
+			( node ) => node.textContent
+		);
 		expect( previewContent ).toBe( 'content 1' );
 
 		// Return to editor and modify the title and content.

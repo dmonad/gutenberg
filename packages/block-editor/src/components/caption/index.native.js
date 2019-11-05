@@ -11,8 +11,18 @@ import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
-const Caption = ( { accessible, accessibilityLabel, onBlur, onChange, onFocus, isSelected, shouldDisplay, text } ) => (
-	<View style={ {	padding: 12, flex: 1, display: shouldDisplay ? 'flex' : 'none' } }
+const Caption = ( {
+	accessible,
+	accessibilityLabel,
+	onBlur,
+	onChange,
+	onFocus,
+	isSelected,
+	shouldDisplay,
+	text,
+} ) => (
+	<View
+		style={ { padding: 12, flex: 1, display: shouldDisplay ? 'flex' : 'none' } }
 		accessible={ accessible }
 		accessibilityLabel={ accessibilityLabel }
 		accessibilityRole={ 'button' }
@@ -36,12 +46,11 @@ const Caption = ( { accessible, accessibilityLabel, onBlur, onChange, onFocus, i
 
 export default compose( [
 	withSelect( ( select, { accessibilityLabelCreator, clientId } ) => {
-		const {
-			getBlockAttributes,
-			getSelectedBlockClientId,
-		} = select( 'core/block-editor' );
+		const { getBlockAttributes, getSelectedBlockClientId } = select( 'core/block-editor' );
 		const { caption } = getBlockAttributes( clientId );
-		const accessibilityLabel = accessibilityLabelCreator ? accessibilityLabelCreator( caption ) : undefined;
+		const accessibilityLabel = accessibilityLabelCreator
+			? accessibilityLabelCreator( caption )
+			: undefined;
 		const isBlockSelected = getSelectedBlockClientId() === clientId;
 
 		// We'll render the caption so that the soft keyboard is not forced to close on Android

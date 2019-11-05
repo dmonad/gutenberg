@@ -26,8 +26,7 @@ import useAsyncMode from '../async-mode-provider/use-async-mode';
  * Fallback to useEffect for server rendered components because currently React
  * throws a warning when using useLayoutEffect in that environment.
  */
-const useIsomorphicLayoutEffect =
-	typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 const renderQueue = createQueue();
 
@@ -96,9 +95,7 @@ export default function useSelect( _mapSelect, deps ) {
 			mapOutput = latestMapOutput.current;
 		}
 	} catch ( error ) {
-		let errorMessage = `An error occurred while running 'mapSelect': ${
-			error.message
-		}`;
+		let errorMessage = `An error occurred while running 'mapSelect': ${ error.message }`;
 
 		if ( latestMapOutputError.current ) {
 			errorMessage += `\nThe error may be correlated with this previous error:\n`;
@@ -124,10 +121,7 @@ export default function useSelect( _mapSelect, deps ) {
 		const onStoreChange = () => {
 			if ( isMounted.current ) {
 				try {
-					const newMapOutput = latestMapSelect.current(
-						registry.select,
-						registry
-					);
+					const newMapOutput = latestMapSelect.current( registry.select, registry );
 					if ( isShallowEqual( latestMapOutput.current, newMapOutput ) ) {
 						return;
 					}

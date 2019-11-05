@@ -75,11 +75,7 @@ class DropZoneComponent extends Component {
 		if ( isDraggingOverElement ) {
 			children = (
 				<div className="components-drop-zone__content">
-					<Dashicon
-						icon="upload"
-						size="40"
-						className="components-drop-zone__content-icon"
-					/>
+					<Dashicon icon="upload" size="40" className="components-drop-zone__content-icon" />
 					<span className="components-drop-zone__content-text">
 						{ label ? label : __( 'Drop files to upload' ) }
 					</span>

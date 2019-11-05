@@ -1,11 +1,7 @@
 /**
  * External dependencies
  */
-import {
-	View,
-	Text,
-	TouchableWithoutFeedback,
-} from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 /**
  * WordPress dependencies
@@ -85,13 +81,14 @@ class BlockListBlock extends Component {
 
 		let blockName = '';
 
-		if ( name === 'core/missing' ) { // is the block unrecognized?
+		if ( name === 'core/missing' ) {
+			// is the block unrecognized?
 			blockName = title;
 		} else {
 			blockName = sprintf(
 				/* translators: accessibility text. %s: block name. */
 				__( '%s Block' ),
-				title, //already localized
+				title //already localized
 			);
 		}
 
@@ -127,8 +124,8 @@ class BlockListBlock extends Component {
 		return (
 			<>
 				{ showFloatingToolbar && ( ! isFirstBlock || parentId === '' ) && <FloatingToolbar.Slot /> }
-				{ showFloatingToolbar &&
-					( <FloatingToolbar>
+				{ showFloatingToolbar && (
+					<FloatingToolbar>
 						<Toolbar passedStyle={ styles.toolbar }>
 							<ToolbarButton
 								title={ __( 'Navigate Up' ) }
@@ -139,7 +136,7 @@ class BlockListBlock extends Component {
 						</Toolbar>
 						<Breadcrumbs clientId={ clientId } />
 					</FloatingToolbar>
-					) }
+				) }
 				<TouchableWithoutFeedback
 					onPress={ this.onFocus }
 					accessible={ ! isSelected }
@@ -149,12 +146,13 @@ class BlockListBlock extends Component {
 						{ showTitle && this.renderBlockTitle() }
 						<View
 							accessibilityLabel={ accessibilityLabel }
-							style={ [ ! isSelected && styles.blockContainer, isSelected && styles.blockContainerFocused ] }
+							style={ [
+								! isSelected && styles.blockContainer,
+								isSelected && styles.blockContainerFocused,
+							] }
 						>
 							{ isValid && this.getBlockForType() }
-							{ ! isValid &&
-							<BlockInvalidWarning blockTitle={ title } icon={ icon } />
-							}
+							{ ! isValid && <BlockInvalidWarning blockTitle={ title } icon={ icon } /> }
 						</View>
 						{ isSelected && <BlockMobileToolbar clientId={ clientId } /> }
 					</View>
@@ -198,7 +196,8 @@ export default compose( [
 		const rootBlock = getBlock( rootBlockId );
 		const hasRootInnerBlocks = rootBlock.innerBlocks.length !== 0;
 
-		const showFloatingToolbar = isSelected && hasRootInnerBlocks && ! isMediaText && ! isMediaTextParent;
+		const showFloatingToolbar =
+			isSelected && hasRootInnerBlocks && ! isMediaText && ! isMediaTextParent;
 
 		return {
 			icon,
@@ -228,10 +227,7 @@ export default compose( [
 		return {
 			mergeBlocks( forward ) {
 				const { clientId } = ownProps;
-				const {
-					getPreviousBlockClientId,
-					getNextBlockClientId,
-				} = select( 'core/block-editor' );
+				const { getPreviousBlockClientId, getNextBlockClientId } = select( 'core/block-editor' );
 
 				if ( forward ) {
 					const nextBlockClientId = getNextBlockClientId( clientId );

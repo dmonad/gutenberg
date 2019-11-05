@@ -49,7 +49,7 @@ class URLInputButton extends Component {
 						'is-active': url,
 					} ) }
 				/>
-				{ expanded &&
+				{ expanded && (
 					<form
 						className="editor-url-input__button-modal block-editor-url-input__button-modal"
 						onSubmit={ this.submitLink }
@@ -62,14 +62,10 @@ class URLInputButton extends Component {
 								onClick={ this.toggle }
 							/>
 							<URLInput value={ url || '' } onChange={ onChange } />
-							<IconButton
-								icon="editor-break"
-								label={ __( 'Submit' ) }
-								type="submit"
-							/>
+							<IconButton icon="editor-break" label={ __( 'Submit' ) } type="submit" />
 						</div>
 					</form>
-				}
+				) }
 			</div>
 		);
 	}

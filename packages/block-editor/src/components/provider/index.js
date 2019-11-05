@@ -24,13 +24,7 @@ class BlockEditorProvider extends Component {
 	}
 
 	componentDidUpdate( prevProps ) {
-		const {
-			settings,
-			updateSettings,
-			value,
-			resetBlocks,
-			registry,
-		} = this.props;
+		const { settings, updateSettings, value, resetBlocks, registry } = this.props;
 
 		if ( settings !== prevProps.settings ) {
 			updateSettings( settings );
@@ -94,19 +88,14 @@ class BlockEditorProvider extends Component {
 		let isPersistent = isLastBlockChangePersistent();
 
 		this.unsubscribe = registry.subscribe( () => {
-			const {
-				onChange = noop,
-				onInput = noop,
-			} = this.props;
+			const { onChange = noop, onInput = noop } = this.props;
 
 			const newBlocks = getBlocks();
 			const newIsPersistent = isLastBlockChangePersistent();
 
 			if (
-				newBlocks !== blocks && (
-					this.isSyncingIncomingValue ||
-					__unstableIsLastBlockChangeIgnored()
-				)
+				newBlocks !== blocks &&
+				( this.isSyncingIncomingValue || __unstableIsLastBlockChangeIgnored() )
 			) {
 				this.isSyncingIncomingValue = null;
 				blocks = newBlocks;
@@ -147,10 +136,7 @@ class BlockEditorProvider extends Component {
 export default compose( [
 	withRegistryProvider,
 	withDispatch( ( dispatch ) => {
-		const {
-			updateSettings,
-			resetBlocks,
-		} = dispatch( 'core/block-editor' );
+		const { updateSettings, resetBlocks } = dispatch( 'core/block-editor' );
 
 		return {
 			updateSettings,

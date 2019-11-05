@@ -54,7 +54,7 @@ const WrappedSidebar = compose(
 	withSelect( ( select, { name } ) => ( {
 		isActive: select( 'core/edit-post' ).getActiveGeneralSidebarName() === name,
 	} ) ),
-	ifCondition( ( { isActive } ) => isActive ),
+	ifCondition( ( { isActive } ) => isActive )
 )( AnimatedSidebarFill );
 
 WrappedSidebar.Slot = Slot;

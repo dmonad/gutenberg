@@ -95,5 +95,5 @@ export default compose(
 			togglePublishSidebar,
 		};
 	} ),
-	withViewportMatch( { isLessThanMediumViewport: '< medium' } ),
+	withViewportMatch( { isLessThanMediumViewport: '< medium' } )
 )( PostPublishButtonOrToggle );

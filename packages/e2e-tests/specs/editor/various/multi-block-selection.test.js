@@ -136,7 +136,10 @@ describe( 'Multi-block selection', () => {
 		// DOM-dependant side-effect setup code and doesn't seem straightforward
 		// to mock. Instead, we check for the DOM node that `wp.a11y.speak()`
 		// inserts text into.
-		const speakTextContent = await page.$eval( '#a11y-speak-assertive', ( element ) => element.textContent );
+		const speakTextContent = await page.$eval(
+			'#a11y-speak-assertive',
+			( element ) => element.textContent
+		);
 		expect( speakTextContent.trim() ).toEqual( '3 blocks selected.' );
 	} );
 

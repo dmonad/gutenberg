@@ -105,7 +105,9 @@ class NativeEditorProvider extends Component {
 		if ( ! prevProps.isReady && this.props.isReady ) {
 			const blocks = this.props.blocks;
 			const isUnsupportedBlock = ( { name } ) => name === getUnregisteredTypeHandlerName();
-			const unsupportedBlockNames = blocks.filter( isUnsupportedBlock ).map( ( block ) => block.attributes.originalName );
+			const unsupportedBlockNames = blocks
+				.filter( isUnsupportedBlock )
+				.map( ( block ) => block.attributes.originalName );
 			RNReactNativeGutenbergBridge.editorDidMount( unsupportedBlockNames );
 		}
 	}
@@ -165,15 +167,11 @@ export default compose( [
 			getEditedPostAttribute,
 			getEditedPostContent,
 		} = select( 'core/editor' );
-		const {
-			getEditorMode,
-		} = select( 'core/edit-post' );
+		const { getEditorMode } = select( 'core/edit-post' );
 
-		const {
-			getBlockCount,
-			getBlockIndex,
-			getSelectedBlockClientId,
-		} = select( 'core/block-editor' );
+		const { getBlockCount, getBlockIndex, getSelectedBlockClientId } = select(
+			'core/block-editor'
+		);
 
 		const selectedBlockClientId = getSelectedBlockClientId();
 		return {
@@ -187,21 +185,10 @@ export default compose( [
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const {
-			editPost,
-			resetEditorBlocks,
-		} = dispatch( 'core/editor' );
-		const {
-			clearSelectedBlock,
-			insertBlock,
-		} = dispatch( 'core/block-editor' );
-		const {
-			switchEditorMode,
-		} = dispatch( 'core/edit-post' );
-		const {
-			addEntities,
-			receiveEntityRecords,
-		} = dispatch( 'core' );
+		const { editPost, resetEditorBlocks } = dispatch( 'core/editor' );
+		const { clearSelectedBlock, insertBlock } = dispatch( 'core/block-editor' );
+		const { switchEditorMode } = dispatch( 'core/edit-post' );
+		const { addEntities, receiveEntityRecords } = dispatch( 'core' );
 
 		return {
 			addEntities,

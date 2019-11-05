@@ -23,9 +23,9 @@ function InserterWithShortcuts( { items, isLocked, onInsert } ) {
 	}
 
 	const itemsWithoutDefaultBlock = filter( items, ( item ) => {
-		return ! item.isDisabled && (
-			item.name !== getDefaultBlockName() ||
-			! isEmpty( item.initialAttributes )
+		return (
+			! item.isDisabled &&
+			( item.name !== getDefaultBlockName() || ! isEmpty( item.initialAttributes ) )
 		);
 	} ).slice( 0, 3 );
 
@@ -38,9 +38,7 @@ function InserterWithShortcuts( { items, isLocked, onInsert } ) {
 					onClick={ () => onInsert( item ) }
 					// translators: %s: block title/name to be added
 					label={ sprintf( __( 'Add %s' ), item.title ) }
-					icon={ (
-						<BlockIcon icon={ item.icon } />
-					) }
+					icon={ <BlockIcon icon={ item.icon } /> }
 				/>
 			) ) }
 		</div>
@@ -68,5 +66,5 @@ export default compose(
 				}
 			},
 		};
-	} ),
+	} )
 )( InserterWithShortcuts );

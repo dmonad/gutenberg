@@ -155,9 +155,7 @@ describe( 'Reusable Blocks', () => {
 
 		// Convert block to a regular block
 		await clickBlockToolbarButton( 'More options' );
-		const convertButton = await page.waitForXPath(
-			'//button[text()="Convert to Regular Block"]'
-		);
+		const convertButton = await page.waitForXPath( '//button[text()="Convert to Regular Block"]' );
 		await convertButton.click();
 
 		// Check that we have a paragraph block on the page
@@ -178,7 +176,9 @@ describe( 'Reusable Blocks', () => {
 
 		// Delete the block and accept the confirmation dialog
 		await clickBlockToolbarButton( 'More options' );
-		const deleteButton = await page.waitForXPath( '//button[text()="Remove from Reusable Blocks"]' );
+		const deleteButton = await page.waitForXPath(
+			'//button[text()="Remove from Reusable Blocks"]'
+		);
 		await Promise.all( [ waitForAndAcceptDialog(), deleteButton.click() ] );
 
 		// Wait for deletion to finish
@@ -253,9 +253,7 @@ describe( 'Reusable Blocks', () => {
 
 		// Convert block to a regular block
 		await clickBlockToolbarButton( 'More options' );
-		const convertButton = await page.waitForXPath(
-			'//button[text()="Convert to Regular Block"]'
-		);
+		const convertButton = await page.waitForXPath( '//button[text()="Convert to Regular Block"]' );
 		await convertButton.click();
 
 		// Check that we have two paragraph blocks on the page

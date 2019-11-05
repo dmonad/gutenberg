@@ -1,11 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	PostTextEditor,
-	PostTitle,
-	TextEditorGlobalKeyboardShortcuts,
-} from '@wordpress/editor';
+import { PostTextEditor, PostTitle, TextEditorGlobalKeyboardShortcuts } from '@wordpress/editor';
 import { IconButton } from '@wordpress/components';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -27,7 +23,7 @@ function TextEditor( { onExit, isRichEditingEnabled } ) {
 					</IconButton>
 					<TextEditorGlobalKeyboardShortcuts />
 				</div>
-			)	}
+			) }
 			<div className="edit-post-text-editor__body">
 				<PostTitle />
 				<PostTextEditor />

@@ -164,5 +164,5 @@ export default compose(
 		};
 	} ),
 	navigateRegions,
-	withViewportMatch( { isMobileViewport: '< small' } ),
+	withViewportMatch( { isMobileViewport: '< small' } )
 )( Layout );

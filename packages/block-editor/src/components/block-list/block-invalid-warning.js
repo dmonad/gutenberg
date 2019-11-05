@@ -4,11 +4,7 @@
 import { __, _x } from '@wordpress/i18n';
 import { Button, Modal } from '@wordpress/components';
 import { Component } from '@wordpress/element';
-import {
-	getBlockType,
-	createBlock,
-	rawHandler,
-} from '@wordpress/blocks';
+import { getBlockType, createBlock, rawHandler } from '@wordpress/blocks';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 
@@ -36,7 +32,13 @@ export class BlockInvalidWarning extends Component {
 	}
 
 	render() {
-		const { convertToHTML, convertToBlocks, convertToClassic, attemptBlockRecovery, block } = this.props;
+		const {
+			convertToHTML,
+			convertToBlocks,
+			convertToClassic,
+			attemptBlockRecovery,
+			block,
+		} = this.props;
 		const hasHTMLBlock = !! getBlockType( 'core/html' );
 		const { compare } = this.state;
 		const hiddenActions = [
@@ -49,10 +51,8 @@ export class BlockInvalidWarning extends Component {
 				<Warning
 					actions={ [
 						<Button key="convert" onClick={ this.onCompare } isLarge isPrimary={ ! hasHTMLBlock }>
-							{
-								// translators: Button to fix block content
-								_x( 'Resolve', 'imperative verb' )
-							}
+							{ // translators: Button to fix block content
+							_x( 'Resolve', 'imperative verb' ) }
 						</Button>,
 						hasHTMLBlock && (
 							<Button key="edit" onClick={ convertToHTML } isLarge isPrimary>
@@ -87,16 +87,20 @@ export class BlockInvalidWarning extends Component {
 	}
 }
 
-const blockToClassic = ( block ) => createBlock( 'core/freeform', {
-	content: block.originalContent,
-} );
-const blockToHTML = ( block ) => createBlock( 'core/html', {
-	content: block.originalContent,
-} );
-const blockToBlocks = ( block ) => rawHandler( {
-	HTML: block.originalContent,
-} );
-const recoverBlock = ( { name, attributes, innerBlocks } ) => createBlock( name, attributes, innerBlocks );
+const blockToClassic = ( block ) =>
+	createBlock( 'core/freeform', {
+		content: block.originalContent,
+	} );
+const blockToHTML = ( block ) =>
+	createBlock( 'core/html', {
+		content: block.originalContent,
+	} );
+const blockToBlocks = ( block ) =>
+	rawHandler( {
+		HTML: block.originalContent,
+	} );
+const recoverBlock = ( { name, attributes, innerBlocks } ) =>
+	createBlock( name, attributes, innerBlocks );
 
 export default compose( [
 	withSelect( ( select, { clientId } ) => ( {

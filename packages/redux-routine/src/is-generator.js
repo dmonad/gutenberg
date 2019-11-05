@@ -8,8 +8,5 @@
  * @return {boolean} Whether object is a generator.
  */
 export default function isGenerator( object ) {
-	return (
-		!! object &&
-		object[ Symbol.toStringTag ] === 'Generator'
-	);
+	return !! object && object[ Symbol.toStringTag ] === 'Generator';
 }

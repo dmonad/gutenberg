@@ -20,7 +20,10 @@ const PluginMoreMenuItem = ( { onClick = noop, ...props } ) => (
 		{ ( fillProps ) => (
 			<MenuItem
 				{ ...props }
-				onClick={ compose( onClick, fillProps.onClose ) }
+				onClick={ compose(
+					onClick,
+					fillProps.onClose
+				) }
 			/>
 		) }
 	</PluginsMoreMenuGroup>
@@ -85,5 +88,5 @@ export default compose(
 		return {
 			icon: ownProps.icon || context.icon,
 		};
-	} ),
+	} )
 )( PluginMoreMenuItem );

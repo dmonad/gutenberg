@@ -15,9 +15,10 @@ const EMPTY_ARRAY = [];
 function WidgetAreas( { areas, blockEditorSettings } ) {
 	const [ selectedArea, setSelectedArea ] = useState( 0 );
 	const onBlockSelectedInArea = useMemo(
-		() => areas.map( ( value, index ) => ( () => {
-			setSelectedArea( index );
-		} ) ),
+		() =>
+			areas.map( ( value, index ) => () => {
+				setSelectedArea( index );
+			} ),
 		[ areas, setSelectedArea ]
 	);
 

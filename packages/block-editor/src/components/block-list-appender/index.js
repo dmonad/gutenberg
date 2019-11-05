@@ -61,20 +61,13 @@ function BlockListAppender( {
 	// default block can't be inserted.
 	return (
 		<div className="block-list-appender">
-			<ButtonBlockAppender
-				rootClientId={ rootClientId }
-				className="block-list-appender__toggle"
-			/>
+			<ButtonBlockAppender rootClientId={ rootClientId } className="block-list-appender__toggle" />
 		</div>
 	);
 }
 
 export default withSelect( ( select, { rootClientId } ) => {
-	const {
-		getBlockOrder,
-		canInsertBlockType,
-		getTemplateLock,
-	} = select( 'core/block-editor' );
+	const { getBlockOrder, canInsertBlockType, getTemplateLock } = select( 'core/block-editor' );
 
 	return {
 		isLocked: !! getTemplateLock( rootClientId ),

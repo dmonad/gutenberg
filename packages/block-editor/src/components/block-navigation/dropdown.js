@@ -20,18 +20,19 @@ const MenuIcon = (
 function BlockNavigationDropdown( { hasBlocks, isDisabled } ) {
 	const isEnabled = hasBlocks && ! isDisabled;
 
-	return	(
+	return (
 		<Dropdown
 			contentClassName="editor-block-navigation__popover block-editor-block-navigation__popover"
 			renderToggle={ ( { isOpen, onToggle } ) => (
 				<>
-					{ isEnabled && <KeyboardShortcuts
-						bindGlobal
-						shortcuts={ {
-							[ rawShortcut.access( 'o' ) ]: onToggle,
-						} }
-					/>
-					}
+					{ isEnabled && (
+						<KeyboardShortcuts
+							bindGlobal
+							shortcuts={ {
+								[ rawShortcut.access( 'o' ) ]: onToggle,
+							} }
+						/>
+					) }
 					<IconButton
 						icon={ MenuIcon }
 						aria-expanded={ isOpen }
@@ -43,9 +44,7 @@ function BlockNavigationDropdown( { hasBlocks, isDisabled } ) {
 					/>
 				</>
 			) }
-			renderContent={ ( { onClose } ) => (
-				<BlockNavigation onSelect={ onClose } />
-			) }
+			renderContent={ ( { onClose } ) => <BlockNavigation onSelect={ onClose } /> }
 		/>
 	);
 }

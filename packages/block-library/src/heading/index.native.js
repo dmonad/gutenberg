@@ -23,17 +23,17 @@ export const settings = {
 
 		const plainTextContent = ( html ) => create( { html } ).text || '';
 
-		return isEmpty( content ) ?
-			sprintf(
-				/* translators: accessibility text. %s: heading level. */
-				__( 'Level %s. Empty.' ),
-				level
-			) :
-			sprintf(
-				/* translators: accessibility text. 1: heading level. 2: heading content. */
-				__( 'Level %1$s. %2$s' ),
-				level,
-				plainTextContent( content )
-			);
+		return isEmpty( content )
+			? sprintf(
+					/* translators: accessibility text. %s: heading level. */
+					__( 'Level %s. Empty.' ),
+					level
+			  )
+			: sprintf(
+					/* translators: accessibility text. 1: heading level. 2: heading content. */
+					__( 'Level %1$s. %2$s' ),
+					level,
+					plainTextContent( content )
+			  );
 	},
 };

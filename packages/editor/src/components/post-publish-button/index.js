@@ -112,16 +112,14 @@ export class PostPublishButton extends Component {
 		const componentChildren = isToggle ? toggleChildren : buttonChildren;
 		return (
 			<div>
-				<Button
-					isLarge
-					ref={ this.buttonNode }
-					{ ...componentProps }
-				>
+				<Button isLarge ref={ this.buttonNode } { ...componentProps }>
 					{ componentChildren }
 				</Button>
 				{ /* Todo: Remove the wrapping div when DotTips are removed. */ }
 				<DotTip tipId="core/editor.publish">
-					{ __( 'Finished writing? That’s great, let’s get this published right now. Just click “Publish” and you’re good to go.' ) }
+					{ __(
+						'Finished writing? That’s great, let’s get this published right now. Just click “Publish” and you’re good to go.'
+					) }
 				</DotTip>
 			</div>
 		);

@@ -60,14 +60,21 @@ class PostPublishPanelPostpublish extends Component {
 		const postLabel = get( postType, [ 'labels', 'singular_name' ] );
 		const viewPostLabel = get( postType, [ 'labels', 'view_item' ] );
 
-		const postPublishNonLinkHeader = isScheduled ?
-			<>{ __( 'is now scheduled. It will go live on' ) } <PostScheduleLabel />.</> :
-			__( 'is now live.' );
+		const postPublishNonLinkHeader = isScheduled ? (
+			<>
+				{ __( 'is now scheduled. It will go live on' ) } <PostScheduleLabel />.
+			</>
+		) : (
+			__( 'is now live.' )
+		);
 
 		return (
 			<div className="post-publish-panel__postpublish">
 				<PanelBody className="post-publish-panel__postpublish-header">
-					<a ref={ this.postLink } href={ post.link }>{ post.title || __( '(no title)' ) }</a> { postPublishNonLinkHeader }
+					<a ref={ this.postLink } href={ post.link }>
+						{ post.title || __( '(no title)' ) }
+					</a>{' '}
+					{ postPublishNonLinkHeader }
 				</PanelBody>
 				<PanelBody>
 					<p className="post-publish-panel__postpublish-subheader">
@@ -78,7 +85,8 @@ class PostPublishPanelPostpublish extends Component {
 						readOnly
 						label={ sprintf(
 							/* translators: %s: post type singular name */
-							__( '%s address' ), postLabel
+							__( '%s address' ),
+							postLabel
 						) }
 						value={ safeDecodeURIComponent( post.link ) }
 						onFocus={ this.onSelectInput }
@@ -102,7 +110,9 @@ class PostPublishPanelPostpublish extends Component {
 }
 
 export default withSelect( ( select ) => {
-	const { getEditedPostAttribute, getCurrentPost, isCurrentPostScheduled } = select( 'core/editor' );
+	const { getEditedPostAttribute, getCurrentPost, isCurrentPostScheduled } = select(
+		'core/editor'
+	);
 	const { getPostType } = select( 'core' );
 
 	return {

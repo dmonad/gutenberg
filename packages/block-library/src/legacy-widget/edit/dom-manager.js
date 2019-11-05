@@ -21,9 +21,7 @@ class LegacyWidgetEditDomManager extends Component {
 
 	componentDidMount() {
 		this.triggerWidgetEvent( 'widget-added' );
-		this.previousFormData = new window.FormData(
-			this.formRef.current
-		);
+		this.previousFormData = new window.FormData( this.formRef.current );
 	}
 
 	shouldComponentUpdate( nextProps ) {
@@ -33,9 +31,7 @@ class LegacyWidgetEditDomManager extends Component {
 			const widgetContent = this.widgetContentRef.current;
 			widgetContent.innerHTML = nextProps.form;
 			this.triggerWidgetEvent( 'widget-updated' );
-			this.previousFormData = new window.FormData(
-				this.formRef.current
-			);
+			this.previousFormData = new window.FormData( this.formRef.current );
 		}
 		return false;
 	}
@@ -50,9 +46,7 @@ class LegacyWidgetEditDomManager extends Component {
 						method="post"
 						onBlur={ () => {
 							if ( this.shouldTriggerInstanceUpdate() ) {
-								this.props.onInstanceChange(
-									this.retrieveUpdatedInstance()
-								);
+								this.props.onInstanceChange( this.retrieveUpdatedInstance() );
 							}
 						} }
 					>
@@ -63,7 +57,12 @@ class LegacyWidgetEditDomManager extends Component {
 						/>
 						<input type="hidden" name="widget-id" className="widget-id" value={ id } />
 						<input type="hidden" name="id_base" className="id_base" value={ idBase } />
-						<input type="hidden" name="widget_number" className="widget_number" value={ widgetNumber } />
+						<input
+							type="hidden"
+							name="widget_number"
+							className="widget_number"
+							value={ widgetNumber }
+						/>
 						<input type="hidden" name="multi_number" className="multi_number" value="" />
 						<input type="hidden" name="add_new" className="add_new" value="" />
 					</form>
@@ -79,21 +78,16 @@ class LegacyWidgetEditDomManager extends Component {
 		if ( ! this.previousFormData ) {
 			return true;
 		}
-		const currentFormData = new window.FormData(
-			this.formRef.current
-		);
+		const currentFormData = new window.FormData( this.formRef.current );
 		const currentFormDataKeys = Array.from( currentFormData.keys() );
 		const previousFormDataKeys = Array.from( this.previousFormData.keys() );
-		if (
-			currentFormDataKeys.length !== previousFormDataKeys.length
-		) {
+		if ( currentFormDataKeys.length !== previousFormDataKeys.length ) {
 			return true;
 		}
 		for ( const rawKey of currentFormDataKeys ) {
-			if ( ! isShallowEqual(
-				currentFormData.getAll( rawKey ),
-				this.previousFormData.getAll( rawKey )
-			) ) {
+			if (
+				! isShallowEqual( currentFormData.getAll( rawKey ), this.previousFormData.getAll( rawKey ) )
+			) {
 				this.previousFormData = currentFormData;
 				return true;
 			}
@@ -102,10 +96,7 @@ class LegacyWidgetEditDomManager extends Component {
 	}
 
 	triggerWidgetEvent( event ) {
-		window.$( window.document ).trigger(
-			event,
-			[ window.$( this.containerRef.current ) ]
-		);
+		window.$( window.document ).trigger( event, [ window.$( this.containerRef.current ) ] );
 	}
 
 	retrieveUpdatedInstance() {
@@ -119,10 +110,9 @@ class LegacyWidgetEditDomManager extends Component {
 			for ( const rawKey of formData.keys() ) {
 				// This fields are added to the form because the widget JavaScript code may use this values.
 				// They are not relevant for the update mechanism.
-				if ( includes(
-					[ 'widget-id', 'id_base', 'widget_number', 'multi_number', 'add_new' ],
-					rawKey,
-				) ) {
+				if (
+					includes( [ 'widget-id', 'id_base', 'widget_number', 'multi_number', 'add_new' ], rawKey )
+				) {
 					continue;
 				}
 				const keyParsed = rawKey.substring( keyPrefixLength, rawKey.length - keySuffixLength );
@@ -140,4 +130,3 @@ class LegacyWidgetEditDomManager extends Component {
 }
 
 export default LegacyWidgetEditDomManager;
-

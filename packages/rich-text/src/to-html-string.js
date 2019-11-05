@@ -2,11 +2,7 @@
  * WordPress dependencies
  */
 
-import {
-	escapeHTML,
-	escapeAttribute,
-	isValidAttributeName,
-} from '@wordpress/escape-html';
+import { escapeHTML, escapeAttribute, isValidAttributeName } from '@wordpress/escape-html';
 
 /**
  * Internal dependencies
@@ -105,7 +101,9 @@ function createElementHTML( { type, attributes, object, children } ) {
 }
 
 function createChildrenHTML( children = [] ) {
-	return children.map( ( child ) => {
-		return child.text === undefined ? createElementHTML( child ) : escapeHTML( child.text );
-	} ).join( '' );
+	return children
+		.map( ( child ) => {
+			return child.text === undefined ? createElementHTML( child ) : escapeHTML( child.text );
+		} )
+		.join( '' );
 }

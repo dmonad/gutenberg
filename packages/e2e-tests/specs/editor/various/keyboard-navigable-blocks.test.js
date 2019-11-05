@@ -1,11 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	createNewPost,
-	insertBlock,
-	pressKeyWithModifier,
-} from '@wordpress/e2e-test-utils';
+import { createNewPost, insertBlock, pressKeyWithModifier } from '@wordpress/e2e-test-utils';
 
 const navigateToContentEditorTop = async () => {
 	// Use 'Ctrl+`' to return to the top of the editor
@@ -21,9 +17,7 @@ const tabThroughParagraphBlock = async ( paragraphText ) => {
 	await page.keyboard.press( 'Tab' );
 
 	// The block external focusable wrapper has focus
-	const isFocusedParagraphBlock = await page.evaluate(
-		() => document.activeElement.dataset.type
-	);
+	const isFocusedParagraphBlock = await page.evaluate( () => document.activeElement.dataset.type );
 	await expect( isFocusedParagraphBlock ).toEqual( 'core/paragraph' );
 
 	// Tab causes 'add block' button to receive focus
@@ -44,9 +38,7 @@ const tabThroughParagraphBlock = async ( paragraphText ) => {
 	// The value of 'contentEditable' should be the string 'true'
 	await expect( isFocusedParagraphContent ).toBe( 'true' );
 
-	const paragraphEditableContent = await page.evaluate(
-		() => document.activeElement.innerHTML
-	);
+	const paragraphEditableContent = await page.evaluate( () => document.activeElement.innerHTML );
 	await expect( paragraphEditableContent ).toBe( paragraphText );
 };
 
@@ -70,9 +62,7 @@ const tabThroughBlockToolbar = async () => {
 	// Tab to focus on the 'block switcher' control
 	await page.keyboard.press( 'Tab' );
 	const isFocusedBlockSwitcherControl = await page.evaluate( () =>
-		document.activeElement.classList.contains(
-			'block-editor-block-switcher__toggle'
-		)
+		document.activeElement.classList.contains( 'block-editor-block-switcher__toggle' )
 	);
 	await expect( isFocusedBlockSwitcherControl ).toBe( true );
 

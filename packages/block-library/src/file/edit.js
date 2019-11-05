@@ -6,18 +6,8 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import {
-	getBlobByURL,
-	isBlobURL,
-	revokeBlobURL,
-} from '@wordpress/blob';
-import {
-	Animate,
-	ClipboardButton,
-	IconButton,
-	Toolbar,
-	withNotices,
-} from '@wordpress/components';
+import { getBlobByURL, isBlobURL, revokeBlobURL } from '@wordpress/blob';
+import { Animate, ClipboardButton, IconButton, Toolbar, withNotices } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import {
@@ -56,12 +46,7 @@ class FileEdit extends Component {
 	}
 
 	componentDidMount() {
-		const {
-			attributes,
-			mediaUpload,
-			noticeOperations,
-			setAttributes,
-		} = this.props;
+		const { attributes, mediaUpload, noticeOperations, setAttributes } = this.props;
 		const { downloadButtonText, href } = attributes;
 
 		// Upload a file drag-and-dropped into the editor
@@ -136,14 +121,7 @@ class FileEdit extends Component {
 	}
 
 	render() {
-		const {
-			className,
-			isSelected,
-			attributes,
-			setAttributes,
-			noticeUI,
-			media,
-		} = this.props;
+		const { className, isSelected, attributes, setAttributes, noticeUI, media } = this.props;
 		const {
 			fileName,
 			href,
@@ -219,7 +197,7 @@ class FileEdit extends Component {
 										onChange={ ( text ) => setAttributes( { fileName: text } ) }
 									/>
 								</div>
-								{ showDownloadButton &&
+								{ showDownloadButton && (
 									<div className={ 'wp-block-file__button-richtext-wrapper' }>
 										{ /* Using RichText here instead of PlainText so that it can be styled like a button */ }
 										<RichText
@@ -231,9 +209,9 @@ class FileEdit extends Component {
 											onChange={ ( text ) => setAttributes( { downloadButtonText: text } ) }
 										/>
 									</div>
-								}
+								) }
 							</div>
-							{ isSelected &&
+							{ isSelected && (
 								<ClipboardButton
 									isDefault
 									text={ href }
@@ -244,7 +222,7 @@ class FileEdit extends Component {
 								>
 									{ showCopyConfirmation ? __( 'Copied!' ) : __( 'Copy URL' ) }
 								</ClipboardButton>
-							}
+							) }
 						</div>
 					) }
 				</Animate>

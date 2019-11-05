@@ -15,9 +15,7 @@ import {
 	withColors,
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
-import {
-	Toolbar,
-} from '@wordpress/components';
+import { Toolbar } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withViewportMatch } from '@wordpress/viewport';
 
@@ -36,7 +34,8 @@ const TEMPLATE = [
 ];
 // this limits the resize to a safe zone to avoid making broken layouts
 const WIDTH_CONSTRAINT_PERCENTAGE = 15;
-const applyWidthConstraints = ( width ) => Math.max( WIDTH_CONSTRAINT_PERCENTAGE, Math.min( width, 100 - WIDTH_CONSTRAINT_PERCENTAGE ) );
+const applyWidthConstraints = ( width ) =>
+	Math.max( WIDTH_CONSTRAINT_PERCENTAGE, Math.min( width, 100 - WIDTH_CONSTRAINT_PERCENTAGE ) );
 
 class MediaTextEdit extends Component {
 	constructor() {
@@ -65,13 +64,16 @@ class MediaTextEdit extends Component {
 				// video contain the media type of 'file' in the object returned from the rest api.
 				mediaType = 'video';
 			}
-		} else { // for media selections originated from existing files in the media library.
+		} else {
+			// for media selections originated from existing files in the media library.
 			mediaType = media.type;
 		}
 
 		if ( mediaType === 'image' && media.sizes ) {
 			// Try the "large" size URL, falling back to the "full" size URL below.
-			src = get( media, [ 'sizes', 'large', 'url' ] ) || get( media, [ 'media_details', 'sizes', 'large', 'source_url' ] );
+			src =
+				get( media, [ 'sizes', 'large', 'url' ] ) ||
+				get( media, [ 'media_details', 'sizes', 'large', 'source_url' ] );
 		}
 
 		setAttributes( {
@@ -112,7 +114,16 @@ class MediaTextEdit extends Component {
 
 	renderMediaArea() {
 		const { attributes, isSelected } = this.props;
-		const { mediaAlt, mediaId, mediaPosition, mediaType, mediaUrl, mediaWidth, imageFill, focalPoint } = attributes;
+		const {
+			mediaAlt,
+			mediaId,
+			mediaPosition,
+			mediaType,
+			mediaUrl,
+			mediaWidth,
+			imageFill,
+			focalPoint,
+		} = attributes;
 
 		return (
 			<MediaContainer
@@ -121,7 +132,17 @@ class MediaTextEdit extends Component {
 				onWidthChange={ this.onWidthChange }
 				commitWidthChange={ this.commitWidthChange }
 				onFocus={ this.props.onFocus }
-				{ ...{ mediaAlt, mediaId, mediaType, mediaUrl, mediaPosition, mediaWidth, imageFill, focalPoint, isSelected } }
+				{ ...{
+					mediaAlt,
+					mediaId,
+					mediaType,
+					mediaUrl,
+					mediaPosition,
+					mediaWidth,
+					imageFill,
+					focalPoint,
+					isSelected,
+				} }
 			/>
 		);
 	}
@@ -131,40 +152,45 @@ class MediaTextEdit extends Component {
 			attributes,
 			backgroundColor,
 			setAttributes,
-		//	isMobile,
+			//	isMobile,
 		} = this.props;
 		const {
-		//	isStackedOnMobile,
+			//	isStackedOnMobile,
 			mediaPosition,
 			mediaWidth,
 			verticalAlignment,
 		} = attributes;
 		const shouldStack = false; // We are temporarily not stacking until we fix alignment buttons
 		// const shouldStack = isStackedOnMobile && isMobile; // <<< Original line
-		const temporaryMediaWidth = shouldStack ? 100 : ( this.state.mediaWidth || mediaWidth );
+		const temporaryMediaWidth = shouldStack ? 100 : this.state.mediaWidth || mediaWidth;
 		const widthString = `${ temporaryMediaWidth }%`;
 		const containerStyles = {
 			...styles[ 'wp-block-media-text' ],
 			...styles[ `is-vertically-aligned-${ verticalAlignment }` ],
 			...( mediaPosition === 'right' ? styles[ 'has-media-on-the-right' ] : {} ),
 			...( shouldStack ? styles[ 'is-stacked-on-mobile' ] : {} ),
-			...( shouldStack && mediaPosition === 'right' ? styles[ 'is-stacked-on-mobile.has-media-on-the-right' ] : {} ),
+			...( shouldStack && mediaPosition === 'right'
+				? styles[ 'is-stacked-on-mobile.has-media-on-the-right' ]
+				: {} ),
 			backgroundColor: backgroundColor.color,
 		};
-		const innerBlockWidth = shouldStack ? 100 : ( 100 - temporaryMediaWidth );
+		const innerBlockWidth = shouldStack ? 100 : 100 - temporaryMediaWidth;
 		const innerBlockWidthString = `${ innerBlockWidth }%`;
 
-		const toolbarControls = [ {
-			icon: 'align-pull-left',
-			title: __( 'Show media on left' ),
-			isActive: mediaPosition === 'left',
-			onClick: () => setAttributes( { mediaPosition: 'left' } ),
-		}, {
-			icon: 'align-pull-right',
-			title: __( 'Show media on right' ),
-			isActive: mediaPosition === 'right',
-			onClick: () => setAttributes( { mediaPosition: 'right' } ),
-		} ];
+		const toolbarControls = [
+			{
+				icon: 'align-pull-left',
+				title: __( 'Show media on left' ),
+				isActive: mediaPosition === 'left',
+				onClick: () => setAttributes( { mediaPosition: 'left' } ),
+			},
+			{
+				icon: 'align-pull-right',
+				title: __( 'Show media on right' ),
+				isActive: mediaPosition === 'right',
+				onClick: () => setAttributes( { mediaPosition: 'right' } ),
+			},
+		];
 
 		/* const onVerticalAlignmentChange = ( alignment ) => {
 			setAttributes( { verticalAlignment: alignment } );
@@ -173,9 +199,7 @@ class MediaTextEdit extends Component {
 		return (
 			<>
 				<BlockControls>
-					<Toolbar
-						controls={ toolbarControls }
-					/>
+					<Toolbar controls={ toolbarControls } />
 					{ /* // Temporarily commenting out until alignment functionality is fixed
 					<BlockVerticalAlignmentToolbar
 						onChange={ onVerticalAlignmentChange }
@@ -184,9 +208,7 @@ class MediaTextEdit extends Component {
 					/> */ }
 				</BlockControls>
 				<View style={ containerStyles }>
-					<View style={ { width: widthString } }>
-						{ this.renderMediaArea() }
-					</View>
+					<View style={ { width: widthString } }>{ this.renderMediaArea() }</View>
 					<View style={ { width: innerBlockWidthString } }>
 						<InnerBlocks
 							allowedBlocks={ ALLOWED_BLOCKS }

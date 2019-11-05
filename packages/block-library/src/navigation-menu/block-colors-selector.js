@@ -23,15 +23,13 @@ const ColorSelectorSVGIcon = () => (
  *
  * @return {*} React Icon component.
  */
-const ColorSelectorIcon = ( { style } ) =>
+const ColorSelectorIcon = ( { style } ) => (
 	<div className="block-library-colors-selector__icon-container">
-		<div
-			className="block-library-colors-selector__state-selection"
-			style={ style }
-		>
+		<div className="block-library-colors-selector__state-selection" style={ style }>
 			<ColorSelectorSVGIcon />
 		</div>
-	</div>;
+	</div>
+);
 
 /**
  * Renders the Colors Selector Toolbar with the icon button.
@@ -61,7 +59,7 @@ const renderToggleComponent = ( style ) => ( { onToggle, isOpen } ) => {
 	);
 };
 
-const renderContent = ( { backgroundColor, textColor, onColorChange = noop } ) => ( () => {
+const renderContent = ( { backgroundColor, textColor, onColorChange = noop } ) => () => {
 	const setColor = ( attr ) => ( value ) => onColorChange( { attr, value } );
 
 	return (
@@ -89,13 +87,14 @@ const renderContent = ( { backgroundColor, textColor, onColorChange = noop } ) =
 			/>
 		</>
 	);
-} );
+};
 
-export default ( { style, className, ...colorControlProps } ) =>
+export default ( { style, className, ...colorControlProps } ) => (
 	<Dropdown
 		position="bottom right"
 		className={ classnames( 'block-library-colors-selector', className ) }
 		contentClassName="block-library-colors-selector__popover"
 		renderToggle={ renderToggleComponent( style ) }
 		renderContent={ renderContent( colorControlProps ) }
-	/>;
+	/>
+);

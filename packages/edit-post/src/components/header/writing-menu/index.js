@@ -12,9 +12,7 @@ import FeatureToggle from '../feature-toggle';
 
 function WritingMenu() {
 	return (
-		<MenuGroup
-			label={ _x( 'View', 'noun' ) }
-		>
+		<MenuGroup label={ _x( 'View', 'noun' ) }>
 			<FeatureToggle
 				feature="fixedToolbar"
 				label={ __( 'Top Toolbar' ) }

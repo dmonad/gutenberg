@@ -1,4 +1,3 @@
-
 /**
  * Module constants
  */
@@ -26,13 +25,14 @@ export function computePopoverXAxisPosition( anchorRect, contentSize, xAxis, cho
 	}
 
 	// x axis alignment choices
-	const anchorMidPoint = Math.round( anchorRect.left + ( anchorRect.width / 2 ) );
+	const anchorMidPoint = Math.round( anchorRect.left + anchorRect.width / 2 );
 	const centerAlignment = {
 		popoverLeft: anchorMidPoint,
-		contentWidth: (
-			( anchorMidPoint - ( width / 2 ) > 0 ? ( width / 2 ) : anchorMidPoint ) +
-			( anchorMidPoint + ( width / 2 ) > window.innerWidth ? window.innerWidth - anchorMidPoint : ( width / 2 ) )
-		),
+		contentWidth:
+			( anchorMidPoint - width / 2 > 0 ? width / 2 : anchorMidPoint ) +
+			( anchorMidPoint + width / 2 > window.innerWidth
+				? window.innerWidth - anchorMidPoint
+				: width / 2 ),
 	};
 	const leftAlignmentX = chosenYAxis === 'middle' ? anchorRect.left : anchorMidPoint;
 	const leftAlignment = {
@@ -42,7 +42,8 @@ export function computePopoverXAxisPosition( anchorRect, contentSize, xAxis, cho
 	const rightAlignmentX = chosenYAxis === 'middle' ? anchorRect.right : anchorMidPoint;
 	const rightAlignment = {
 		popoverLeft: rightAlignmentX,
-		contentWidth: rightAlignmentX + width > window.innerWidth ? window.innerWidth - rightAlignmentX : width,
+		contentWidth:
+			rightAlignmentX + width > window.innerWidth ? window.innerWidth - rightAlignmentX : width,
 	};
 
 	// Choosing the x axis
@@ -56,7 +57,8 @@ export function computePopoverXAxisPosition( anchorRect, contentSize, xAxis, cho
 		chosenXAxis = 'right';
 	} else {
 		chosenXAxis = leftAlignment.contentWidth > rightAlignment.contentWidth ? 'left' : 'right';
-		const chosenWidth = chosenXAxis === 'left' ? leftAlignment.contentWidth : rightAlignment.contentWidth;
+		const chosenWidth =
+			chosenXAxis === 'left' ? leftAlignment.contentWidth : rightAlignment.contentWidth;
 		contentWidth = chosenWidth !== width ? chosenWidth : null;
 	}
 
@@ -89,21 +91,26 @@ export function computePopoverYAxisPosition( anchorRect, contentSize, yAxis ) {
 	const { height } = contentSize;
 
 	// y axis alignment choices
-	const anchorMidPoint = anchorRect.top + ( anchorRect.height / 2 );
+	const anchorMidPoint = anchorRect.top + anchorRect.height / 2;
 	const middleAlignment = {
 		popoverTop: anchorMidPoint,
-		contentHeight: (
-			( anchorMidPoint - ( height / 2 ) > 0 ? ( height / 2 ) : anchorMidPoint ) +
-			( anchorMidPoint + ( height / 2 ) > window.innerHeight ? window.innerHeight - anchorMidPoint : ( height / 2 ) )
-		),
+		contentHeight:
+			( anchorMidPoint - height / 2 > 0 ? height / 2 : anchorMidPoint ) +
+			( anchorMidPoint + height / 2 > window.innerHeight
+				? window.innerHeight - anchorMidPoint
+				: height / 2 ),
 	};
 	const topAlignment = {
 		popoverTop: anchorRect.top,
-		contentHeight: anchorRect.top - HEIGHT_OFFSET - height > 0 ? height : anchorRect.top - HEIGHT_OFFSET,
+		contentHeight:
+			anchorRect.top - HEIGHT_OFFSET - height > 0 ? height : anchorRect.top - HEIGHT_OFFSET,
 	};
 	const bottomAlignment = {
 		popoverTop: anchorRect.bottom,
-		contentHeight: anchorRect.bottom + HEIGHT_OFFSET + height > window.innerHeight ? window.innerHeight - HEIGHT_OFFSET - anchorRect.bottom : height,
+		contentHeight:
+			anchorRect.bottom + HEIGHT_OFFSET + height > window.innerHeight
+				? window.innerHeight - HEIGHT_OFFSET - anchorRect.bottom
+				: height,
 	};
 
 	// Choosing the y axis
@@ -117,7 +124,8 @@ export function computePopoverYAxisPosition( anchorRect, contentSize, yAxis ) {
 		chosenYAxis = 'bottom';
 	} else {
 		chosenYAxis = topAlignment.contentHeight > bottomAlignment.contentHeight ? 'top' : 'bottom';
-		const chosenHeight = chosenYAxis === 'top' ? topAlignment.contentHeight : bottomAlignment.contentHeight;
+		const chosenHeight =
+			chosenYAxis === 'top' ? topAlignment.contentHeight : bottomAlignment.contentHeight;
 		contentHeight = chosenHeight !== height ? chosenHeight : null;
 	}
 
@@ -148,11 +156,21 @@ export function computePopoverYAxisPosition( anchorRect, contentSize, yAxis ) {
  *
  * @return {Object} Popover position and constraints.
  */
-export function computePopoverPosition( anchorRect, contentSize, position = 'top', expandOnMobile = false ) {
+export function computePopoverPosition(
+	anchorRect,
+	contentSize,
+	position = 'top',
+	expandOnMobile = false
+) {
 	const [ yAxis, xAxis = 'center' ] = position.split( ' ' );
 
 	const yAxisPosition = computePopoverYAxisPosition( anchorRect, contentSize, yAxis );
-	const xAxisPosition = computePopoverXAxisPosition( anchorRect, contentSize, xAxis, yAxisPosition.yAxis );
+	const xAxisPosition = computePopoverXAxisPosition(
+		anchorRect,
+		contentSize,
+		xAxis,
+		yAxisPosition.yAxis
+	);
 
 	return {
 		isMobile: isMobileViewport() && expandOnMobile,

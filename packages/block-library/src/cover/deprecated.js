@@ -8,10 +8,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { createBlock } from '@wordpress/blocks';
-import {
-	RichText,
-	getColorClassName,
-} from '@wordpress/block-editor';
+import { RichText, getColorClassName } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -84,9 +81,7 @@ const deprecated = [
 				url,
 			} = attributes;
 			const overlayColorClass = getColorClassName( 'background-color', overlayColor );
-			const style = backgroundType === IMAGE_BACKGROUND_TYPE ?
-				backgroundImageStyles( url ) :
-				{};
+			const style = backgroundType === IMAGE_BACKGROUND_TYPE ? backgroundImageStyles( url ) : {};
 			if ( ! overlayColorClass ) {
 				style.backgroundColor = customOverlayColor;
 			}
@@ -94,25 +89,17 @@ const deprecated = [
 				style.backgroundPosition = `${ focalPoint.x * 100 }% ${ focalPoint.y * 100 }%`;
 			}
 
-			const classes = classnames(
-				dimRatioToClass( dimRatio ),
-				overlayColorClass,
-				{
-					'has-background-dim': dimRatio !== 0,
-					'has-parallax': hasParallax,
-					[ `has-${ contentAlign }-content` ]: contentAlign !== 'center',
-				},
-			);
+			const classes = classnames( dimRatioToClass( dimRatio ), overlayColorClass, {
+				'has-background-dim': dimRatio !== 0,
+				'has-parallax': hasParallax,
+				[ `has-${ contentAlign }-content` ]: contentAlign !== 'center',
+			} );
 
 			return (
 				<div className={ classes } style={ style }>
-					{ VIDEO_BACKGROUND_TYPE === backgroundType && url && ( <video
-						className="wp-block-cover__video-background"
-						autoPlay
-						muted
-						loop
-						src={ url }
-					/> ) }
+					{ VIDEO_BACKGROUND_TYPE === backgroundType && url && (
+						<video className="wp-block-cover__video-background" autoPlay muted loop src={ url } />
+					) }
 					{ ! RichText.isEmpty( title ) && (
 						<RichText.Content tagName="p" className="wp-block-cover-text" value={ title } />
 					) }
@@ -123,19 +110,17 @@ const deprecated = [
 			return [
 				omit( attributes, [ 'title', 'contentAlign' ] ),
 				[
-					createBlock(
-						'core/paragraph',
-						{
-							content: attributes.title,
-							align: attributes.contentAlign,
-							fontSize: 'large',
-							placeholder: __( 'Write title…' ),
-						}
-					),
+					createBlock( 'core/paragraph', {
+						content: attributes.title,
+						align: attributes.contentAlign,
+						fontSize: 'large',
+						placeholder: __( 'Write title…' ),
+					} ),
 				],
 			];
 		},
-	}, {
+	},
+	{
 		attributes: {
 			...blockAttributes,
 			title: {
@@ -155,7 +140,16 @@ const deprecated = [
 			className: false,
 		},
 		save( { attributes } ) {
-			const { url, title, hasParallax, dimRatio, align, contentAlign, overlayColor, customOverlayColor } = attributes;
+			const {
+				url,
+				title,
+				hasParallax,
+				dimRatio,
+				align,
+				contentAlign,
+				overlayColor,
+				customOverlayColor,
+			} = attributes;
 			const overlayColorClass = getColorClassName( 'background-color', overlayColor );
 			const style = backgroundImageStyles( url );
 			if ( ! overlayColorClass ) {
@@ -171,7 +165,7 @@ const deprecated = [
 					'has-parallax': hasParallax,
 					[ `has-${ contentAlign }-content` ]: contentAlign !== 'center',
 				},
-				align ? `align${ align }` : null,
+				align ? `align${ align }` : null
 			);
 
 			return (
@@ -186,19 +180,17 @@ const deprecated = [
 			return [
 				omit( attributes, [ 'title', 'contentAlign', 'align' ] ),
 				[
-					createBlock(
-						'core/paragraph',
-						{
-							content: attributes.title,
-							align: attributes.contentAlign,
-							fontSize: 'large',
-							placeholder: __( 'Write title…' ),
-						}
-					),
+					createBlock( 'core/paragraph', {
+						content: attributes.title,
+						align: attributes.contentAlign,
+						fontSize: 'large',
+						placeholder: __( 'Write title…' ),
+					} ),
 				],
 			];
 		},
-	}, {
+	},
+	{
 		attributes: {
 			...blockAttributes,
 			title: {
@@ -227,7 +219,7 @@ const deprecated = [
 					'has-background-dim': dimRatio !== 0,
 					'has-parallax': hasParallax,
 				},
-				align ? `align${ align }` : null,
+				align ? `align${ align }` : null
 			);
 
 			return (
@@ -240,15 +232,12 @@ const deprecated = [
 			return [
 				omit( attributes, [ 'title', 'contentAlign', 'align' ] ),
 				[
-					createBlock(
-						'core/paragraph',
-						{
-							content: attributes.title,
-							align: attributes.contentAlign,
-							fontSize: 'large',
-							placeholder: __( 'Write title…' ),
-						}
-					),
+					createBlock( 'core/paragraph', {
+						content: attributes.title,
+						align: attributes.contentAlign,
+						fontSize: 'large',
+						placeholder: __( 'Write title…' ),
+					} ),
 				],
 			];
 		},

@@ -40,7 +40,7 @@ export function CodeEdit( props ) {
 				isSelected={ props.isSelected }
 				onFocus={ onFocus }
 				onBlur={ onBlur }
-				fontFamily={ ( styles.blockCode.fontFamily ) }
+				fontFamily={ styles.blockCode.fontFamily }
 				placeholderTextColor={ placeholderStyle.color }
 			/>
 		</View>

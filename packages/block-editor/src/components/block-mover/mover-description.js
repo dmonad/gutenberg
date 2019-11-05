@@ -20,8 +20,17 @@ import { __, _n, sprintf } from '@wordpress/i18n';
  *
  * @return {string} Label for the block movement controls.
  */
-export function getBlockMoverDescription( selectedCount, type, firstIndex, isFirst, isLast, dir, orientation, isRTL ) {
-	const position = ( firstIndex + 1 );
+export function getBlockMoverDescription(
+	selectedCount,
+	type,
+	firstIndex,
+	isFirst,
+	isLast,
+	dir,
+	orientation,
+	isRTL
+) {
+	const position = firstIndex + 1;
 
 	const getMovementDirection = ( moveDirection ) => {
 		if ( moveDirection === 'up' ) {
@@ -55,7 +64,7 @@ export function getBlockMoverDescription( selectedCount, type, firstIndex, isFir
 			type,
 			position,
 			getMovementDirection( 'down' ),
-			( position + 1 ),
+			position + 1
 		);
 	}
 
@@ -65,8 +74,7 @@ export function getBlockMoverDescription( selectedCount, type, firstIndex, isFir
 		return sprintf(
 			__( 'Block %1$s is at the end of the content and can’t be moved %2$s' ),
 			type,
-			getMovementDirection( 'down' ),
-
+			getMovementDirection( 'down' )
 		);
 	}
 
@@ -78,7 +86,7 @@ export function getBlockMoverDescription( selectedCount, type, firstIndex, isFir
 			type,
 			position,
 			getMovementDirection( 'up' ),
-			( position - 1 ),
+			position - 1
 		);
 	}
 
@@ -88,7 +96,7 @@ export function getBlockMoverDescription( selectedCount, type, firstIndex, isFir
 		return sprintf(
 			__( 'Block %1$s is at the beginning of the content and can’t be moved %2$s' ),
 			type,
-			getMovementDirection( 'up' ),
+			getMovementDirection( 'up' )
 		);
 	}
 }
@@ -106,7 +114,7 @@ export function getBlockMoverDescription( selectedCount, type, firstIndex, isFir
  * @return {string} Label for the block movement controls.
  */
 export function getMultiBlockMoverDescription( selectedCount, firstIndex, isFirst, isLast, dir ) {
-	const position = ( firstIndex + 1 );
+	const position = firstIndex + 1;
 
 	if ( dir < 0 && isFirst ) {
 		return __( 'Blocks cannot be moved up as they are already at the top' );

@@ -8,11 +8,7 @@ import renderer from 'react-test-renderer';
  * WordPress dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
-import {
-	getBlockTypes,
-	registerBlockType,
-	unregisterBlockType,
-} from '@wordpress/blocks';
+import { getBlockTypes, registerBlockType, unregisterBlockType } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -64,55 +60,44 @@ describe( 'align', () => {
 		} );
 
 		it( 'should return all custom aligns set', () => {
-			expect(
-				getValidAlignments( [ 'left', 'right' ] )
-			).toEqual(
-				[ 'left', 'right' ]
-			);
+			expect( getValidAlignments( [ 'left', 'right' ] ) ).toEqual( [ 'left', 'right' ] );
 		} );
 
 		it( 'should return all aligns if block defines align support as true', () => {
-			expect(
-				getValidAlignments( true )
-			).toEqual(
-				[ 'left', 'center', 'right', 'wide', 'full' ]
-			);
+			expect( getValidAlignments( true ) ).toEqual( [ 'left', 'center', 'right', 'wide', 'full' ] );
 		} );
 
 		it( 'should return all aligns except wide if wide align explicitly false on the block', () => {
-			expect(
-				getValidAlignments( true, false, true )
-			).toEqual( [ 'left', 'center', 'right' ] );
+			expect( getValidAlignments( true, false, true ) ).toEqual( [ 'left', 'center', 'right' ] );
 
-			expect(
-				getValidAlignments( true, false, false )
-			).toEqual( [ 'left', 'center', 'right' ] );
+			expect( getValidAlignments( true, false, false ) ).toEqual( [ 'left', 'center', 'right' ] );
 		} );
 
 		it( 'should return all aligns except wide if wide align is not supported by the theme', () => {
-			expect(
-				getValidAlignments( true, true, false )
-			).toEqual( [ 'left', 'center', 'right' ] );
+			expect( getValidAlignments( true, true, false ) ).toEqual( [ 'left', 'center', 'right' ] );
 
-			expect(
-				getValidAlignments( true, false, false )
-			).toEqual( [ 'left', 'center', 'right' ] );
+			expect( getValidAlignments( true, false, false ) ).toEqual( [ 'left', 'center', 'right' ] );
 		} );
 
 		it( 'should not remove wide aligns if they are not supported by the block and were set using an array in supports align', () => {
-			expect(
-				getValidAlignments( [ 'left', 'right', 'wide', 'full' ], false, true )
-			).toEqual( [ 'left', 'right', 'wide', 'full' ] );
+			expect( getValidAlignments( [ 'left', 'right', 'wide', 'full' ], false, true ) ).toEqual( [
+				'left',
+				'right',
+				'wide',
+				'full',
+			] );
 		} );
 
 		it( 'should remove wide aligns if they are not supported by the theme and were set using an array in supports align', () => {
-			expect(
-				getValidAlignments( [ 'left', 'right', 'wide', 'full' ], true, false )
-			).toEqual( [ 'left', 'right' ] );
+			expect( getValidAlignments( [ 'left', 'right', 'wide', 'full' ], true, false ) ).toEqual( [
+				'left',
+				'right',
+			] );
 
-			expect(
-				getValidAlignments( [ 'left', 'right', 'wide', 'full' ], false, false )
-			).toEqual( [ 'left', 'right' ] );
+			expect( getValidAlignments( [ 'left', 'right', 'wide', 'full' ], false, false ) ).toEqual( [
+				'left',
+				'right',
+			] );
 		} );
 	} );
 
@@ -125,11 +110,7 @@ describe( 'align', () => {
 			) );
 
 			const wrapper = renderer.create(
-				<EnhancedComponent
-					name="core/foo"
-					attributes={ {} }
-					isSelected
-				/>
+				<EnhancedComponent name="core/foo" attributes={ {} } isSelected />
 			);
 			// when there's only one child, `rendered` in the tree is an object not an array.
 			expect( wrapper.toTree().rendered ).toBeInstanceOf( Object );
@@ -149,11 +130,7 @@ describe( 'align', () => {
 			) );
 
 			const wrapper = renderer.create(
-				<EnhancedComponent
-					name="core/foo"
-					attributes={ {} }
-					isSelected
-				/>
+				<EnhancedComponent name="core/foo" attributes={ {} } isSelected />
 			);
 			expect( wrapper.toTree().rendered ).toHaveLength( 2 );
 		} );
@@ -241,11 +218,15 @@ describe( 'align', () => {
 		it( 'should do nothing if block does not support align', () => {
 			registerBlockType( 'core/foo', blockSettings );
 
-			const props = addAssignedAlign( {
-				className: 'foo',
-			}, 'core/foo', {
-				align: 'wide',
-			} );
+			const props = addAssignedAlign(
+				{
+					className: 'foo',
+				},
+				'core/foo',
+				{
+					align: 'wide',
+				}
+			);
 
 			expect( props ).toEqual( {
 				className: 'foo',
@@ -260,11 +241,15 @@ describe( 'align', () => {
 				},
 			} );
 
-			const props = addAssignedAlign( {
-				className: 'foo',
-			}, 'core/foo', {
-				align: 'wide',
-			} );
+			const props = addAssignedAlign(
+				{
+					className: 'foo',
+				},
+				'core/foo',
+				{
+					align: 'wide',
+				}
+			);
 
 			expect( props ).toEqual( {
 				className: 'alignwide foo',

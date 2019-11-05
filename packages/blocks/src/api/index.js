@@ -7,11 +7,7 @@ export {
 	findTransform,
 	getBlockFromExample,
 } from './factory';
-export {
-	default as parse,
-	getBlockAttributes,
-	parseWithAttributeSchema,
-} from './parser';
+export { default as parse, getBlockAttributes, parseWithAttributeSchema } from './parser';
 export { pasteHandler, rawHandler, getPhrasingContentSchema } from './raw-handling';
 export {
 	default as serialize,
@@ -22,11 +18,7 @@ export {
 	getSaveContent,
 } from './serializer';
 export { isValidBlockContent } from './validation';
-export {
-	getCategories,
-	setCategories,
-	updateCategory,
-} from './categories';
+export { getCategories, setCategories, updateCategory } from './categories';
 export {
 	registerBlockType,
 	unregisterBlockType,
@@ -50,14 +42,7 @@ export {
 	registerBlockStyle,
 	unregisterBlockStyle,
 } from './registration';
-export {
-	isUnmodifiedDefaultBlock,
-	normalizeIconObject,
-	isValidIcon,
-} from './utils';
-export {
-	doBlocksMatchTemplate,
-	synchronizeBlocksWithTemplate,
-} from './templates';
+export { isUnmodifiedDefaultBlock, normalizeIconObject, isValidIcon } from './utils';
+export { doBlocksMatchTemplate, synchronizeBlocksWithTemplate } from './templates';
 export { default as children } from './children';
 export { default as node } from './node';

@@ -11,7 +11,15 @@ import { compose } from '@wordpress/compose';
 import { MenuItem, withSpokenMessages } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-function FeatureToggle( { onToggle, isActive, label, info, messageActivated, messageDeactivated, speak } ) {
+function FeatureToggle( {
+	onToggle,
+	isActive,
+	label,
+	info,
+	messageActivated,
+	messageDeactivated,
+	speak,
+} ) {
 	const speakMessage = () => {
 		if ( isActive ) {
 			speak( messageDeactivated || __( 'Feature deactivated' ) );
@@ -24,7 +32,10 @@ function FeatureToggle( { onToggle, isActive, label, info, messageActivated, mes
 		<MenuItem
 			icon={ isActive && 'yes' }
 			isSelected={ isActive }
-			onClick={ flow( onToggle, speakMessage ) }
+			onClick={ flow(
+				onToggle,
+				speakMessage
+			) }
 			role="menuitemcheckbox"
 			info={ info }
 		>

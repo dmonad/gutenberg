@@ -1,4 +1,3 @@
-
 /**
  * WordPress dependencies
  */
@@ -35,7 +34,9 @@ function FontSizePicker( {
 	value,
 	withSlider = false,
 } ) {
-	const [ currentSelectValue, setCurrentSelectValue ] = useState( getSelectValueFromFontSize( fontSizes, value ) );
+	const [ currentSelectValue, setCurrentSelectValue ] = useState(
+		getSelectValueFromFontSize( fontSizes, value )
+	);
 
 	if ( disableCustomFontSizes && ! fontSizes.length ) {
 		return null;
@@ -61,11 +62,9 @@ function FontSizePicker( {
 
 	return (
 		<fieldset className="components-font-size-picker">
-			<legend>
-				{ __( 'Font Size' ) }
-			</legend>
+			<legend>{ __( 'Font Size' ) }</legend>
 			<div className="components-font-size-picker__controls">
-				{ ( fontSizes.length > 0 ) &&
+				{ fontSizes.length > 0 && (
 					<SelectControl
 						className={ 'components-font-size-picker__select' }
 						label={ 'Choose preset' }
@@ -74,8 +73,8 @@ function FontSizePicker( {
 						onChange={ onSelectChangeValue }
 						options={ getSelectOptions( fontSizes ) }
 					/>
-				}
-				{ ( ! withSlider && ! disableCustomFontSizes ) &&
+				) }
+				{ ! withSlider && ! disableCustomFontSizes && (
 					<input
 						className="components-range-control__number"
 						type="number"
@@ -83,7 +82,7 @@ function FontSizePicker( {
 						aria-label={ __( 'Custom' ) }
 						value={ value || '' }
 					/>
-				}
+				) }
 				<Button
 					className="components-color-palette__clear"
 					type="button"
@@ -98,7 +97,7 @@ function FontSizePicker( {
 					{ __( 'Reset' ) }
 				</Button>
 			</div>
-			{ withSlider &&
+			{ withSlider && (
 				<RangeControl
 					className="components-font-size-picker__custom-input"
 					label={ __( 'Custom Size' ) }
@@ -110,7 +109,7 @@ function FontSizePicker( {
 					beforeIcon="editor-textcolor"
 					afterIcon="editor-textcolor"
 				/>
-			}
+			) }
 		</fieldset>
 	);
 }

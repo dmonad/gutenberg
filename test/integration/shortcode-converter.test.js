@@ -30,9 +30,7 @@ describe( 'segmentHTMLToShortcodeBlock', () => {
 							ids: {
 								type: 'array',
 								shortcode: ( { named: { ids } } ) =>
-									ids.split( ',' ).map( ( id ) => (
-										parseInt( id, 10 )
-									) ),
+									ids.split( ',' ).map( ( id ) => parseInt( id, 10 ) ),
 							},
 						},
 					},

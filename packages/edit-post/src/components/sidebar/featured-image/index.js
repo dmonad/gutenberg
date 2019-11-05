@@ -25,11 +25,7 @@ function FeaturedImage( { isEnabled, isOpened, postType, onTogglePanel } ) {
 	return (
 		<PostFeaturedImageCheck>
 			<PanelBody
-				title={ get(
-					postType,
-					[ 'labels', 'featured_image' ],
-					__( 'Featured Image' )
-				) }
+				title={ get( postType, [ 'labels', 'featured_image' ], __( 'Featured Image' ) ) }
 				opened={ isOpened }
 				onToggle={ onTogglePanel }
 			>
@@ -61,5 +57,5 @@ const applyWithDispatch = withDispatch( ( dispatch ) => {
 
 export default compose(
 	applyWithSelect,
-	applyWithDispatch,
+	applyWithDispatch
 )( FeaturedImage );

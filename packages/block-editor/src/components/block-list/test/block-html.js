@@ -27,7 +27,9 @@ describe( 'BlockHTML', () => {
 
 	describe( 'block content', () => {
 		it( 'use originalContent for an invalid block', () => {
-			const wrapper = shallow( <BlockHTML block={ { isValid: false, originalContent: 'test' } } /> );
+			const wrapper = shallow(
+				<BlockHTML block={ { isValid: false, originalContent: 'test' } } />
+			);
 
 			expect( wrapper.state( 'html' ) ).toBe( 'test' );
 		} );

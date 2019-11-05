@@ -38,10 +38,7 @@ export function MenuItem( {
 		children = (
 			<span className="components-menu-item__info-wrapper">
 				{ children }
-				<span
-					className="components-menu-item__info">
-					{ info }
-				</span>
+				<span className="components-menu-item__info">{ info }</span>
 			</span>
 		);
 	}
@@ -58,7 +55,9 @@ export function MenuItem( {
 		<IconButton
 			icon={ icon }
 			// Make sure aria-checked matches spec https://www.w3.org/TR/wai-aria-1.1/#aria-checked
-			aria-checked={ ( role === 'menuitemcheckbox' || role === 'menuitemradio' ) ? isSelected : undefined }
+			aria-checked={
+				role === 'menuitemcheckbox' || role === 'menuitemradio' ? isSelected : undefined
+			}
 			role={ role }
 			className={ className }
 			{ ...props }

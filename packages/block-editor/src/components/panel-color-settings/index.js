@@ -24,10 +24,7 @@ const hasCustomColorsDisabledForSetting = ( disableCustomColors, colorSetting ) 
 	return disableCustomColors;
 };
 
-const hasColorsToChooseInSetting = (
-	colors = [],
-	disableCustomColors,
-	colorSetting ) => {
+const hasColorsToChooseInSetting = ( colors = [], disableCustomColors, colorSetting ) => {
 	if ( ! hasCustomColorsDisabledForSetting( disableCustomColors, colorSetting ) ) {
 		return true;
 	}
@@ -36,11 +33,7 @@ const hasColorsToChooseInSetting = (
 
 const hasColorsToChoose = ( { colors, disableCustomColors, colorSettings } ) => {
 	return some( colorSettings, ( colorSetting ) => {
-		return hasColorsToChooseInSetting(
-			colors,
-			disableCustomColors,
-			colorSetting
-		);
+		return hasColorsToChooseInSetting( colors, disableCustomColors, colorSetting );
 	} );
 };
 
@@ -48,46 +41,24 @@ const hasColorsToChoose = ( { colors, disableCustomColors, colorSettings } ) => 
 const colorIndicatorAriaLabel = __( '(%s: %s)' );
 
 const renderColorIndicators = ( colorSettings, colors ) => {
-	return colorSettings.map(
-		( { value, label, colors: availableColors }, index ) => {
-			if ( ! value ) {
-				return null;
-			}
-
-			const colorObject = getColorObjectByColorValue(
-				availableColors || colors,
-				value
-			);
-			const colorName = colorObject && colorObject.name;
-			const ariaLabel = sprintf(
-				colorIndicatorAriaLabel,
-				label.toLowerCase(),
-				colorName || value
-			);
-
-			return (
-				<ColorIndicator
-					key={ index }
-					colorValue={ value }
-					aria-label={ ariaLabel }
-				/>
-			);
+	return colorSettings.map( ( { value, label, colors: availableColors }, index ) => {
+		if ( ! value ) {
+			return null;
 		}
-	);
+
+		const colorObject = getColorObjectByColorValue( availableColors || colors, value );
+		const colorName = colorObject && colorObject.name;
+		const ariaLabel = sprintf( colorIndicatorAriaLabel, label.toLowerCase(), colorName || value );
+
+		return <ColorIndicator key={ index } colorValue={ value } aria-label={ ariaLabel } />;
+	} );
 };
 
 // colorSettings is passed as an array of props so that it can be used for
 // mapping both ColorIndicator and ColorPaletteControl components. Passing
 // an array of components/nodes here wouldn't be feasible.
 export const PanelColorSettings = ifCondition( hasColorsToChoose )(
-	( {
-		children,
-		colors,
-		colorSettings,
-		disableCustomColors,
-		title,
-		...props
-	} ) => {
+	( { children, colors, colorSettings, disableCustomColors, title, ...props } ) => {
 		const titleElement = (
 			<span className="editor-panel-color-settings__panel-title block-editor-panel-color-settings__panel-title">
 				{ title }

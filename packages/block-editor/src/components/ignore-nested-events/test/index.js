@@ -10,9 +10,7 @@ import { IgnoreNestedEvents } from '../';
 
 describe( 'IgnoreNestedEvents', () => {
 	it( 'passes props to its rendered div', () => {
-		const wrapper = mount(
-			<IgnoreNestedEvents className="foo" />
-		);
+		const wrapper = mount( <IgnoreNestedEvents className="foo" /> );
 
 		expect( wrapper.find( 'div' ) ).toHaveLength( 1 );
 		expect( wrapper.prop( 'className' ) ).toBe( 'foo' );
@@ -27,7 +25,10 @@ describe( 'IgnoreNestedEvents', () => {
 			</IgnoreNestedEvents>
 		);
 
-		wrapper.find( 'div' ).last().simulate( 'click' );
+		wrapper
+			.find( 'div' )
+			.last()
+			.simulate( 'click' );
 
 		expect( spyInner ).toHaveBeenCalled();
 		expect( spyOuter ).not.toHaveBeenCalled();

@@ -1,13 +1,7 @@
 /**
  * External dependencies
  */
-import {
-	every,
-	get,
-	isArray,
-	noop,
-	startsWith,
-} from 'lodash';
+import { every, get, isArray, noop, startsWith } from 'lodash';
 import classnames from 'classnames';
 
 /**
@@ -180,11 +174,17 @@ export class MediaPlaceholder extends Component {
 				instructions = __( 'Upload a media file or pick one from your media library.' );
 
 				if ( isAudio ) {
-					instructions = __( 'Upload an audio file, pick one from your media library, or add one with a URL.' );
+					instructions = __(
+						'Upload an audio file, pick one from your media library, or add one with a URL.'
+					);
 				} else if ( isImage ) {
-					instructions = __( 'Upload an image file, pick one from your media library, or add one with a URL.' );
+					instructions = __(
+						'Upload an image file, pick one from your media library, or add one with a URL.'
+					);
 				} else if ( isVideo ) {
-					instructions = __( 'Upload a video file, pick one from your media library, or add one with a URL.' );
+					instructions = __(
+						'Upload a video file, pick one from your media library, or add one with a URL.'
+					);
 				}
 			}
 
@@ -232,41 +232,31 @@ export class MediaPlaceholder extends Component {
 			return null;
 		}
 
-		return (
-			<DropZone
-				onFilesDrop={ this.onFilesUpload }
-				onHTMLDrop={ onHTMLDrop }
-			/>
-		);
+		return <DropZone onFilesDrop={ this.onFilesUpload } onHTMLDrop={ onHTMLDrop } />;
 	}
 
 	renderCancelLink() {
-		const {
-			onCancel,
-		} = this.props;
-		return ( onCancel &&
-			<Button
-				className="block-editor-media-placeholder__cancel-button"
-				title={ __( 'Cancel' ) }
-				isLink
-				onClick={ onCancel }
-			>
-				{ __( 'Cancel' ) }
-			</Button>
+		const { onCancel } = this.props;
+		return (
+			onCancel && (
+				<Button
+					className="block-editor-media-placeholder__cancel-button"
+					title={ __( 'Cancel' ) }
+					isLink
+					onClick={ onCancel }
+				>
+					{ __( 'Cancel' ) }
+				</Button>
+			)
 		);
 	}
 
 	renderUrlSelectionUI() {
-		const {
-			onSelectURL,
-		} = this.props;
+		const { onSelectURL } = this.props;
 		if ( ! onSelectURL ) {
 			return null;
 		}
-		const {
-			isURLInputVisible,
-			src,
-		} = this.state;
+		const { isURLInputVisible, src } = this.state;
 		return (
 			<div className="editor-media-placeholder__url-input-container block-editor-media-placeholder__url-input-container">
 				<Button
@@ -308,11 +298,7 @@ export class MediaPlaceholder extends Component {
 				multiple={ multiple }
 				onSelect={ onSelect }
 				allowedTypes={ allowedTypes }
-				value={
-					isArray( value ) ?
-						value.map( ( { id } ) => id ) :
-						value.id
-				}
+				value={ isArray( value ) ? value.map( ( { id } ) => id ) : value.id }
 				render={ ( { open } ) => {
 					return (
 						<Button
@@ -396,10 +382,7 @@ export class MediaPlaceholder extends Component {
 	}
 
 	render() {
-		const {
-			disableMediaButtons,
-			dropZoneUIOnly,
-		} = this.props;
+		const { disableMediaButtons, dropZoneUIOnly } = this.props;
 
 		if ( dropZoneUIOnly || disableMediaButtons ) {
 			if ( dropZoneUIOnly ) {
@@ -408,17 +391,11 @@ export class MediaPlaceholder extends Component {
 				} );
 			}
 
-			return (
-				<MediaUploadCheck>
-					{ this.renderDropZone() }
-				</MediaUploadCheck>
-			);
+			return <MediaUploadCheck>{ this.renderDropZone() }</MediaUploadCheck>;
 		}
 
 		return (
-			<MediaUploadCheck
-				fallback={ this.renderPlaceholder( this.renderUrlSelectionUI() ) }
-			>
+			<MediaUploadCheck fallback={ this.renderPlaceholder( this.renderUrlSelectionUI() ) }>
 				{ this.renderMediaUploadChecked() }
 			</MediaUploadCheck>
 		);
@@ -438,5 +415,5 @@ const applyWithSelect = withSelect( ( select ) => {
  */
 export default compose(
 	applyWithSelect,
-	withFilters( 'editor.MediaPlaceholder' ),
+	withFilters( 'editor.MediaPlaceholder' )
 )( MediaPlaceholder );

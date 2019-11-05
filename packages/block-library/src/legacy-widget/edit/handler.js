@@ -101,22 +101,19 @@ class LegacyWidgetEditHandler extends Component {
 				instance_changes: instanceChanges,
 			},
 			method: 'POST',
-		} ).then(
-			( response ) => {
-				if ( this.isStillMounted ) {
-					this.setState( {
-						form: response.form,
-						idBase: response.id_base,
-						id: response.id,
-					} );
-					if ( callback ) {
-						callback( response );
-					}
+		} ).then( ( response ) => {
+			if ( this.isStillMounted ) {
+				this.setState( {
+					form: response.form,
+					idBase: response.id_base,
+					id: response.id,
+				} );
+				if ( callback ) {
+					callback( response );
 				}
 			}
-		);
+		} );
 	}
 }
 
 export default withInstanceId( LegacyWidgetEditHandler );
-

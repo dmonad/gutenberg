@@ -49,7 +49,9 @@ describe( 'Performance', () => {
 		let startTime;
 
 		await page.on( 'load', () => results.load.push( new Date() - startTime ) );
-		await page.on( 'domcontentloaded', () => results.domcontentloaded.push( new Date() - startTime ) );
+		await page.on( 'domcontentloaded', () =>
+			results.domcontentloaded.push( new Date() - startTime )
+		);
 
 		while ( i-- ) {
 			startTime = new Date();

@@ -14,7 +14,8 @@ import { select, subscribe } from '@wordpress/data';
  */
 export function resolveSelector( namespace, selectorName, ...args ) {
 	return new Promise( ( resolve ) => {
-		const hasFinished = () => select( 'core/data' ).hasFinishedResolution( namespace, selectorName, args );
+		const hasFinished = () =>
+			select( 'core/data' ).hasFinishedResolution( namespace, selectorName, args );
 		const getResult = () => select( namespace )[ selectorName ].apply( null, args );
 
 		// We need to trigger the selector (to trigger the resolver)

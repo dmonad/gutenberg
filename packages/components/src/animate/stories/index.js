@@ -18,10 +18,7 @@ export const _default = () => (
 
 // Unexported helper for different origins.
 const Appear = ( { origin } ) => (
-	<Animate
-		type="appear"
-		options={ { origin } }
-	>
+	<Animate type="appear" options={ { origin } }>
 		{ ( { className } ) => (
 			<Notice className={ className } status="success">
 				<p>Appear animation. Origin: { origin }.</p>

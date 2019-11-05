@@ -97,10 +97,7 @@ describe( 'getTotalColumnsWidth', () => {
 	} );
 
 	describe( 'implicit width', () => {
-		const blocks = [
-			{ clientId: 'a', attributes: {} },
-			{ clientId: 'b', attributes: {} },
-		];
+		const blocks = [ { clientId: 'a', attributes: {} }, { clientId: 'b', attributes: {} } ];
 
 		it( 'returns the sum total of columns width', () => {
 			const widths = getTotalColumnsWidth( blocks );
@@ -128,10 +125,7 @@ describe( 'getColumnWidths', () => {
 	} );
 
 	describe( 'implicit width', () => {
-		const blocks = [
-			{ clientId: 'a', attributes: {} },
-			{ clientId: 'b', attributes: {} },
-		];
+		const blocks = [ { clientId: 'a', attributes: {} }, { clientId: 'b', attributes: {} } ];
 
 		it( 'returns the column widths', () => {
 			const widths = getColumnWidths( blocks );
@@ -171,10 +165,7 @@ describe( 'getRedistributedColumnWidths', () => {
 	} );
 
 	describe( 'implicit width', () => {
-		const blocks = [
-			{ clientId: 'a', attributes: {} },
-			{ clientId: 'b', attributes: {} },
-		];
+		const blocks = [ { clientId: 'a', attributes: {} }, { clientId: 'b', attributes: {} } ];
 
 		it( 'should equally distribute to available width', () => {
 			const widths = getRedistributedColumnWidths( blocks, 60 );

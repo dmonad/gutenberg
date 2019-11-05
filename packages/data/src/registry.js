@@ -1,10 +1,7 @@
 /**
  * External dependencies
  */
-import {
-	without,
-	mapValues,
-} from 'lodash';
+import { without, mapValues } from 'lodash';
 
 /**
  * Internal dependencies
@@ -183,8 +180,8 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 
 	registerGenericStore( 'core/data', createCoreDataStore( registry ) );
 
-	Object.entries( storeConfigs ).forEach(
-		( [ name, config ] ) => registry.registerStore( name, config )
+	Object.entries( storeConfigs ).forEach( ( [ name, config ] ) =>
+		registry.registerStore( name, config )
 	);
 
 	if ( parent ) {

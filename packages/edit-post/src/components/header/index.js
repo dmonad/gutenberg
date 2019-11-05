@@ -3,10 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { IconButton } from '@wordpress/components';
-import {
-	PostPreviewButton,
-	PostSavedState,
-} from '@wordpress/editor';
+import { PostPreviewButton, PostSavedState } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { DotTip } from '@wordpress/nux';
@@ -50,19 +47,13 @@ function Header( {
 					// we want to prevent mounting/unmounting the PostPublishButtonOrToggle DOM node.
 					// We track that DOM node to return focus to the PostPublishButtonOrToggle
 					// when the publish sidebar has been closed.
-					<PostSavedState
-						forceIsDirty={ hasActiveMetaboxes }
-						forceIsSaving={ isSaving }
-					/>
+					<PostSavedState forceIsDirty={ hasActiveMetaboxes } forceIsSaving={ isSaving } />
 				) }
 				<PostPreviewButton
 					forceIsAutosaveable={ hasActiveMetaboxes }
 					forcePreviewLink={ isSaving ? null : undefined }
 				/>
-				<PostPublishButtonOrToggle
-					forceIsDirty={ hasActiveMetaboxes }
-					forceIsSaving={ isSaving }
-				/>
+				<PostPublishButtonOrToggle forceIsDirty={ hasActiveMetaboxes } forceIsSaving={ isSaving } />
 				<div>
 					<IconButton
 						icon="admin-generic"
@@ -73,7 +64,9 @@ function Header( {
 						shortcut={ shortcuts.toggleSidebar }
 					/>
 					<DotTip tipId="core/editor.settings">
-						{ __( 'You’ll find more settings for your page and blocks in the sidebar. Click the cog icon to toggle the sidebar open and closed.' ) }
+						{ __(
+							'You’ll find more settings for your page and blocks in the sidebar. Click the cog icon to toggle the sidebar open and closed.'
+						) }
 					</DotTip>
 				</div>
 				<PinnedPlugins.Slot />
@@ -95,8 +88,9 @@ export default compose(
 		const { openGeneralSidebar, closeGeneralSidebar } = dispatch( 'core/edit-post' );
 
 		return {
-			openGeneralSidebar: () => openGeneralSidebar( getBlockSelectionStart() ? 'edit-post/block' : 'edit-post/document' ),
+			openGeneralSidebar: () =>
+				openGeneralSidebar( getBlockSelectionStart() ? 'edit-post/block' : 'edit-post/document' ),
 			closeGeneralSidebar,
 		};
-	} ),
+	} )
 )( Header );

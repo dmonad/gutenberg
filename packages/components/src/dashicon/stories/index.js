@@ -15,11 +15,5 @@ export const _default = () => {
 	const color = text( 'Color', '#0079AA' );
 	const size = number( 'Size', 20 );
 
-	return (
-		<Dashicon
-			icon={ icon }
-			color={ color }
-			size={ size }
-		/>
-	);
+	return <Dashicon icon={ icon } color={ color } size={ size } />;
 };

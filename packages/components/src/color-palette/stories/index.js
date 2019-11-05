@@ -17,13 +17,7 @@ export default { title: 'ColorPalette', component: ColorPalette };
 
 const ColorPaletteWithState = ( props ) => {
 	const [ color, setColor ] = useState( '#F00' );
-	return (
-		<ColorPalette
-			{ ...props }
-			value={ color }
-			onChange={ setColor }
-		/>
-	);
+	return <ColorPalette { ...props } value={ color } onChange={ setColor } />;
 };
 
 export const _default = () => {
@@ -33,11 +27,7 @@ export const _default = () => {
 		{ name: 'blue', color: '#00f' },
 	];
 
-	return (
-		<ColorPaletteWithState
-			colors={ colors }
-		/>
-	);
+	return <ColorPaletteWithState colors={ colors } />;
 };
 
 export const withKnobs = () => {
@@ -47,11 +37,7 @@ export const withKnobs = () => {
 		object( 'Blue', { name: 'blue', color: '#00f' } ),
 	];
 
-	return (
-		<ColorPaletteWithState
-			colors={ colors }
-		/>
-	);
+	return <ColorPaletteWithState colors={ colors } />;
 };
 
 export const withAlpha = () => {
@@ -61,10 +47,5 @@ export const withAlpha = () => {
 		object( 'Blue', { name: 'blue', color: '#00f' } ),
 	];
 
-	return (
-		<ColorPaletteWithState
-			colors={ colors }
-			disableAlpha={ false }
-		/>
-	);
+	return <ColorPaletteWithState colors={ colors } disableAlpha={ false } />;
 };

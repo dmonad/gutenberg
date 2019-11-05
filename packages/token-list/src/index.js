@@ -18,9 +18,9 @@ export default class TokenList {
 		this.value = initialValue;
 
 		[ 'entries', 'forEach', 'keys', 'values' ].forEach( ( fn ) => {
-			this[ fn ] = ( function() {
+			this[ fn ] = function() {
 				return this._valueAsArray[ fn ]( ...arguments );
-			} ).bind( this );
+			}.bind( this );
 		} );
 	}
 
@@ -78,7 +78,7 @@ export default class TokenList {
 	 *
 	 * @return {IterableIterator<string>} TokenList iterator.
 	 */
-	* [ Symbol.iterator ]() {
+	*[Symbol.iterator]() {
 		return yield* this._valueAsArray;
 	}
 

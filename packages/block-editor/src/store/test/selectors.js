@@ -256,12 +256,14 @@ describe( 'selectors', () => {
 				clientId: 123,
 				name: 'core/paragraph',
 				attributes: {},
-				innerBlocks: [ {
-					clientId: 456,
-					name: 'core/paragraph',
-					attributes: {},
-					innerBlocks: [],
-				} ],
+				innerBlocks: [
+					{
+						clientId: 456,
+						name: 'core/paragraph',
+						attributes: {},
+						innerBlocks: [],
+					},
+				],
 			} );
 		} );
 	} );
@@ -339,19 +341,19 @@ describe( 'selectors', () => {
 					},
 					order: {
 						'': [ 'uuid-6', 'uuid-8', 'uuid-10', 'uuid-22' ],
-						'uuid-2': [ ],
-						'uuid-4': [ ],
-						'uuid-6': [ ],
-						'uuid-8': [ ],
+						'uuid-2': [],
+						'uuid-4': [],
+						'uuid-6': [],
+						'uuid-8': [],
 						'uuid-10': [ 'uuid-12', 'uuid-14' ],
 						'uuid-12': [ 'uuid-16' ],
 						'uuid-14': [ 'uuid-18' ],
-						'uuid-16': [ ],
+						'uuid-16': [],
 						'uuid-18': [ 'uuid-24' ],
-						'uuid-20': [ ],
-						'uuid-22': [ ],
+						'uuid-20': [],
+						'uuid-22': [],
 						'uuid-24': [ 'uuid-26', 'uuid-28' ],
-						'uuid-26': [ ],
+						'uuid-26': [],
 						'uuid-28': [ 'uuid-30' ],
 					},
 					parents: {
@@ -423,19 +425,19 @@ describe( 'selectors', () => {
 					},
 					order: {
 						'': [ 'uuid-6', 'uuid-8', 'uuid-10', 'uuid-22' ],
-						'uuid-2': [ ],
-						'uuid-4': [ ],
-						'uuid-6': [ ],
-						'uuid-8': [ ],
+						'uuid-2': [],
+						'uuid-4': [],
+						'uuid-6': [],
+						'uuid-8': [],
 						'uuid-10': [ 'uuid-12', 'uuid-14' ],
 						'uuid-12': [ 'uuid-16' ],
 						'uuid-14': [ 'uuid-18' ],
-						'uuid-16': [ ],
+						'uuid-16': [],
 						'uuid-18': [ 'uuid-24' ],
-						'uuid-20': [ ],
-						'uuid-22': [ ],
+						'uuid-20': [],
+						'uuid-22': [],
 						'uuid-24': [ 'uuid-26', 'uuid-28' ],
-						'uuid-26': [ ],
+						'uuid-26': [],
 						'uuid-28': [ 'uuid-30' ],
 					},
 					parents: {
@@ -978,9 +980,7 @@ describe( 'selectors', () => {
 				selectionEnd: {},
 			};
 
-			expect(
-				getMultiSelectedBlocks( state )
-			).toBe( getMultiSelectedBlocks( state ) );
+			expect( getMultiSelectedBlocks( state ) ).toBe( getMultiSelectedBlocks( state ) );
 		} );
 	} );
 
@@ -2117,9 +2117,7 @@ describe( 'selectors', () => {
 				'core/block/1',
 				'core/block/2',
 			] );
-			expect( secondBlockSecondCall.map( ( item ) => item.id ) ).toEqual( [
-				'core/test-block-b',
-			] );
+			expect( secondBlockSecondCall.map( ( item ) => item.id ) ).toEqual( [ 'core/test-block-b' ] );
 		} );
 
 		it( 'should set isDisabled when a block with `multiple: false` has been used', () => {

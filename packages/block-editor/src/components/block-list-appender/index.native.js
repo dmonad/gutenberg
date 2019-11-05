@@ -27,9 +27,7 @@ function BlockListAppender( {
 	}
 
 	if ( CustomAppender ) {
-		return (
-			<CustomAppender />
-		);
+		return <CustomAppender />;
 	}
 
 	if ( canInsertDefaultBlock ) {
@@ -47,11 +45,7 @@ function BlockListAppender( {
 }
 
 export default withSelect( ( select, { rootClientId } ) => {
-	const {
-		getBlockOrder,
-		canInsertBlockType,
-		getTemplateLock,
-	} = select( 'core/block-editor' );
+	const { getBlockOrder, canInsertBlockType, getTemplateLock } = select( 'core/block-editor' );
 
 	return {
 		isLocked: !! getTemplateLock( rootClientId ),

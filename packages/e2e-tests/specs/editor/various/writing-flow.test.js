@@ -68,14 +68,14 @@ describe( 'Writing Flow', () => {
 		// columns wrappers before escaping out.
 		let activeElementBlockType;
 		await page.keyboard.press( 'ArrowUp' );
-		activeElementBlockType = await page.evaluate( () => (
+		activeElementBlockType = await page.evaluate( () =>
 			document.activeElement.getAttribute( 'data-type' )
-		) );
+		);
 		expect( activeElementBlockType ).toBe( 'core/column' );
 		await page.keyboard.press( 'ArrowUp' );
-		activeElementBlockType = await page.evaluate( () => (
+		activeElementBlockType = await page.evaluate( () =>
 			document.activeElement.getAttribute( 'data-type' )
-		) );
+		);
 		expect( activeElementBlockType ).toBe( 'core/columns' );
 
 		// Arrow up from focused (columns) block wrapper exits nested context
@@ -238,23 +238,23 @@ describe( 'Writing Flow', () => {
 
 		// Should remain in title upon ArrowRight:
 		await page.keyboard.press( 'ArrowRight' );
-		let isInTitle = await page.evaluate( () => (
-			!! document.activeElement.closest( '.editor-post-title' )
-		) );
+		let isInTitle = await page.evaluate(
+			() => !! document.activeElement.closest( '.editor-post-title' )
+		);
 		expect( isInTitle ).toBe( true );
 
 		// Should remain in title upon modifier + ArrowDown:
 		await pressKeyWithModifier( 'primary', 'ArrowDown' );
-		isInTitle = await page.evaluate( () => (
-			!! document.activeElement.closest( '.editor-post-title' )
-		) );
+		isInTitle = await page.evaluate(
+			() => !! document.activeElement.closest( '.editor-post-title' )
+		);
 		expect( isInTitle ).toBe( true );
 
 		// Should navigate into blocks list upon ArrowDown:
 		await page.keyboard.press( 'ArrowDown' );
-		const isInBlock = await page.evaluate( () => (
-			!! document.activeElement.closest( '[data-type]' )
-		) );
+		const isInBlock = await page.evaluate(
+			() => !! document.activeElement.closest( '[data-type]' )
+		);
 		expect( isInBlock ).toBe( true );
 	} );
 

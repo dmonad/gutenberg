@@ -19,7 +19,9 @@ export { metadata, name };
 export const settings = {
 	title: __( 'Columns' ),
 	icon,
-	description: __( 'Add a block that displays content in multiple columns, then add whatever content blocks you’d like.' ),
+	description: __(
+		'Add a block that displays content in multiple columns, then add whatever content blocks you’d like.'
+	),
 	supports: {
 		align: [ 'wide', 'full' ],
 		html: false,
@@ -32,7 +34,8 @@ export const settings = {
 					{
 						name: 'core/paragraph',
 						attributes: {
-							content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+							content:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
 						},
 					},
 					{
@@ -55,13 +58,17 @@ export const settings = {
 					{
 						name: 'core/paragraph',
 						attributes: {
-							content: __( 'Etiam et egestas lorem. Vivamus sagittis sit amet dolor quis lobortis. Integer sed fermentum arcu, id vulputate lacus. Etiam fermentum sem eu quam hendrerit.' ),
+							content: __(
+								'Etiam et egestas lorem. Vivamus sagittis sit amet dolor quis lobortis. Integer sed fermentum arcu, id vulputate lacus. Etiam fermentum sem eu quam hendrerit.'
+							),
 						},
 					},
 					{
 						name: 'core/paragraph',
 						attributes: {
-							content: __( 'Nam risus massa, ullamcorper consectetur eros fermentum, porta aliquet ligula. Sed vel mauris nec enim.' ),
+							content: __(
+								'Nam risus massa, ullamcorper consectetur eros fermentum, porta aliquet ligula. Sed vel mauris nec enim.'
+							),
 						},
 					},
 				],

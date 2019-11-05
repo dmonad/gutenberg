@@ -44,11 +44,7 @@ class BlockInsertionPoint extends Component {
 
 	render() {
 		const { isInserterFocused } = this.state;
-		const {
-			showInsertionPoint,
-			rootClientId,
-			clientId,
-		} = this.props;
+		const { showInsertionPoint, rootClientId, clientId } = this.props;
 
 		return (
 			<div className="editor-block-list__insertion-point block-editor-block-list__insertion-point">
@@ -65,34 +61,29 @@ class BlockInsertionPoint extends Component {
 					//
 					// See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
 					tabIndex={ -1 }
-					className={
-						classnames( 'editor-block-list__insertion-point-inserter block-editor-block-list__insertion-point-inserter', {
+					className={ classnames(
+						'editor-block-list__insertion-point-inserter block-editor-block-list__insertion-point-inserter',
+						{
 							'is-visible': isInserterFocused,
-						} )
-					}
+						}
+					) }
 				>
-					<Inserter
-						rootClientId={ rootClientId }
-						clientId={ clientId }
-					/>
+					<Inserter rootClientId={ rootClientId } clientId={ clientId } />
 				</div>
 			</div>
 		);
 	}
 }
 export default withSelect( ( select, { clientId, rootClientId } ) => {
-	const {
-		getBlockIndex,
-		getBlockInsertionPoint,
-		isBlockInsertionPointVisible,
-	} = select( 'core/block-editor' );
+	const { getBlockIndex, getBlockInsertionPoint, isBlockInsertionPointVisible } = select(
+		'core/block-editor'
+	);
 	const blockIndex = getBlockIndex( clientId, rootClientId );
 	const insertionPoint = getBlockInsertionPoint();
-	const showInsertionPoint = (
+	const showInsertionPoint =
 		isBlockInsertionPointVisible() &&
 		insertionPoint.index === blockIndex &&
-		insertionPoint.rootClientId === rootClientId
-	);
+		insertionPoint.rootClientId === rootClientId;
 
 	return { showInsertionPoint };
 } )( BlockInsertionPoint );

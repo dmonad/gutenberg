@@ -13,57 +13,47 @@ export default { title: 'Button', component: Button };
 export const _default = () => {
 	const label = text( 'Label', 'Default Button' );
 
-	return (
-		<Button>{ label }</Button>
-	);
+	return <Button>{ label }</Button>;
 };
 
 export const primary = () => {
 	const label = text( 'Label', 'Primary Button' );
 
-	return (
-		<Button isPrimary>{ label }</Button>
-	);
+	return <Button isPrimary>{ label }</Button>;
 };
 
 export const large = () => {
 	const label = text( 'Label', 'Large Button' );
 
-	return (
-		<Button isLarge>{ label }</Button>
-	);
+	return <Button isLarge>{ label }</Button>;
 };
 
 export const largePrimary = () => {
 	const label = text( 'Label', 'Large Primary Button' );
 
 	return (
-		<Button isPrimary isLarge>{ label }</Button>
+		<Button isPrimary isLarge>
+			{ label }
+		</Button>
 	);
 };
 
 export const small = () => {
 	const label = text( 'Label', 'Small Button' );
 
-	return (
-		<Button isSmall>{ label }</Button>
-	);
+	return <Button isSmall>{ label }</Button>;
 };
 
 export const toggled = () => {
 	const label = text( 'Label', 'Toggled Button' );
 
-	return (
-		<Button isToggled>{ label }</Button>
-	);
+	return <Button isToggled>{ label }</Button>;
 };
 
 export const disabled = () => {
 	const label = text( 'Label', 'Disabled Button' );
 
-	return (
-		<Button disabled>{ label }</Button>
-	);
+	return <Button disabled>{ label }</Button>;
 };
 
 export const link = () => {

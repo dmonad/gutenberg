@@ -55,10 +55,7 @@ export default compose( [
 			);
 		} );
 
-		const canInsertDefaultBlock = canInsertBlockType(
-			getDefaultBlockName(),
-			rootClientId
-		);
+		const canInsertDefaultBlock = canInsertBlockType( getDefaultBlockName(), rootClientId );
 
 		return {
 			blocks,
@@ -70,21 +67,11 @@ export default compose( [
 		};
 	} ),
 	withDispatch( ( dispatch, props, { select } ) => {
-		const {
-			clientIds,
-			rootClientId,
-			blocks,
-			isLocked,
-			canDuplicate,
-		} = props;
+		const { clientIds, rootClientId, blocks, isLocked, canDuplicate } = props;
 
-		const {
-			insertBlocks,
-			multiSelect,
-			removeBlocks,
-			insertDefaultBlock,
-			replaceBlocks,
-		} = dispatch( 'core/block-editor' );
+		const { insertBlocks, multiSelect, removeBlocks, insertDefaultBlock, replaceBlocks } = dispatch(
+			'core/block-editor'
+		);
 
 		return {
 			onDuplicate() {
@@ -95,16 +82,9 @@ export default compose( [
 				const { getBlockIndex } = select( 'core/block-editor' );
 				const lastSelectedIndex = getBlockIndex( last( castArray( clientIds ) ), rootClientId );
 				const clonedBlocks = blocks.map( ( block ) => cloneBlock( block ) );
-				insertBlocks(
-					clonedBlocks,
-					lastSelectedIndex + 1,
-					rootClientId
-				);
+				insertBlocks( clonedBlocks, lastSelectedIndex + 1, rootClientId );
 				if ( clonedBlocks.length > 1 ) {
-					multiSelect(
-						first( clonedBlocks ).clientId,
-						last( clonedBlocks ).clientId
-					);
+					multiSelect( first( clonedBlocks ).clientId, last( clonedBlocks ).clientId );
 				}
 			},
 			onRemove() {
@@ -131,9 +111,7 @@ export default compose( [
 					return;
 				}
 
-				const {
-					getGroupingBlockName,
-				} = select( 'core/blocks' );
+				const { getGroupingBlockName } = select( 'core/blocks' );
 
 				const groupingBlockName = getGroupingBlockName();
 
@@ -143,10 +121,7 @@ export default compose( [
 				if ( ! newBlocks ) {
 					return;
 				}
-				replaceBlocks(
-					clientIds,
-					newBlocks
-				);
+				replaceBlocks( clientIds, newBlocks );
 			},
 
 			onUngroup() {
@@ -160,10 +135,7 @@ export default compose( [
 					return;
 				}
 
-				replaceBlocks(
-					clientIds,
-					innerBlocks
-				);
+				replaceBlocks( clientIds, innerBlocks );
 			},
 		};
 	} ),
