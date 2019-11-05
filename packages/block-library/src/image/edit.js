@@ -71,7 +71,7 @@ import { speak } from '@wordpress/a11y';
  * Internal dependencies
  */
 import { createUpgradedEmbedBlock } from '../embed/util';
-import icon, { editImageIcon } from './icon';
+import icon from './icon';
 import ImageSize from './image-size';
 import { getUpdatedLinkTargetSettings, removeNewTabRel } from './utils';
 
