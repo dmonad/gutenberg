@@ -3,6 +3,7 @@
  */
 import { useState, createRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { speak } from '@wordpress/a11y';
 import {
 	FormFileUpload,
 	NavigableMenu,
@@ -65,6 +66,7 @@ const MediaReplaceFlow = (
 	const selectMedia = ( media ) => {
 		onSelect( media );
 		setMediaURLValue( media.url );
+		speak( __( 'The media file has been replaced' ) );
 	};
 
 	const onUploadError = ( message ) => {
@@ -117,6 +119,7 @@ const MediaReplaceFlow = (
 		<MenuItem
 			icon="admin-links"
 			onClick={ () => ( setShowURLInput( ! showURLInput ) ) }
+			aria-expanded={ showURLInput }
 		>
 			<div> { __( 'Insert from URL' ) } </div>
 		</MenuItem>
