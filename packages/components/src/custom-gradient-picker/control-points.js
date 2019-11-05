@@ -252,7 +252,7 @@ export function ControlPoints( {
 							gradientIndex={ index }
 						/>
 					) }
-					renderContent={ () => (
+					renderContent={ ( { onClose } ) => (
 						<>
 							<ColorPicker
 								color={ point.color }
@@ -269,6 +269,7 @@ export function ControlPoints( {
 										getGradientWithControlPointRemoved( parsedGradient, index )
 									);
 									setIsInsertPointMoveEnabled( true );
+									onClose();
 								} }
 								isLink
 							>

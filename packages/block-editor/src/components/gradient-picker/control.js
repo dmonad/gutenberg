@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { BaseControl, CustomGradientPicker } from '@wordpress/components';
+import { BaseControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 
@@ -40,10 +40,6 @@ export default function( { className, value, onChange, label = __( 'Gradient Pre
 				className="block-editor-gradient-picker-control__gradient-picker-presets"
 				gradients={ gradients }
 				{ ...props }
-			/>
-			<CustomGradientPicker
-				value={ value }
-				onChange={ onChange }
 			/>
 		</BaseControl>
 	);
