@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState, createRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	FormFileUpload,
@@ -48,6 +48,7 @@ const MediaReplaceFlow = (
 	const [ showEditURLInput, setShowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
+	const editMediaButtonRef = createRef();
 
 	const stopPropagation = ( event ) => {
 		event.stopPropagation();
@@ -144,6 +145,10 @@ const MediaReplaceFlow = (
 		{ urlInputUIContent }
 	</div> );
 
+	const onClose = () => {
+		editMediaButtonRef.current.focus();
+	};
+
 	const onClickOutside = () => {
 		return ( ) => {
 			setShowMediaReplaceOptions( false );
@@ -161,6 +166,7 @@ const MediaReplaceFlow = (
 						<>
 							<Toolbar className={ 'components-dropdown-menu components-toolbar' }>
 								<Button
+									ref={ editMediaButtonRef }
 									className={ 'components-button components-icon-button components-dropdown-menu__toggle' }
 									onClick={ () => {
 										setShowMediaReplaceOptions( ! showMediaReplaceOptions );
@@ -172,6 +178,7 @@ const MediaReplaceFlow = (
 								{ showMediaReplaceOptions &&
 									<Popover
 										onClickOutside={ onClickOutside() }
+										onClose={ onClose }
 									>
 										<>
 											<NavigableMenu>
