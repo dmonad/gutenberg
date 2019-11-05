@@ -49,6 +49,7 @@ const MediaReplaceFlow = (
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 	const [ showMediaReplaceOptions, setShowMediaReplaceOptions ] = useState( false );
 	const editMediaButtonRef = createRef();
+	const uploadButtonRef = createRef();
 
 	const stopPropagation = ( event ) => {
 		event.stopPropagation();
@@ -95,11 +96,15 @@ const MediaReplaceFlow = (
 			onChange={ uploadFiles }
 			accept={ allowedTypes }
 			multiple={ multiple }
+			ref={ uploadButtonRef }
 			render={ ( { openFileDialog } ) => {
 				return (
 					<MenuItem
 						icon="upload"
-						onClick={ openFileDialog }
+						onClick={ () => {
+							openFileDialog();
+							uploadButtonRef.current.focus();
+						} }
 					>
 						{ __( 'Upload' ) }
 					</MenuItem>
@@ -130,6 +135,7 @@ const MediaReplaceFlow = (
 				event.preventDefault();
 				onSelectURL( mediaURLValue );
 				setShowEditURLInput( ! showEditURLInput );
+				editMediaButtonRef.current.focus();
 			} }
 		/> );
 	} else {
@@ -160,7 +166,7 @@ const MediaReplaceFlow = (
 			<MediaUploadCheck>
 				<MediaUpload
 					onSelect={ ( media ) => selectMedia( media ) }
-					onClose={ () => setShowMediaReplaceOptions( false ) }
+					onClose={ () => setShowMediaReplaceOptions( true ) }
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
 						<>
