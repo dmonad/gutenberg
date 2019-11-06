@@ -62,7 +62,10 @@
 		"@wordpress/token-list": "file:packages/token-list",
 		"@wordpress/url": "file:packages/url",
 		"@wordpress/viewport": "file:packages/viewport",
-		"@wordpress/wordcount": "file:packages/wordcount"
+		"@wordpress/wordcount": "file:packages/wordcount",
+		"lib0": "0.1.2",
+		"y-websocket": "1.0.6",
+		"yjs": "13.0.0-102"
 	},
 	"devDependencies": {
 		"@actions/core": "1.0.0",
@@ -86,8 +89,8 @@
 		"@wordpress/docgen": "file:packages/docgen",
 		"@wordpress/e2e-test-utils": "file:packages/e2e-test-utils",
 		"@wordpress/e2e-tests": "file:packages/e2e-tests",
-		"@wordpress/eslint-plugin": "file:packages/eslint-plugin",
 		"@wordpress/env": "file:packages/env",
+		"@wordpress/eslint-plugin": "file:packages/eslint-plugin",
 		"@wordpress/jest-console": "file:packages/jest-console",
 		"@wordpress/jest-preset-default": "file:packages/jest-preset-default",
 		"@wordpress/jest-puppeteer-axe": "file:packages/jest-puppeteer-axe",
